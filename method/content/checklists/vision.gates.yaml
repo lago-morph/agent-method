@@ -1,0 +1,53 @@
+# Decomposition of the Vision checklist (source guid _qktWQMM0EdmSIPI87WLu3g)
+# into gate items per agent-method scheme. kind: mechanical | judge | human.
+# judge items: fixed inputs, one narrow question, verdict in {pass, fail,
+# cannot-determine} + mandatory cited evidence spans. Bootstrapping mode:
+# all kinds executed by hand in-session; gate record written regardless.
+checklist: vision
+items:
+- id: 1
+  source: _VwoioAeiEduWycDgioo5rg
+  gates:
+  - {kind: judge, input: "section 2.1", question: "Does the problem slot name a root condition rather than a missing feature or pre-chosen solution?", output: "{problem|solution|ambiguous} + quoted span"}
+  - {kind: human, role: stakeholder, question: "Is the named root cause actually the root cause, in your experience of the pain?"}
+- id: 2
+  source: _dBs8gAeiEduWycDgioo5rg
+  gates:
+  - {kind: mechanical, check: "template slots in 2.1 all present, non-empty, no placeholder braces remain"}
+  - {kind: judge, input: "section 2.1, each slot", question: "Does each slot's content fit its slot type (problem/affected/impact/benefit)?", output: "per-slot {fit|misfit} + span"}
+- id: 3
+  source: _jGUxYAeiEduWycDgioo5rg
+  gates:
+  - {kind: mechanical, check: "every stakeholder named in 2.1 'affects' appears in 3.1; every 3.1 row has non-empty responsibilities"}
+  - {kind: human, role: stakeholder, question: "Anyone missing who will be affected or whose perspective is needed?"}
+- id: 4
+  source: _s-be8AeiEduWycDgioo5rg
+  gates:
+  - {kind: mechanical, check: "section 6 (Scope and Non-Goals) present and non-empty, with at least one explicit non-goal"}
+  - {kind: human, role: stakeholder, question: "Do the stated boundaries match your intent — anything in that should be out, or out that should be in?"}
+- id: 5
+  source: _z1uG4AeiEduWycDgioo5rg
+  gates:
+  - {kind: judge, input: "section 5", question: "Are constraints concrete and testable rather than generic ('must be secure')?", output: "per-constraint {concrete|vague} + span"}
+- id: 6
+  source: _7KzeEAeiEduWycDgioo5rg
+  gates:
+  - {kind: judge, input: "section 5", question: "Which of these constraint categories are addressed or explicitly waived: technical, economic, legal/licensing, operational?", output: "per-category {addressed|waived|absent}"}
+  - {kind: human, role: stakeholder, question: "Confirm absent categories are genuinely not applicable."}
+- id: 7
+  source: _DymaUAejEduWycDgioo5rg
+  gates:
+  - {kind: mechanical, check: "4.1 has >= 1 feature row per need; every feature row names a planned release/phase"}
+- id: 8
+  source: _LRX5AAejEduWycDgioo5rg
+  gates:
+  - {kind: judge, input: "sections 2.1 + 4.1", question: "Does each need in 4.1 trace to the problem statement, and does each feature address its need?", output: "per-need {traces|orphan} + span"}
+- id: 9
+  source: _UGRdIAejEduWycDgioo5rg
+  gates:
+  - {kind: judge, input: "sections 4.1 + 5", question: "Does any feature conflict with any stated constraint?", output: "{none | list of conflicts with spans}"}
+- id: 10
+  source: _5y4uAAhUEduRe8TeoBmuGg
+  gates:
+  - {kind: judge, input: "sections 1-2 only, no other context", question: "Context-free read: state the project objective in one sentence; flag anything unintelligible without insider knowledge.", output: "restatement + flags", note: "natural context-firewall item: judge must receive ONLY the document"}
+  - {kind: human, role: stakeholder, question: "Is the judge's restatement what you actually mean?"}
