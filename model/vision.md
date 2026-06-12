@@ -2,7 +2,8 @@
 artifact: vision
 template: method/content/templates/vision.md
 state: draft
-gate-status: not-yet-run (open slots remain; mechanical gate 2 will fail by design)
+gate-status: not-yet-run (EDIT markers remain; mechanical gate 2 will fail until they are resolved)
+editing: resolve the three {EDIT-N} markers below, following the GUIDANCE comment beside each; delete each guidance comment when its marker is resolved
 ---
 # Vision: agent-method
 
@@ -39,7 +40,15 @@ toolchain + traceable state stores)
 that: tells you where you are and what is next, executes the clerk-work
 (drafting, tracing, checking), and refuses to call anything done without
 mechanical evidence
-unlike: {open: awaiting stakeholder - primary alternative this displaces}
+unlike: {EDIT-1: primary alternative this displaces}
+<!-- EDIT-1 GUIDANCE: Name the ONE thing you would be doing instead. The
+'our product' line below contrasts against whatever you put here, so pick
+the alternative whose failure you most want to escape. Candidates discussed
+this session: (a) unstructured agent chat / vibe-coding sessions;
+(b) thin modern spec processes (Spec Kit / Kiro class - process without
+lifecycle, maturity, or honest gates); (c) your own prior approach
+(software-factory v3/v4 - described-but-unenforced process mass).
+One phrase or sentence. Then delete this comment. -->
 our product: combines twenty years of vetted method content (EPF/OpenUP,
 GUID-traced) with agent enactment, beads/Dolt work tracking, and a
 mechanical truth layer that no prior generation of these methods could have
@@ -50,14 +59,24 @@ mechanical truth layer that no prior generation of these methods could have
 | Name | Description | Responsibilities |
 |---|---|---|
 | Jonathan | Stakeholder and builder; the only reality contact | Judgment calls, priorities, phase sign-off, gate autopsies, human checklist items |
-| Agent partner | Claude (chat + Code) acting in harvested roles as hats | Drafting from templates, tracing, gate execution, consistency-keeping, decanting |
-| {open: awaiting stakeholder} | {additional stakeholders, e.g. future collaborators via public repos} | {} |
+| Agent partner | Claude (Code primarily, chat as fallback) acting in harvested roles as hats | Drafting from templates, tracing, gate execution, consistency-keeping, decanting |
+| {EDIT-2: additional stakeholder, or delete this row} | {description} | {responsibilities} |
+<!-- EDIT-2 GUIDANCE: Add zero or more rows for anyone else with a stake.
+Candidates discussed: 'future Jonathan' resuming after months away (needs:
+legible state, honest dashboards); future collaborators arriving via the
+public repos (needs: README/viewer onboarding, trustworthy provenance);
+downstream project repos as consumers of method releases (needs: stable
+pins, non-breaking upgrades). A stakeholder earns a row only if some
+artifact or gate exists partly FOR them. Delete the placeholder row and
+this comment when done. -->
 
 ### 3.2 User Environment
-Claude chat (iPhone/iPad/desktop) and Claude Code CLI; GitHub repos written
-via Jentic/GitHub API from chat; Gas City + beads (Dolt) for work tracking;
-evening-sized sessions; visual plane via beads dashboards and the
-content-graph viewer; everything public and legible by default.
+Claude Code CLI as the primary working environment (native git; CLAUDE.md is
+the session entry point), with Claude chat (iPhone/iPad) for mobile sessions
+via the Jentic/GitHub API write path. GitHub as the canonical store; Gas City
++ beads (Dolt) for work tracking; evening-sized sessions; visual plane via
+beads dashboards and the content-graph viewer; everything public and legible
+by default.
 
 ## 4. Product Overview
 
@@ -94,7 +113,12 @@ parked as a possible later adaptation); productizing for third parties in v1
 (public and legible, yes; supported product, no).
 
 ## 7. Success Criteria
-{open: awaiting stakeholder confirmation of proposed criteria:}
+{EDIT-3: confirm, amend, or replace the criteria below}
+<!-- EDIT-3 GUIDANCE: Each criterion must be CHECKABLE - an observer could
+verify it occurred from repo evidence alone. For each of the three proposed:
+keep it, edit it, or delete it; add your own in the same style. When
+finished, delete the {EDIT-3...} marker line and this comment so the list
+stands alone. -->
 1. One harvested OpenUP activity enacted end-to-end by role-hats with
    decomposed gates and gate records written from minute one.
 2. One defect traced through an autopsy to a replay-admitted new check, with

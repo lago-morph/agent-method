@@ -2,7 +2,7 @@
 artifact: handoff
 state: draft
 audience: AI agent instances ONLY. Dense by design. Read before doing anything.
-updated: 2026-06-12 (session 1)
+updated: 2026-06-12 (session 1, late)
 ---
 # HANDOFF - agent-method session state and full design synthesis
 
@@ -22,13 +22,15 @@ whenever a decision lands. Chat is never the only home of anything.
   are hand-cranked until automation retires each crank.
 
 ## 2. Session protocol (constitution)
-- Push everything by end of turn. Sandbox is scratch (les-0002); context is
-  volatile (les-0003). Decant continuously, not at session end.
-- Verify writes by writing (les-0001). Fresh-clone verify when bash exists;
-  otherwise verify via API echo (get-commit files).
+- ENVIRONMENT: primary = Claude Code (CLAUDE.md is the entry point; native
+  git - commit small, push every turn). Fallback = Claude chat with the
+  Jentic write path (section 5).
+- Push everything by end of turn. Sandbox/worktree is scratch (les-0002);
+  context is volatile (les-0003). Decant continuously, not at session end.
+- Verify writes by writing (les-0001). Fresh-clone or API-echo verify.
 - Draft rule: a document with state: draft may merge to main WITHOUT passing
   gates, but ONLY draft documents may depend on it. Corollary: a gated
-  document may depend only on gated documents. (Mechanical linter: future.)
+  document may depend only on gated documents. (Mechanical linter: plan #5.)
 - Done = verdict of a gate, never a claim. Stakeholder (human) items cannot
   be answered by any agent.
 - The human is Stakeholder (only reality contact) and auditor-general (gate
@@ -102,28 +104,32 @@ Other bindings:
 - Dual interface: views = read-only eyes (Foolery: verification queue;
   beads-web/BeadBoard: kanban/DAG; Thread: Dolt-history forensics; adapted
   graph viewer from encyclopedia docs/viewer.html: kind=hue,
-  maturity=luminance). Chat = the only hand. Dolt rewind scrubber possible.
+  maturity=luminance). Chat/Code session = the only hand. Dolt rewind
+  scrubber possible.
 - Delivery: this repo ships as a Claude Code plugin eventually; verbs
   /next /gate /retro /decant; projects pin a method version (two-repo
   contract: versions down, proposals up, nothing else crosses).
 
-## 4. Repo state (as of this commit)
-- agent-method commits: b5e22d2 (repo init w/ LICENSE), 26db72e (harvested
-  vision template/checklist/gates), 5baec38 (vision draft + harvest notes),
-  this commit (handoff, lessons, standards, plan).
-- model/vision.md: state draft; THREE OPEN SLOTS awaiting stakeholder:
-  (1) 2.2 'unlike' - primary alternative displaced; (2) 3.1 additional
-  stakeholders; (3) 7 success-criteria confirmation. When closed: run
-  vision.gates.yaml BY HAND, write gate record #1 to model/gate-records/.
+## 4. Repo state
+Git log is canonical. Session-1 milestones: b5e22d2 init; 26db72e harvested
+vision template/checklist/gates (4 mechanical / 7 judge / 5 human);
+5baec38 vision draft + harvest notes; b609223 HANDOFF/LESSONS/standards/plan;
+then CLAUDE.md + vision EDIT-marker guidance + Claude Code transition (this
+commit).
+- model/vision.md: state draft; THREE {EDIT-N} MARKERS awaiting stakeholder,
+  each with inline GUIDANCE comment: EDIT-1 'unlike' (2.2), EDIT-2
+  additional stakeholders (3.1), EDIT-3 success criteria (7). When resolved:
+  run vision.gates.yaml BY HAND, write model/gate-records/gr-0001-vision.md,
+  flip state to gated.
 - Harvest sources + measured inventories + XMI format findings:
   method/harvest/NOTES.md. Key GUIDs: vision template -DUD2tbhBn23i6Jm6gcoN9Q,
   workproduct _zHTQUKYSEdmvhNXG0Oc2uA, checklist _qktWQMM0EdmSIPI87WLu3g.
 - Founding design provenance: github.com/lago-morph/encyclopedia (39-node
-  graph: decisions dec-0001..0010, insights ins-0001..0009, plan, lessons,
-  session narrative docs/sessions/2026-06-11.md, graph viewer
-  docs/viewer.html). Treat as historical record, not living spec.
+  graph: decisions, insights, plan, lessons, session narrative, graph
+  viewer docs/viewer.html). Historical record, not living spec.
 
-## 5. Write path (chat -> GitHub, no bash needed)
+## 5. Write path WITHOUT a shell (chat fallback)
+In Claude Code, use native git. In chat-only sessions:
 Jentic -> GitHub Git Data API. Sequence: get-ref -> create-tree (base_tree =
 head commit's tree; inline content, or create-blob base64 for big/binary) ->
 create-commit (parents=[head]) -> update-ref. Operation UUIDs:
@@ -134,9 +140,10 @@ Gotcha (les-0001): public-repo READS succeed with any token; only a write
 proves the token. Fine-grained PAT must list the repo + Contents read/write.
 
 ## 6. Immediate next steps (see model/plan.md)
-1. Stakeholder closes the three vision slots.
+1. Stakeholder resolves EDIT-1/2/3 in model/vision.md (guidance inline).
 2. Run vision gates by hand; write model/gate-records/gr-0001-vision.md;
-   flip vision.md state draft->gated (it will then depend on nothing draft).
-3. Use cases for agent-method itself (run a gated session; harvest a
-   checklist; trace a defect to a gate). Use harvested UC template.
-4. Harvest pipeline (XMI -> markdown content) as first toolchain work item.
+   flip vision.md state draft->gated.
+3. Use cases for agent-method itself; harvested UC template.
+4. Harvest pipeline (XMI -> markdown) as first toolchain work item.
+5. Layout/frontmatter/draft-rule linter (mechanical enforcement of
+   docs/standards/repo-layout.md).

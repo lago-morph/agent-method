@@ -2,13 +2,14 @@
 artifact: standard
 state: draft
 name: repo-layout-and-document-states
-enforcement: manual now; mechanical linter is a planned toolchain item
+enforcement: manual now; mechanical linter is plan item 5
 ---
 # Standard: repository layout, standing documents, document states
 
 ## Directory layout (this repo, the method system)
 
     README.md            orientation (human + AI)
+    CLAUDE.md            STANDING. Claude Code session entry point; points to HANDOFF.
     HANDOFF.md           STANDING. AI-audience session-state dump. Always current.
     LESSONS.md           STANDING. Lessons register; entries cite incidents.
     LICENSE
@@ -30,7 +31,7 @@ gate records, and a method-version pin. No method internals. Versions flow
 down; proposals flow up.
 
 ## Standing documents
-README, HANDOFF, LESSONS, model/vision.md, model/plan.md,
+README, CLAUDE.md, HANDOFF, LESSONS, model/vision.md, model/plan.md,
 method/harvest/NOTES.md. Standing documents are updated in place (history
 lives in git); everything else is append-or-supersede.
 
@@ -46,10 +47,15 @@ of paths or GUIDs).
 
 Consequences: draft-ness propagates down the dependency chain; gating a
 document requires its whole dependency closure to be gated. Demotion of a
-dependency to draft forces dependents back to draft (future linter computes
-this; until then, enforce by hand at gate time).
+dependency to draft forces dependents back to draft (the plan-item-5 linter
+computes this; until then, enforce by hand at gate time).
 
 ## Naming
 Gate records: model/gate-records/gr-NNNN-<artifact-slug>.md, NNNN
 monotonic. Lessons: les-NNNN. Use-case files: model/use-cases/uc-NNNN-<slug>.md.
 Harvested content keeps source GUIDs in frontmatter forever.
+
+## Editing markers
+Unresolved stakeholder input in any document uses {EDIT-N: hint} markers
+with an adjacent <!-- EDIT-N GUIDANCE: ... --> comment. Mechanical check:
+no '{EDIT-' may remain in a gated document.

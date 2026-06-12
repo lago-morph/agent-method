@@ -21,10 +21,17 @@ This repo is its own first customer: its `model/` holds its Vision, use cases,
 and gate records, produced under its own process — with gates hand-cranked
 until the automation exists to replace the crank.
 
+## Working environment
+
+Primary: **Claude Code** — `CLAUDE.md` is the session entry point and native
+git is the write path. Fallback: Claude chat (mobile) writing via the
+Jentic/GitHub API (mechanics in `HANDOFF.md`).
+
 ## Standing documents
 
 | Document | Audience | Purpose |
 |---|---|---|
+| `CLAUDE.md` | AI (Claude Code) | Session entry point; rules summary; points to HANDOFF. |
 | `HANDOFF.md` | AI only | Full session-state and design synthesis; insurance against context loss. Read first. |
 | `LESSONS.md` | both | Lessons register; every entry cites its incident. |
 | `model/vision.md` | both | What this is and why. |
@@ -34,12 +41,13 @@ until the automation exists to replace the crank.
 
 Document states: `draft` may merge to main ungated, but only drafts may
 depend on a draft; `gated` requires a gate record and a fully-gated
-dependency closure. Mechanical enforcement is a planned linter.
+dependency closure. Mechanical enforcement is plan item 5 (CI linter).
 
 ## Status
 
-Bootstrapping. Vision drafted with three slots awaiting the stakeholder;
-Vision gate run is the next milestone (gate record #1).
+Bootstrapping. Vision drafted; three `{EDIT-N}` markers with inline guidance
+await the stakeholder; the Vision gate run is the next milestone (gate
+record #1).
 
 ## Provenance
 
