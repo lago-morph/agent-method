@@ -21,11 +21,25 @@ This repo is its own first customer: its `model/` holds its Vision, use cases,
 and gate records, produced under its own process — with gates hand-cranked
 until the automation exists to replace the crank.
 
+## Standing documents
+
+| Document | Audience | Purpose |
+|---|---|---|
+| `HANDOFF.md` | AI only | Full session-state and design synthesis; insurance against context loss. Read first. |
+| `LESSONS.md` | both | Lessons register; every entry cites its incident. |
+| `model/vision.md` | both | What this is and why. |
+| `model/plan.md` | both | What's next, ordered. |
+| `docs/standards/repo-layout.md` | both | Where documents go; document states (draft/gated) and the draft-dependency rule. |
+| `method/harvest/NOTES.md` | both | Harvest sources, measured inventories, XMI format findings. |
+
+Document states: `draft` may merge to main ungated, but only drafts may
+depend on a draft; `gated` requires a gate record and a fully-gated
+dependency closure. Mechanical enforcement is a planned linter.
+
 ## Status
 
-Bootstrapping. First artifact in flight: the Vision (`model/vision.md`),
-authored from the harvested OpenUP template and gated by the harvested,
-decomposed Vision checklist.
+Bootstrapping. Vision drafted with three slots awaiting the stakeholder;
+Vision gate run is the next milestone (gate record #1).
 
 ## Provenance
 
