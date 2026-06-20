@@ -63,8 +63,7 @@ mechanical truth layer that no prior generation of these methods could have
 ### 3.2 User Environment
 Claude Code CLI as the primary working environment (native git; CLAUDE.md is
 the session entry point), with Claude chat (iPhone/iPad) for mobile sessions
-via the Jentic/GitHub API write path. GitHub as the canonical store; Gas City
-+ beads (Dolt) for work tracking; evening-sized sessions; visual plane via
+via the Jentic/GitHub API write path. GitHub as the canonical store; Gas City and beads (Dolt) for work tracking; evening-sized sessions; visual plane via
 beads dashboards and the content-graph viewer; everything public and legible
 by default.
 
