@@ -40,15 +40,10 @@ toolchain + traceable state stores)
 that: tells you where you are and what is next, executes the clerk-work
 (drafting, tracing, checking), and refuses to call anything done without
 mechanical evidence
-unlike: {EDIT-1: primary alternative this displaces}
-<!-- EDIT-1 GUIDANCE: Name the ONE thing you would be doing instead. The
-'our product' line below contrasts against whatever you put here, so pick
-the alternative whose failure you most want to escape. Candidates discussed
-this session: (a) unstructured agent chat / vibe-coding sessions;
+unlike: (a) unstructured agent chat / vibe-coding sessions;
 (b) thin modern spec processes (Spec Kit / Kiro class - process without
-lifecycle, maturity, or honest gates); (c) your own prior approach
-(software-factory v3/v4 - described-but-unenforced process mass).
-One phrase or sentence. Then delete this comment. -->
+lifecycle, maturity, or honest gates); (c) my earlier approaches with inconsistent and changing process, with layered on "patches" that eventually leads to a difficult-to-recover-from mess.
+
 our product: combines twenty years of vetted method content (EPF/OpenUP,
 GUID-traced) with agent enactment, beads/Dolt work tracking, and a
 mechanical truth layer that no prior generation of these methods could have
@@ -60,15 +55,12 @@ mechanical truth layer that no prior generation of these methods could have
 |---|---|---|
 | Jonathan | Stakeholder and builder; the only reality contact | Judgment calls, priorities, phase sign-off, gate autopsies, human checklist items |
 | Agent partner | Claude (Code primarily, chat as fallback) acting in harvested roles as hats | Drafting from templates, tracing, gate execution, consistency-keeping, decanting |
-| {EDIT-2: additional stakeholder, or delete this row} | {description} | {responsibilities} |
-<!-- EDIT-2 GUIDANCE: Add zero or more rows for anyone else with a stake.
-Candidates discussed: 'future Jonathan' resuming after months away (needs:
-legible state, honest dashboards); future collaborators arriving via the
-public repos (needs: README/viewer onboarding, trustworthy provenance);
-downstream project repos as consumers of method releases (needs: stable
-pins, non-breaking upgrades). A stakeholder earns a row only if some
-artifact or gate exists partly FOR them. Delete the placeholder row and
-this comment when done. -->
+|'future Jonathan' | me, resuming after months away (needs:
+accurate and understandable state, up to date documentation on method and system architecture) | responsible for reviewing project and plans, looking at big picture, initiating changes in direction |
+| future collaborators on process development | outside parties interested in refining or adapting methodology and process (needs: contributor level familiarity with method/process itself, on-ramp to make positive, correct contributions to method/process) | provide fresh look and new viewpoint, adapting method and process to new use cases |
+| future collaborators on project using this method and process | someone unfamiliar with both process/method and the project in question (needs: user-level introduction to process/method, contributor-level understanding of target project, easy entree into making substantive project contributions quickly and correctly) | provides assistance executing parts of underlying project, comments and feedback on using the methods/process |
+| downstream projects | consumers of process/method releases (needs: stable
+pins, non-breaking upgrades) | provides feedback, new ideas, alpha/beta testing, and occaisonal method/process contributions as an outside contributor |
 
 ### 3.2 User Environment
 Claude Code CLI as the primary working environment (native git; CLAUDE.md is
@@ -113,15 +105,18 @@ parked as a possible later adaptation); productizing for third parties in v1
 (public and legible, yes; supported product, no).
 
 ## 7. Success Criteria
-{EDIT-3: confirm, amend, or replace the criteria below}
-<!-- EDIT-3 GUIDANCE: Each criterion must be CHECKABLE - an observer could
-verify it occurred from repo evidence alone. For each of the three proposed:
-keep it, edit it, or delete it; add your own in the same style. When
-finished, delete the {EDIT-3...} marker line and this comment so the list
-stands alone. -->
+
+Vision will be reviewed and expanded after initial proof of concept based on lessons learned.
+
+### Proof of concept
+
 1. One harvested OpenUP activity enacted end-to-end by role-hats with
    decomposed gates and gate records written from minute one.
 2. One defect traced through an autopsy to a replay-admitted new check, with
    the defective artifact added to the calibration set.
 3. One practice plugin introduced via retrospective, its before/after effect
    visible in Thread metrics across a pinned version bump.
+4. Lessons learned during proof of concept (positive, informative, negative) sufficient to create long-term vision for the product.  lessons include guidance on method applicability, initial tooling, requirements, chice and role of stakeholders, etc.
+5. metrics to quantitively support the qualitative lessons learned.
+6. capture of implementation logs sufficient to manually run self improvement loop.
+
