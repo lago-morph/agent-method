@@ -2,8 +2,8 @@
 artifact: vision
 template: method/content/templates/vision.md
 state: draft
-gate-status: not-yet-run (EDIT markers remain; mechanical gate 2 will fail until they are resolved)
-editing: resolve the three {EDIT-N} markers below, following the GUIDANCE comment beside each; delete each guidance comment when its marker is resolved
+gate-status: not-yet-run 
+editing: 
 ---
 # Vision: agent-method
 
@@ -55,12 +55,10 @@ mechanical truth layer that no prior generation of these methods could have
 |---|---|---|
 | Jonathan | Stakeholder and builder; the only reality contact | Judgment calls, priorities, phase sign-off, gate autopsies, human checklist items |
 | Agent partner | Claude (Code primarily, chat as fallback) acting in harvested roles as hats | Drafting from templates, tracing, gate execution, consistency-keeping, decanting |
-|'future Jonathan' | me, resuming after months away (needs:
-accurate and understandable state, up to date documentation on method and system architecture) | responsible for reviewing project and plans, looking at big picture, initiating changes in direction |
+|'future Jonathan' | me, resuming after months away (needs: accurate and understandable state, up to date documentation on method and system architecture) | responsible for reviewing project and plans, looking at big picture, initiating changes in direction |
 | future collaborators on process development | outside parties interested in refining or adapting methodology and process (needs: contributor level familiarity with method/process itself, on-ramp to make positive, correct contributions to method/process) | provide fresh look and new viewpoint, adapting method and process to new use cases |
 | future collaborators on project using this method and process | someone unfamiliar with both process/method and the project in question (needs: user-level introduction to process/method, contributor-level understanding of target project, easy entree into making substantive project contributions quickly and correctly) | provides assistance executing parts of underlying project, comments and feedback on using the methods/process |
-| downstream projects | consumers of process/method releases (needs: stable
-pins, non-breaking upgrades) | provides feedback, new ideas, alpha/beta testing, and occaisonal method/process contributions as an outside contributor |
+| downstream projects | consumers of process/method releases (needs: stable pins, non-breaking upgrades) | provides feedback, new ideas, alpha/beta testing, and occaisonal method/process contributions as an outside contributor |
 
 ### 3.2 User Environment
 Claude Code CLI as the primary working environment (native git; CLAUDE.md is
