@@ -5,12 +5,13 @@ updated: 2026-07-03
 
 Where we are: methodology rebuild, requirements-first. The first-attempt
 design is in archive/ (not process). Core vocabulary converged in the
-2026-07-03 design conversation and is captured in GLOSSARY.md; candidate
-requirements in REQUIREMENTS.md. Nothing promoted to active yet.
+2026-07-03 design conversation and is captured in GLOSSARY.md. Proposed
+requirements live in CANDIDATES.md (quarantined from ordinary sessions);
+REQUIREMENTS.md holds purpose, scope, and the active set - empty so far.
 
 Next actions:
-1. Jonathan marks up GLOSSARY.md and REQUIREMENTS.md.
-2. Jointly promote a small active-requirements set for iteration one.
+1. Jonathan marks up GLOSSARY.md and CANDIDATES.md (PR #1 markup underway).
+2. Jointly promote a small active set into REQUIREMENTS.md for iteration one.
 3. Jonathan names the pilot project (small greenfield; he has one in mind).
 4. First iteration: use the method skeleton on the pilot, feel where it rubs.
 

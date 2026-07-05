@@ -46,7 +46,7 @@ Provenance: agent-method first attempt, 2026-06-11 to 2026-06-20; measured
 in the 2026-07-03 complexity review (reviews/).
 Hardening: rebuild is requirements-first; method elements enter as
 candidates with sources and are validated by use on a real project before
-being treated as established (REQUIREMENTS.md promotion model).
+being treated as established (CANDIDATES.md -> REQUIREMENTS.md promotion).
 
 ## les-0005 - Write the need before building the tool
 A tool built before its need is written down takes its scope from the
@@ -58,5 +58,5 @@ Provenance: visual-efp-open-up, 2026-06-21; measured in the 2026-07-03
 complexity review (reviews/).
 Hardening: the need and its success criteria are written in an artifact
 before any tool is built; tool scope answers the need, not the material.
-First test: the deterministic checklist evaluator (REQUIREMENTS.md R13)
+First test: the deterministic checklist evaluator (CANDIDATES.md R13)
 gets a written need before it gets code.

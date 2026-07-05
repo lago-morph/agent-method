@@ -8,7 +8,8 @@ lives in `archive/` - reference only, not process.
 Read in order before doing anything:
 1. `HANDOFF.md` - current state and next actions (kept under 20 lines)
 2. `GLOSSARY.md` - the controlled vocabulary (draft, under joint markup)
-3. `REQUIREMENTS.md` - candidate requirements register (nothing promoted yet)
+3. `REQUIREMENTS.md` - purpose, scope facts, active requirements
+   (active set empty until promotion)
 
 ## Session rules (each cites a real incident - LESSONS.md)
 - Commit and push everything by end of turn; chat/context is never the
@@ -24,6 +25,9 @@ Read in order before doing anything:
   reference soup): `.claude/skills/human-scoped-deliverables/SKILL.md`
   in lago-morph/software-factory.
 - Do not read `archive/` unless Jonathan names a specific file.
+- Do not read `CANDIDATES.md` (proposed requirements) unless requirements
+  selection or markup is the session's explicit task - candidates must not
+  leak into ordinary session context.
 
 ## Environment
 - Primary: Claude Code, native git. Commit small, push every turn.

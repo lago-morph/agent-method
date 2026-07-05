@@ -4,8 +4,10 @@
 > requirements-first rebuild: what the two example repos actually contained,
 > the pattern across four prior efforts, the design alternatives considered
 > and rejected on the way to GLOSSARY.md, and a watch list for the rebuild.
-> What it is not: process. Conclusions live in GLOSSARY.md and
-> REQUIREMENTS.md; this is the evidence and reasoning behind them.
+> What it is not: process. Conclusions live in GLOSSARY.md and the
+> requirements registers (CANDIDATES.md, promoted into REQUIREMENTS.md);
+> R-numbers below are CANDIDATES.md entries. This is the evidence and
+> reasoning behind them.
 
 ## 1. What the two example repos contained
 
@@ -43,7 +45,7 @@ Two findings from the k8s-platform forensics carry design weight here:
   enforcement (hooks, lints, CI gates) ended every bug class it was applied
   to; prose rules ended none."** The rulebook grew ~240 → ~1,350 lines while
   its target behaviors kept recurring; the final rule was violated within
-  minutes by the agent that wrote it. (Behind REQUIREMENTS.md R13/R15/R19.)
+  minutes by the agent that wrote it. (Behind CANDIDATES.md R13/R15/R19.)
 - The k8s-platform June-10 restructure — 748-line rulebook replaced by a
   ~140-line operating agreement, mechanical rules converted to CI checks,
   lessons distilled into a register, backlog frozen — independently converged
