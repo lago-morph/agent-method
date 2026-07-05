@@ -78,7 +78,7 @@ light.
 
 | Term | Working definition |
 |---|---|
-| **Candidate requirement** | An idea for what the methodology must support, tracked in REQUIREMENTS.md with its source. Costs nothing while parked; never deleted for being unfashionable. |
+| **Candidate requirement** | An idea for what the methodology must support, tracked in CANDIDATES.md with its source, written to stand alone. Costs nothing while parked; never deleted for being unfashionable. |
 | **Active requirement** | A candidate jointly promoted for the current iteration — the set actually being designed against. |
 
 ## Deliberately not in the vocabulary
@@ -97,5 +97,5 @@ free-floating claim (only checklist statuses and gates)
 - **Storage and format** of artifacts, checklists, recorded answers, and
   relationships: parked as a data-modeling/technical-architecture question.
   One requirement already flows into it: the format must support fast,
-  deterministic, read-only evaluation (see REQUIREMENTS.md).
+  deterministic, read-only evaluation (CANDIDATES.md, R13/R25).
 - **Multi-person projects**: out of scope now by decision, not by accident.

@@ -36,6 +36,6 @@ Read in order before doing anything:
 
 ## Status
 Core vocabulary converged and captured (2026-07-03). Next: joint markup of
-GLOSSARY.md and REQUIREMENTS.md, promote a small active-requirements set,
-Jonathan names the pilot project. No method design beyond the glossary
-exists yet - do not invent process the documents do not show.
+GLOSSARY.md and CANDIDATES.md, promote a small active set into
+REQUIREMENTS.md, Jonathan names the pilot project. No method design beyond
+the glossary exists yet - do not invent process the documents do not show.

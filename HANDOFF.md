@@ -15,8 +15,5 @@ Next actions:
 3. Jonathan names the pilot project (small greenfield; he has one in mind).
 4. First iteration: use the method skeleton on the pilot, feel where it rubs.
 
-Standing decisions: checklist evaluation gets deterministic automation
-early (read-only over artifacts); storage/format question deliberately
-parked until requirements are promoted.
-
-visual-efp-open-up: untouched reference viewer; not part of this rebuild.
+Standing: storage/format question parked until promotion (must support
+deterministic evaluation). visual-efp-open-up: untouched, not in scope.
