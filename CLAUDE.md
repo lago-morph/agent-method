@@ -1,36 +1,41 @@
 # CLAUDE.md - Claude Code entry point for agent-method
 
-Read `HANDOFF.md` FIRST. It is the AI-audience state dump: full design
-synthesis, session protocol, repo state, open items. Do nothing before
-reading it.
+This repo is where a software-development methodology for one human
+(Jonathan, GitHub lago-morph) plus AI partners is being rebuilt,
+requirements-first, after a too-complex first attempt. The first attempt
+lives in `archive/` - reference only, not process.
 
-## Session rules (summary - HANDOFF.md section 2 is authoritative)
-- Commit and push everything by end of turn. The working tree and your
-  context are both volatile (LESSONS.md: les-0002, les-0003).
-- Update HANDOFF.md whenever a decision lands. Chat/context is never the
-  only home of anything.
-- Document states: `draft` merges ungated; only drafts may depend on a
-  draft. `gated` requires a gate record + fully-gated dependency closure
-  (docs/standards/repo-layout.md).
-- Done = the verdict of a gate, never a claim. Human (stakeholder) checklist
-  items are Jonathan's to answer - never answer them yourself.
+Read in order before doing anything:
+1. `HANDOFF.md` - current state and next actions (kept under 20 lines)
+2. `GLOSSARY.md` - the controlled vocabulary (draft, under joint markup)
+3. `REQUIREMENTS.md` - purpose, scope facts, active requirements
+   (active set empty until promotion)
+
+## Session rules (each cites a real incident - LESSONS.md)
+- Commit and push everything by end of turn; chat/context is never the
+  only home of anything (les-0002, les-0003). Update HANDOFF.md whenever
+  a decision lands.
+- Verify writes by writing (les-0001).
+- Items reserved for the source-of-intent role are Jonathan's to answer -
+  never answer them yourself.
 - Do only what is asked; confirm before extras. Never proceed on guesses
   about information you cannot access - stop and ask.
+- Human-facing deliverables follow the human-scoped-deliverables
+  conventions (plain consistent terms, small tables and diagrams, no
+  reference soup): `.claude/skills/human-scoped-deliverables/SKILL.md`
+  in lago-morph/software-factory.
+- Do not read `archive/` unless Jonathan names a specific file.
+- Do not read `CANDIDATES.md` (proposed requirements) unless requirements
+  selection or markup is the session's explicit task - candidates must not
+  leak into ordinary session context.
 
 ## Environment
-- Primary: Claude Code (this file is your entry point). Use native git:
-  branch if work is risky, commit small, push every turn.
-- Fallback (chat-only sessions, no shell): Jentic -> GitHub Git Data API;
-  operation UUIDs and sequence in HANDOFF.md section 5.
+- Primary: Claude Code, native git. Commit small, push every turn.
+- Chat-only fallback (no shell): mechanics preserved in
+  `archive/HANDOFF-2026-06.md` section 5.
 
-## Where things are
-- `model/` - this repo's own work products (vision, plan, gate-records/)
-- `method/content/` - harvested method content (templates, checklists + .gates.yaml)
-- `method/harvest/NOTES.md` - sources, inventories, XMI format findings
-- `docs/standards/repo-layout.md` - layout + document-state rules
-- `LESSONS.md` - incident-cited lessons register
-
-## Current focus
-See `model/plan.md`. Next milestone: stakeholder closes the three EDIT
-markers in `model/vision.md`, then the Vision gates run by hand and
-`model/gate-records/gr-0001-vision.md` is written.
+## Status
+Core vocabulary converged and captured (2026-07-03). Next: joint markup of
+GLOSSARY.md and CANDIDATES.md, promote a small active set into
+REQUIREMENTS.md, Jonathan names the pilot project. No method design beyond
+the glossary exists yet - do not invent process the documents do not show.
