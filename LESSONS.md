@@ -33,3 +33,30 @@ Provenance: this session, 2026-06-12 - compaction event observed by the
 stakeholder.
 Hardening: HANDOFF.md instituted as a standing document; draft-document
 state instituted so partial work can merge to main immediately.
+
+## les-0004 - Design the method by using it
+A method meta-system designed before any of it is used will stall at first
+contact and rot: the machinery absorbs the effort the work needed. The
+first attempt designed gates, judges, calibration sets, and a two-plane
+architecture in one session; its first gate (16 items for a 119-line
+vision) never ran in the following three weeks, and the standing docs went
+stale within days of stakeholder edits - reproducing the exact
+self-certified-status failure the design was built to prevent.
+Provenance: agent-method first attempt, 2026-06-11 to 2026-06-20; measured
+in the 2026-07-03 complexity review (reviews/).
+Hardening: rebuild is requirements-first; method elements enter as
+candidates with sources and are validated by use on a real project before
+being treated as established (REQUIREMENTS.md promotion model).
+
+## les-0005 - Write the need before building the tool
+A tool built before its need is written down takes its scope from the
+material at hand instead of from the need. A complete 24MB browser for the
+entire EPF practices library was built in one day, while the underlying
+need - roughly five templates; 125 lines actually harvested to date - was
+never recorded with success criteria.
+Provenance: visual-efp-open-up, 2026-06-21; measured in the 2026-07-03
+complexity review (reviews/).
+Hardening: the need and its success criteria are written in an artifact
+before any tool is built; tool scope answers the need, not the material.
+First test: the deterministic checklist evaluator (REQUIREMENTS.md R13)
+gets a written need before it gets code.
