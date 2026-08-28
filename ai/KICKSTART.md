@@ -1,9 +1,9 @@
-# Kickstart prompt - DRAFT
+# Kickstart prompt
 
-Drafted 2026-08-28 by the AI partner; **awaiting Jonathan's markup, not yet
-used**. When ratified, the block below becomes the opening prompt of the
-session that starts the artifacts-first experiment. It assumes
-`method/SEED.md` and the three-directory layout are already on main.
+Drafted 2026-08-28 by the AI partner; **ratified by Jonathan 2026-08-28**.
+The block below is the opening prompt of the session that starts the
+artifacts-first experiment. It assumes `method/SEED.md` and the
+three-directory layout are already on main.
 
 ---
 
@@ -29,10 +29,11 @@ handoffs) in ai/.
    beyond the front matter, no process documents.
 
 2. VISION FIRST. The first application is idea-workbench. I have
-   substantial existing material on it - ask me to point you at it, read
-   what I name, then ask a few clarifying questions (not a questionnaire)
-   and draft the project vision document as the first node in workbench/.
-   I mark it up until it reads as mine.
+   substantial existing material on it, converted from my handwritten
+   notes by a separate process - ask me for it, read what I provide, then
+   ask a few clarifying questions (not a questionnaire) and draft the
+   project vision document as the first node in workbench/. I mark it up
+   until it reads as mine.
 
 3. GROW OUTWARD. From the ratified vision, draft use cases; from those,
    component definitions and language-neutral typed interfaces - one or
@@ -42,11 +43,11 @@ handoffs) in ai/.
    Keep workbench/ self-contained: relative links only, no references
    outside the directory, so it can move to its own repository later.
 
-4. TYPE NOTES LAST. Once at least one real instance of each type exists,
-   write the agent-facing background for each type in method/ - the
-   intent behind the type and guidance for how instances may evolve -
-   derived from what we actually made, not from theory. A paragraph or
-   two per type.
+4. TYPE DESCRIPTIONS LAST. Once at least one real instance of each
+   artifact type exists, write the agent-facing description of each type
+   in method/ - the intent behind the type and guidance for how instances
+   may evolve - derived from what we actually made, not from theory. A
+   paragraph or two per type.
 
 Standing rules: commit and push at the end of every turn, so chat is
 never the only home of anything. If I say something that sounds like
