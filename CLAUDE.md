@@ -1,7 +1,7 @@
 # CLAUDE.md - agent-method
 
 This repository was restarted clean on 2026-08-28. New work begins from
-`SEED.md`.
+`method/SEED.md`.
 
 ## Archived attempts - do not read unless Jonathan directs you to a file
 
