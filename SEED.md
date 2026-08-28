@@ -20,6 +20,10 @@ archived attempts remain available to mine for them.
 - Use cases
 - Component definitions
 - Typed interfaces, specified in a language-neutral way
+- Note - a catch-all for content that does not fit the other types, so
+  nothing is forced into the wrong shape or lost. A note has a title, a
+  body, and links. Over time, groups of notes that record similar
+  information are identified and promoted into new artifact types.
 
 Each artifact type also gets background material written for an AI agent:
 the intent behind the type, and guidance for how instances may evolve.
