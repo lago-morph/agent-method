@@ -1,8 +1,9 @@
 # Conventions proposal (step 1 of KICKSTART)
 
-Drafted 2026-08-30 by the AI partner. **Status: awaiting Jonathan's
-approval.** Once approved (with markup), the convention gets recorded in
-`method/CONVENTIONS.md` and this file is working residue.
+Drafted 2026-08-30 by the AI partner. **Status: ratified by Jonathan
+2026-08-30** (PR #7 review) with one markup: the reciprocal of
+`is-part-of` is named `includes`, not `has-part`. The approved convention
+is recorded in `method/CONVENTIONS.md`; this file is working residue.
 
 ## Proposed convention for artifact nodes
 
@@ -23,7 +24,7 @@ type: use-case
 title: Edit ideas
 links:
   is-part-of: []
-  has-part: []
+  includes: []
   depends-on: []
   depended-on-by: []
   related-to: []
@@ -46,7 +47,7 @@ be traversed from without tooling:
 
 | Forward (in A)  | Reciprocal (in B)      | Meaning                    |
 | --------------- | ---------------------- | -------------------------- |
-| `is-part-of: B` | `has-part: A`          | directional                |
+| `is-part-of: B` | `includes: A`          | directional                |
 | `depends-on: B` | `depended-on-by: A`    | directional                |
 | `related-to: B` | `related-to: A`        | non-directional, symmetric |
 
@@ -56,9 +57,7 @@ now per SEED — tooling gets added only when real friction (i.e. actual
 drift) shows it is needed. If drift happens, a linter or generated index
 is the known escape hatch.
 
-## Open point for Jonathan
+## Markup outcome
 
-Approve as-is, or mark up: the reciprocal-key names (`has-part`,
-`depended-on-by`), the id-equals-filename rule, and the choice of
-hand-maintained reciprocity over a generated index are the three
-decisions with alternatives.
+Resolved: Jonathan approved with the single markup applied above
+(`has-part` renamed to `includes`); everything else stands as proposed.
