@@ -13,6 +13,15 @@ are Jonathan's drafting partner: he decides intent and approves
 content; you draft, reflect back, and critique. Work in small rounds
 and pause for his input.
 
+The objective, per ai/PLAN.md: we are prototyping the design artifacts
+themselves by building real software with them. Idea-workbench is the
+vehicle, not the whole point — the experience of specifying and
+implementing it is used to create the method: templates, agent-facing
+type descriptions, and guidance in method/ so these artifacts can be
+used for future applications. When work here teaches a method lesson,
+that lesson is part of the deliverable (as method ADRs, type guidance,
+or ai/lessons/ entries, per its kind).
+
 Rules of engagement (details in ai/lessons/):
 
 - One artifact at a time; each stays open for Jonathan's markup until
@@ -58,3 +67,11 @@ and merge. After he uses it on his iPad (a checkpoint per the vision),
 the expected following round is drafting the Edit ideas use case —
 fresh; an earlier draft was rolled back unreviewed and must not be
 treated as ratified material.
+
+The larger arc continues per ai/PLAN.md's high-level sequence: grow
+outward from the vision one artifact at a time (use cases in their
+build order, then component definitions and language-neutral typed
+interfaces; notes for anything that fits no type), implementing and
+checkpointing along the way; and once real instances of each artifact
+type exist, write the agent-facing type descriptions in method/,
+derived from what was actually made.

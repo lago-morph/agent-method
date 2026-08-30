@@ -6,6 +6,15 @@ the experiment was underway. The starting decisions below remain the
 plan's foundation; the status section tracks where we are. The next
 session's starting prompt is ai/HANDOFF.md.
 
+## The objective
+
+We are prototyping the design artifacts themselves by building real
+software with them. Idea-workbench is the first application, but the
+point is not just to build the workbench: the experience of specifying
+and implementing it is used to create the method — templates,
+agent-facing guidance for each artifact type, and eventually tooling —
+so these artifacts can be used for future applications.
+
 ## The move
 
 Stop designing process in the abstract. Instead, define a small set of
@@ -14,6 +23,27 @@ typed artifacts by putting real content into them, organized as a graph
 Experiment without ceremony and see where it takes us. Process, schema,
 and further artifact types get added only when real friction shows they
 are needed - the archived attempts remain available to mine for them.
+
+## The high-level sequence (from the ratified kickstart)
+
+1. **Conventions** — the simplest file convention for artifact nodes
+   (done: `method/CONVENTIONS.md`).
+2. **Vision first** — drafted from Jonathan's existing material,
+   marked up until it reads as his (done).
+3. **Grow outward** — from the ratified vision: use cases; from those,
+   component definitions and language-neutral typed interfaces — one
+   artifact at a time, linked as we go, pausing for markup each round.
+   Anything that doesn't fit these types becomes a note rather than
+   being forced into the wrong shape or lost. Implementations of
+   versions of the spec are built along the way, with a checkpoint
+   after each.
+4. **Type descriptions last** — once at least one real instance of
+   each artifact type exists, write the agent-facing description of
+   each type in `method/`: the intent behind the type and guidance for
+   how instances may evolve, derived from what we actually made, not
+   from theory. (The vision type's was pulled forward at Jonathan's
+   direction: `method/types/vision.md`. The rest wait for real
+   instances.)
 
 ## Starting artifact types
 
