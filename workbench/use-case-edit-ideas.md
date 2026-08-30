@@ -9,8 +9,6 @@ links:
     - use-case-initial-ui.md
 ---
 
-*Draft 2026-08-30 by the AI partner, awaiting Jonathan's markup.*
-
 Derived from [input/02-edit-ideas.md](input/02-edit-ideas.md). Second
 use case in the v1 build order; builds on the three-pane screen from
 [use-case-initial-ui.md](use-case-initial-ui.md).

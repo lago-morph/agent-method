@@ -8,6 +8,7 @@ links:
     - use-case-edit-ideas.md
   related-to:
     - note-v1-scope-and-prototyping-intent.md
+    - note-prototype-record.md
 ---
 
 ## Pain points
