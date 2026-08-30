@@ -21,6 +21,7 @@ was applied. Uncertain readings are marked *(sic?)* or noted inline.
 | [09-hierarchical-display-labels.md](09-hierarchical-display-labels.md) | 14 | Hierarchical display of labels |
 | [10-import-ideas.md](10-import-ideas.md) | 15 | Importing text/files |
 | [11-ui-enhancements.md](11-ui-enhancements.md) | 16 | Show/hide detail |
+| [implementation-notes.md](implementation-notes.md) | 4 | Implementation brainstorming (non-normative) |
 
 Items on the master list with no detail page yet: merge idea, import URL,
 import files from GitHub directory, import GitHub issues, summarize URL,
