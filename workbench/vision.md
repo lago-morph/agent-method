@@ -7,6 +7,7 @@ links:
     - use-case-initial-ui.md
   related-to:
     - note-v1-scope-and-prototyping-intent.md
+    - note-implementation-standards.md
 ---
 
 ## Pain points

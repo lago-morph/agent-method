@@ -5,9 +5,9 @@ title: Initial UI
 links:
   is-part-of:
     - vision.md
+  depended-on-by:
+    - note-implementation-record-1.md
 ---
-
-*Draft 2026-08-30 by the AI partner, awaiting Jonathan's markup.*
 
 Derived from [input/01-display-ideas.md](input/01-display-ideas.md)
 ("Initial UI" on the master list). First use case in the v1 build
