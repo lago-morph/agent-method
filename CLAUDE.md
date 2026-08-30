@@ -1,7 +1,8 @@
 # CLAUDE.md - agent-method
 
-This repository was restarted clean on 2026-08-28. New work begins from
-`method/SEED.md`.
+This repository was restarted clean on 2026-08-28. New sessions start
+from `ai/HANDOFF.md` (current state and next step); the running plan is
+`ai/PLAN.md`, and the lessons in `ai/lessons/` are binding.
 
 ## Archived attempts - do not read unless Jonathan directs you to a file
 
