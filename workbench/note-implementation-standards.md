@@ -26,9 +26,9 @@ as a note for now; a candidate artifact type once the shape settles.
 
 ## Where implementation artifacts live
 
-- Implementation artifacts are stored in git, in this directory, under
-  the subdirectory `implementations/`, with one subdirectory per
-  implementation named by its record's number: `implementations/1/`,
-  `implementations/2/`, …
+- Implementation artifacts are stored in git, in the same directory
+  that holds these specification artifacts, under the subdirectory
+  `implementations/`, with one subdirectory per implementation named by
+  its record's number: `implementations/1/`, `implementations/2/`, …
 - An implementation's artifacts are whatever it produces: the runnable
   thing itself and anything that comes out of building and using it.
