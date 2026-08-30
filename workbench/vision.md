@@ -5,7 +5,6 @@ title: Idea Workbench vision
 links:
   includes:
     - use-case-initial-ui.md
-    - use-case-edit-ideas.md
   related-to:
     - note-v1-scope-and-prototyping-intent.md
 ---
