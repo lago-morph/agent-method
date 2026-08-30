@@ -3,6 +3,8 @@ id: vision
 type: vision
 title: Idea Workbench vision
 links:
+  includes:
+    - use-case-initial-ui.md
   related-to:
     - note-v1-scope-and-prototyping-intent.md
 ---
