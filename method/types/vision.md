@@ -1,6 +1,6 @@
 # Artifact type: project vision
 
-*Drafted 2026-08-30 from Jonathan's direction; awaiting his markup.*
+Ratified by Jonathan 2026-08-30 (PR #8).
 
 ## Intent of the type
 

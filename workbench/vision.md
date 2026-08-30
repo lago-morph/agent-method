@@ -7,10 +7,6 @@ links:
     - note-v1-scope-and-prototyping-intent.md
 ---
 
-*Draft 2026-08-30 by the AI partner, restructured per the vision
-template; awaiting Jonathan's markup. Remove this line when the vision
-reads as his.*
-
 ## Pain points
 
 My ideas are scattered and disorganized. They live in paper notebooks,
