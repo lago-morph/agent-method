@@ -6,6 +6,7 @@ links:
   depends-on:
     - use-case-initial-ui.md
   related-to:
+    - note-implementation-record-definition.md
     - note-implementation-standards.md
 ---
 

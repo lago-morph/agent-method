@@ -5,6 +5,7 @@ title: Implementation standards
 links:
   related-to:
     - vision.md
+    - note-implementation-record-definition.md
     - note-implementation-record-1.md
 ---
 
