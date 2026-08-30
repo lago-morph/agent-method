@@ -10,9 +10,6 @@ links:
     - note-implementation-standards.md
 ---
 
-*Draft 2026-08-30 by the AI partner from Jonathan's direction, awaiting
-his markup.*
-
 Implementation 1 implements a version of the spec consisting of the
 ratified Initial UI use case.
 
