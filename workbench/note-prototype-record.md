@@ -7,8 +7,7 @@ links:
     - vision.md
 ---
 
-Captured 2026-08-30 from Jonathan's direction after the Edit ideas use
-case was ratified. There are open issues that must be resolved before a
+Captured 2026-08-30 from Jonathan's direction. There are open issues that must be resolved before a
 prototype is built, and no good home for them yet — so, for now, this
 note holds them. It is a candidate for promotion to a real artifact
 type (a "prototype record" or "implementation record", one per
