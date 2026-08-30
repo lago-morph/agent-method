@@ -5,6 +5,8 @@ title: Initial UI
 links:
   is-part-of:
     - vision.md
+  depended-on-by:
+    - note-implementation-record-1.md
 ---
 
 Derived from [input/01-display-ideas.md](input/01-display-ideas.md)
