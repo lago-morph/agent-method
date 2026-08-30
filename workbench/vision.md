@@ -81,6 +81,17 @@ they fork the repo and run their own copy.
 4. When a new idea occurs to me while the workbench is available, I put
    it in the workbench instead of starting a new scattered list.
 
+## Checkpoints
+
+A checkpoint happens after every prototype. At each one I assess
+progress against the success criteria — in particular, whether what I
+have written in my notes and use cases matches how I am actually using
+the software. If it doesn't, I have explicit permission to change the
+use cases, reorder them, or halt the project. Change is expected and
+welcome; it is better to change or abandon a project that isn't meeting
+its goals than to follow the plan to the end while the context changes
+around it.
+
 ## Non-goals
 
 - Multi-user operation, authentication, sharing, or hosting for
@@ -96,17 +107,18 @@ they fork the repo and run their own copy.
 
 ## Open issues
 
-- What durable storage concretely is (the save use case says memory
-  syncs to "durable storage" without naming it). Needs an answer by the
-  first prototype that saves.
-- What form the app takes to run (a page in a browser tab is implied
-  by the use cases; the exact packaging is unresolved).
+Organized by when each must be resolved.
 
-## Deliberately open issues
-
-- Whether idea-workbench and agent-method ever get linked. Today the
-  connection is completely manual, and that is fine; deciding is
-  deferred because we don't care right now.
-- What, if anything, comes after v1. Deferred until v1 is implemented
-  and I have had time to use it, because what I think I want may change
-  once I do.
+- **Before the first prototype runs:** what form the app takes (a page
+  in a browser tab is implied by the use cases; the exact packaging is
+  unresolved).
+- **By the first prototype that saves:** what durable storage
+  concretely is (the save use case says memory syncs to "durable
+  storage" without naming it).
+- **After v1 is implemented and used:** what, if anything, comes after
+  v1. Nothing depends on this sooner, and what I think I want may
+  change once I have used the software.
+- **No required resolution dependency:** whether idea-workbench and
+  agent-method ever get linked. Today the connection is completely
+  manual, and that is fine; nothing in the project waits on this
+  answer.

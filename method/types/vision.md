@@ -32,10 +32,18 @@ realize the use cases.
   they may be different people or roles.
 - **Success is explicit, objective, and testable.** List the success
   criteria such that anyone can check each one and get the same answer.
-- **Two kinds of unresolved.** Open issues are questions that need an
-  answer and don't have one yet. Deliberately open issues are questions
-  the owner has decided *not* to answer now — record the reason the
-  question is being left open.
+- **Checkpoints keep the project honest.** Projects are dynamic; change
+  is expected and welcome. Define checkpoints where progress is
+  assessed against the success criteria, and grant explicit permission
+  to modify or halt the project when criteria aren't being met. It is
+  better to change or abandon a project that isn't meeting its goals
+  than to slavishly follow plans to the end while the surrounding
+  context changes.
+- **Organize open issues by when they must be resolved.** Each open
+  issue is stated with its resolution dependency — the point in the
+  project by which it needs an answer. An intentionally open issue is
+  simply one with no required resolution dependency; record why it can
+  stay open indefinitely.
 - **The owner's voice.** The vision is drafted for the owner and marked
   up until it reads as theirs; it is not ratified until it does.
 
@@ -78,6 +86,13 @@ rejected. Include "do nothing" when it was a real option.
 An explicit list of objective, testable criteria. Success is when every
 item on this list can be checked off.
 
+## Checkpoints
+
+When progress is assessed against the success criteria, and the
+explicit permission to modify or halt the project if criteria aren't
+being met. Change is expected and welcome; this section exists so
+nobody follows the plan off a cliff.
+
 ## Non-goals
 
 What the software will not do. States the boundary of the project as
@@ -85,10 +100,8 @@ facts about the product.
 
 ## Open issues
 
-Questions that need answers and don't have them yet.
-
-## Deliberately open issues
-
-Questions the owner has chosen not to answer now, each with the reason
-it is being left open.
+Questions that don't have answers yet, organized by when each must be
+resolved (its resolution dependency). An issue with no required
+resolution dependency is intentionally open — say why it can stay that
+way.
 ```
