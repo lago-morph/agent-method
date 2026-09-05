@@ -1,0 +1,83 @@
+---
+id: note-test-method-definition
+type: note
+title: Test method — guide for how an implementation is verified
+links:
+  related-to:
+    - note-decision-guides.md
+    - note-acceptance-criteria-definition.md
+    - note-test-data-definition.md
+    - note-implementation-record-1.md
+---
+
+A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
+the questions to settle about how an implementation is checked before
+it is delivered and at the checkpoint. The first recorded answers are
+in implementation record 1 under "Test method"; the first concrete
+method is `implementations/1/verify.js`. Candidate for a real artifact
+type.
+
+## What the artifact would be
+
+A description of how the checks are run for an implementation: the
+environment they run in (engine, sizes, emulation), the harness, where
+the scripts live and how they are invoked, what they output, what
+counts as a pass, what is checked by a person rather than a script,
+and what evidence accompanies the delivery. It says *how* things are
+verified. *What* is verified is the acceptance criteria
+([note-acceptance-criteria-definition.md](note-acceptance-criteria-definition.md));
+the data used is the test data
+([note-test-data-definition.md](note-test-data-definition.md)).
+
+## Rules for scoping
+
+- The method is tied to the execution environment of the
+  implementation record: a single-page HTML file for Safari on an iPad
+  gets a browser-automation method; a command-line implementation
+  would get another. A method holds for every implementation with the
+  same environment until revised.
+- Scripts are implementation artifacts and live under
+  `implementations/<N>/`, per the implementation standards. Their
+  outputs (screenshots, logs) are not committed unless a decision says
+  otherwise.
+- Every automated check is named for the criterion it verifies, so
+  the criteria table can be filled from the script's output.
+- The gap between the test environment and the target environment is
+  stated, never hidden (implementation 1: Chromium standing in for
+  Safari).
+
+## Questions to walk through
+
+Defaults in brackets; implementation 1 took them all.
+
+1. Automated, manual, or both? [both: a script before delivery, the
+   real device at the checkpoint]
+2. What harness and engine? [Playwright with the engine available in
+   the working environment; add WebKit when it can be installed]
+3. Which sizes and emulation? [the target device's orientations, with
+   touch emulation]
+4. How is the implementation loaded? [exactly as the user would open
+   it — over `file://` for a single-file app]
+5. Where do scripts live and how are they run? [`implementations/<N>/`;
+   one command in the script's header comment]
+6. What is the output and the pass rule? [named boolean checks as
+   JSON, an overall PASS/FAIL, exit code; screenshots to a scratch
+   directory]
+7. What does a person check before delivery? [one look at the
+   screenshots per orientation]
+8. What evidence goes in the PR? [the list of checks and their
+   results, plus the known gaps]
+9. What is left to the checkpoint? [everything that needs the real
+   device: touch feel, the on-screen keyboard, appearance]
+
+## Guidance for the walkthrough
+
+- Propose the method together with the implementation record, before
+  building; the script is written alongside the implementation, not
+  after.
+- Report results faithfully: a failing check is reported as failing,
+  with its output. A check that cannot be automated is listed as
+  manual, not dropped.
+- The real-device check is Jonathan's. The method describes what he is
+  asked to look at, not what he found — findings go in the record at
+  the checkpoint.

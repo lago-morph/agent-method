@@ -6,6 +6,7 @@ links:
   related-to:
     - note-implementation-standards.md
     - note-implementation-record-1.md
+    - note-decision-guides.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. This note defines what
