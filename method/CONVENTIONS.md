@@ -62,6 +62,9 @@ be traversed from without tooling:
 | `related-to: B` | `related-to: A`     | non-directional, symmetric |
 
 Whoever edits a link maintains both ends in the same change; drift is
-caught in review. If drift actually occurs, a linter or generated index
+caught in review. Only front-matter links carry this obligation: a
+markdown link in the body is a reference, needs no reciprocal, and
+must simply resolve (clarified 2026-09-05 after implementation 3's run
+read the rule as stricter than practice). If drift actually occurs, a linter or generated index
 is the known escape hatch — tooling gets added only when real friction
 shows it is needed.

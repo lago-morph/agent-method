@@ -11,6 +11,8 @@ links:
     - note/quality-standards-definition.md
     - note/implementation-record-2.md
     - note/acceptance-criteria-2.md
+    - note/implementation-record-3.md
+    - note/acceptance-criteria-3.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
@@ -41,6 +43,11 @@ one-line definition of done for the implementation.
   rows; it is guidance, not behavior. What it describes (buttons,
   shortcuts, the on-screen keyboard) becomes items for the person to
   check at the checkpoint, listed in the test-method note.
+- A criterion that a later use case makes unreachable (implementation
+  3: "selecting a whitespace-only idea shows the whitespace", once
+  leading whitespace is stripped) is revised to its reachable part with
+  the reason stated, never marked passed on a check that could not run
+  and never silently dropped.
 - Criteria cover what the user can observe. The quality checks the
   user never sees — unit tests, type checking, static analysis,
   integration, UI, and end-to-end testing standards — are the subject

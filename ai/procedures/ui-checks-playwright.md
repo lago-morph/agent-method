@@ -86,6 +86,24 @@ written from the use case rather than from the checks note).
 9. **Rerun the delivered script before reviewing anything else** — a
    PASS reproduced independently is the baseline for the review.
 
+### Added by implementation 3
+
+10. **Mutation-test a passing suite before trusting it.** The fresh
+    agent, unprompted, made three deliberate faults in a scratch copy
+    of the implementation outside the repository (no coalescing of
+    typed runs; stripping trailing as well as leading whitespace;
+    keeping blank ideas that are not active), confirmed the run failed
+    naming 26 checks per orientation, and deleted the copy. Now a
+    question in the test-method guide.
+11. **Inspection criteria as pattern checks.** The three "by
+    inspection" rows (no clipboard code, no external references,
+    nothing persisted) became pattern matches over the source, reported
+    under a third `inspection` key. Weaker than a reading; recorded as
+    such in the test-method note.
+12. **What cannot be observed is checked by computed style and said
+    so:** message truncation (no message is wide enough) and message
+    list scrolling (three messages do not overflow).
+
 ## What was not done
 
 - No WebKit run: `/opt/pw-browsers` had no WebKit build and installing

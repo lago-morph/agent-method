@@ -14,6 +14,9 @@ links:
     - note/implementation-record-2.md
     - note/test-method-2.md
     - note/automated-checks-2.md
+    - note/implementation-record-3.md
+    - note/test-method-3.md
+    - note/automated-checks-3.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
@@ -104,6 +107,12 @@ Defaults in brackets; implementation 1 took them all.
     is each change recorded? [none change; any that must is a row in
     the automated-checks note's hooks table, with the old and new
     shape — added after implementation 2 changed two]
+11. Have the checks been shown to fail? [yes: before a passing run is
+    trusted, two or three deliberate faults the checks should catch
+    are made in a scratch copy outside the repository and the run is
+    confirmed to fail, naming the checks; recorded in the
+    automated-checks note — added after implementation 3 did this on
+    its own initiative]
 
 ## Guidance for the walkthrough
 
