@@ -198,8 +198,13 @@ guides and propose the open decisions in its record first.
   (prompt template, review checklist, metrics table with run 1). Opus
   until a run works from the procedure as written; then Sonnet. It
   stress-tests repeatability and context preservation through
-  progressive disclosure. Use it for implementation 3 (the revised use
-  cases in PR #18) when he says the use cases are done and to go.
+  progressive disclosure. The record is the subagent's input: draft
+  implementation record N's owner decisions (use cases, environment,
+  UI method, language, storage, build, UI-design line, logging) as an
+  artifact first, with Jonathan's markup; the prompt says only
+  "implement record N". Use it for implementation 3 (the revised use
+  cases in PR #18) when he says the use cases are done and to go: first
+  round is record 3's draft.
 
 Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
 markup on PRs #17 and #18 (#18 also carries the folder restructure and

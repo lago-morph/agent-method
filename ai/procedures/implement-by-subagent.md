@@ -16,11 +16,17 @@ is the stronger evidence for both.
 
 ## The procedure
 
-1. **Fix the intent in one sentence each**: the implementation number
-   N; the use cases the implementation covers (a spec version); the
-   execution environment. These are the owner's decisions and the only
-   answers the subagent is handed. Everything else it decides from the
-   artifacts.
+1. **Draft implementation record N first, as an artifact.** The record
+   definition already requires the owner's decisions — the use cases
+   included (a spec version), the target execution environment, the UI
+   method, the language, storage, build and installation, the UI-design
+   line, logging — so they are written into
+   `workbench/note/implementation-record-N.md` before the run, proposed
+   by the session and marked up by the owner like any artifact. The
+   record is the subagent's whole input; the prompt names it and nothing
+   else. The subagent completes the record's "Decisions made while
+   building" section and the per-area notes; it does not decide what
+   the record already decides.
 2. **Give document access in tiers**, not "read everything". The prompt
    names the tiers; the subagent reads tier 1 fully and the rest on
    demand, and lists in its report which documents it read and why.
@@ -48,8 +54,8 @@ is the stronger evidence for both.
 
 | Tier | Read | Contents |
 | --- | --- | --- |
-| 1 | first, fully | `method/CONVENTIONS.md`; `method/adr/*.md`; `workbench/README.md`; `workbench/note/implementation-standards.md`; `workbench/note/implementation-record-definition.md`; `workbench/note/decision-guides.md` |
-| 2 | next, fully | the use cases the record covers (`workbench/use-case/…`); `workbench/vision/vision.md` for context |
+| 1 | first, fully | `workbench/note/implementation-record-N.md` (the input); `method/CONVENTIONS.md`; `method/adr/*.md`; `workbench/README.md`; `workbench/note/implementation-standards.md`; `workbench/note/implementation-record-definition.md`; `workbench/note/decision-guides.md` |
+| 2 | next, fully | the use cases the record includes (its `depends-on` links); `workbench/vision/vision.md` for context |
 | 3 | when deciding that area | the guides: `workbench/note/ui-standards-definition.md`, `test-method-definition.md`, `acceptance-criteria-definition.md`, `test-data-definition.md`, `quality-standards-definition.md` |
 | 4 | when repeating a decision, or needing hooks and data | the previous implementation: its record, per-area notes, automated-checks note, and `workbench/implementations/<N-1>/` |
 | 5 | when doing that step | `ai/procedures/ui-checks-playwright.md`, `ai/procedures/artifact-link-check.md`; the other procedures only if the step arises |
@@ -74,12 +80,14 @@ scope beyond the use cases named below.
 Read in tiers, and read further only as you need to. List in your report
 every document you read, in order, with one phrase on why.
 
-- Tier 1, read first and fully: method/CONVENTIONS.md; method/adr/*.md;
+- Tier 1, read first and fully: workbench/note/implementation-record-<N>.md
+  (your input: it names the use cases included and every decision the
+  owner has already made); method/CONVENTIONS.md; method/adr/*.md;
   workbench/README.md; workbench/note/implementation-standards.md;
   workbench/note/implementation-record-definition.md;
   workbench/note/decision-guides.md.
-- Tier 2, then fully: <the use cases, as paths>; workbench/vision/vision.md
-  for context.
+- Tier 2, then fully: the use cases the record includes (its depends-on
+  links); workbench/vision/vision.md for context.
 - Tier 3, when you reach that decision area: the guides
   workbench/note/ui-standards-definition.md, test-method-definition.md,
   acceptance-criteria-definition.md, test-data-definition.md,
@@ -99,16 +107,19 @@ ai/retrospective/, other ai/*.md, not archive/ or archive-2/, not
 
 ## The task
 
-Jonathan (the owner; he decides intent) directs: implementation <N>
-implements the version of the spec consisting of <the use cases>, in
-<the execution environment>. Everything else is for you to decide per
-the artifacts.
+Implement workbench/note/implementation-record-<N>.md. The record states
+the owner's decisions: which use cases the implementation covers and the
+execution environment, UI method, language, storage, build, and logging.
+Do not change those. Everything the record and the use cases leave open
+is for you to decide per the artifacts.
 
 Produce, following the implementation standards, the record definition,
 the decision guides, and the guides:
 
-1. workbench/note/implementation-record-<N>.md — in the shape the record
-   definition requires (short bullets; details in linked notes).
+1. In workbench/note/implementation-record-<N>.md, the "Decisions made
+   while building" and "Artifacts" sections, in the shape the record
+   definition requires (one short bullet per area; details in linked
+   notes), plus the links to the notes you create.
 2. Per-area decision notes workbench/note/<area>-<N>.md, following the
    pattern of the -<N-1> notes: at least ui-decisions, implementation-
    structure, test-method, acceptance-criteria, test-data,
@@ -140,7 +151,8 @@ the decision guides, and the guides:
 - Work only inside /home/user/agent-method/workbench/ plus the report
   file. Do not modify anything under method/, ai/, or
   implementations/<N-1>/ and earlier. Do not modify existing artifacts
-  except to add the reciprocal links the conventions require.
+  except to add the reciprocal links the conventions require and to
+  complete the record named above.
 - No git command that changes state: no commit, push, checkout, stash.
 - Screenshots and other check outputs go outside the repository.
 - Write every document so it is correct as it stands; no "awaiting
@@ -189,11 +201,14 @@ also opened its own outputs and screenshots.
 ## Run 1 (implementation 2, 2026-09-05) — the retrospective record
 
 - **Scoping** was by directory, not by prompt content, with the
-  forbidden set named explicitly; the owner's intent was two sentences
-  (use cases; environment); outputs named by the artifacts' conventions;
-  state changes forbidden. The prompt did not yet tier the documents;
-  the agent tiered them itself (see the metrics row), which is what
-  prompted the tiers above.
+  forbidden set named explicitly; outputs named by the artifacts'
+  conventions; state changes forbidden. Two things differed from the
+  procedure above and were corrected by it: the owner's intent was
+  handed as two prompt sentences (use cases; environment) and the agent
+  wrote record 2 itself, whereas the record definition already holds
+  those decisions, so the record is now drafted first and is the
+  input; and the prompt did not tier the documents — the agent tiered
+  them itself (see the metrics row), which is what prompted the tiers.
 - **Result:** a working implementation and 46 checks per orientation,
   all passing; every artifact the conventions require; clean links. 15
   ambiguities and 12 suggested changes, each traceable to a sentence —
