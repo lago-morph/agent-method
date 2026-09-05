@@ -206,9 +206,20 @@ guides and propose the open decisions in its record first.
   cases in PR #18) when he says the use cases are done and to go: first
   round is record 3's draft.
 
-Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
-markup on PRs #17 and #18 (#18 also carries the folder restructure and
-this procedure); work that markup until he says it is done. Nothing after that is started until he
+- PRs #17 and #18 merged by Jonathan 2026-09-05; he then said "let's
+  do it" for implementation 3. Per the procedure, round one is
+  workbench/note/implementation-record-3.md — the owner decisions only
+  (use cases as revised in PR #18; environment, UI method, language,
+  storage, build, UI-design line, logging unchanged from 2) — delivered
+  as a PR for his markup. The Opus run of
+  ai/procedures/implement-by-subagent.md starts only on his word after
+  that; it adds the build-time sections and per-area notes.
+
+Next step: Jonathan's markup on record 3; when he says it is done and
+to go, run the subagent procedure (Opus) for implementation 3, review
+per its checklist, record the run's metrics row, deliver. If that run
+works from the procedure as written, the following implementation
+tries Sonnet. Nothing after that is started until he
 names it. The build order's next use case is Save ideas, which needs the
 persistent-storage guide foreseen in note/decision-guides.md; the
 test-data guide's open questions are to be raised in that round.
