@@ -7,6 +7,8 @@ links:
     - vision.md
   depends-on:
     - use-case-initial-ui.md
+  depended-on-by:
+    - note-implementation-record-2.md
 ---
 
 Derived from [input/02-edit-ideas.md](input/02-edit-ideas.md) ("Edit

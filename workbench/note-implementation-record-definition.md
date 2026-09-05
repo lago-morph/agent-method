@@ -7,6 +7,7 @@ links:
     - note-implementation-standards.md
     - note-implementation-record-1.md
     - note-decision-guides.md
+    - note-implementation-record-2.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. This note defines what
@@ -30,7 +31,8 @@ anyway:
 - **UI method** — e.g., web app, mobile, TUI, CLI.
 - **Persistent storage** — e.g., browser data, remote database, local
   file, memory only, git repo.
-- **UI design** — what the screen actually looks like.
+- **UI design** — what the screen actually looks like, as one line;
+  the values live in the implementation's UI decisions note.
 - **Implementation language.**
 - **Use cases and components to include** — which ratified use cases
   and components this implementation covers.

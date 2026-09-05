@@ -11,6 +11,9 @@ links:
     - note-test-method-1.md
     - note-automated-checks-1.md
     - note-quality-standards-definition.md
+    - note-implementation-record-2.md
+    - note-test-method-2.md
+    - note-automated-checks-2.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
@@ -97,6 +100,10 @@ Defaults in brackets; implementation 1 took them all.
    results, plus the known gaps]
 9. What is left to the checkpoint? [everything that needs the real
    device: touch feel, the on-screen keyboard, appearance]
+10. Which test hooks change from the previous implementation, and where
+    is each change recorded? [none change; any that must is a row in
+    the automated-checks note's hooks table, with the old and new
+    shape — added after implementation 2 changed two]
 
 ## Guidance for the walkthrough
 
