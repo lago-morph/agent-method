@@ -7,6 +7,8 @@ links:
     - note-decision-guides.md
     - note-implementation-record-1.md
     - note-ui-decisions-1.md
+    - note-implementation-record-2.md
+    - note-ui-decisions-2.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
@@ -65,6 +67,14 @@ With the default in brackets — the answer to assume when Jonathan says
 10. Anything the platform needs (safe areas, viewport height, tap
     highlight)? [respect safe areas; dynamic viewport height; no tap
     highlight]
+11. How does a command that currently cannot do anything appear —
+    disabled and dimmed, or enabled and inert? [enabled and inert when
+    the use case says the command "does nothing"; added after
+    implementation 2 found no question for it]
+12. Does invoking a command from a control move the insertion point
+    back into the edit area (and so raise an on-screen keyboard)?
+    [only when the use case says the command puts the insertion point
+    there; added after implementation 2's review]
 
 ## Guidance for the walkthrough
 

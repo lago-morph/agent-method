@@ -8,6 +8,7 @@ links:
   depended-on-by:
     - note-implementation-record-1.md
     - use-case-edit-ideas.md
+    - note-implementation-record-2.md
 ---
 
 Derived from [input/01-display-ideas.md](input/01-display-ideas.md)

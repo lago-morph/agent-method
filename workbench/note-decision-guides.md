@@ -13,6 +13,8 @@ links:
     - note-acceptance-criteria-definition.md
     - note-test-data-definition.md
     - note-quality-standards-definition.md
+    - note-implementation-record-2.md
+    - note-implementation-structure-2.md
 ---
 
 Captured 2026-09-05 from Jonathan's direction after implementation 1.
@@ -69,6 +71,12 @@ structure and had real alternatives becomes a workbench **ADR** in
   the implementation record draft as one artifact. Pause for markup.
 - **Only his word closes a decision.** A default he did not mark is
   accepted only when he says the record is done; a merge is not that.
+- **With no owner present** (a regeneration run, a session Jonathan is
+  not in): state every decision as a decision, mark the ones that took
+  a guide default as defaults, and flag the ones the guides had no
+  question for, so the markup surface is visible without any
+  "awaiting review" marker in the artifact. The PR is where he marks
+  them up; nothing in an artifact claims his approval.
 - **While building:** any decision not foreseen is added to the record
   as it is made, flagged as made while building, and shown to him at
   delivery. The guide gets the question that was missing.

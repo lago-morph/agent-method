@@ -24,6 +24,7 @@ not done**, **Pitfalls observed**, and **Notes for formalizing**.
 | `artifact-link-check.md` | verifying two-way link reciprocity across `workbench/` front matter | static analysis (of artifacts) |
 | `use-case-neutrality-check.md` | checking a functional use case against ADR 0006 | static analysis (of artifacts) |
 | `deliver-to-ipad.md` | getting a single HTML file onto an iPad for the checkpoint | delivery (not a quality kind; captured because it was done) |
+| `regeneration-run.md` | a fresh agent builds an implementation from the artifacts alone; how it was scoped, run, and reviewed | the ADR 0007 test; end-to-end review |
 
-Not done for implementation 1, so no procedure exists yet: unit tests,
-type checking, code linting or formatting, integration tests.
+Not done for implementations 1 or 2, so no procedure exists yet: unit
+tests, type checking, code linting or formatting, integration tests.
