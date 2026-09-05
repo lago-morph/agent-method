@@ -1,20 +1,20 @@
 ---
-id: note-decision-guides
+id: decision-guides
 type: note
 title: Decision guides — capturing implementation decisions so implementation is repeatable
 links:
   related-to:
-    - note-implementation-record-definition.md
-    - note-implementation-standards.md
-    - note-implementation-record-1.md
-    - note-implementation-structure-1.md
-    - note-ui-standards-definition.md
-    - note-test-method-definition.md
-    - note-acceptance-criteria-definition.md
-    - note-test-data-definition.md
-    - note-quality-standards-definition.md
-    - note-implementation-record-2.md
-    - note-implementation-structure-2.md
+    - note/implementation-record-definition.md
+    - note/implementation-standards.md
+    - note/implementation-record-1.md
+    - note/implementation-structure-1.md
+    - note/ui-standards-definition.md
+    - note/test-method-definition.md
+    - note/acceptance-criteria-definition.md
+    - note/test-data-definition.md
+    - note/quality-standards-definition.md
+    - note/implementation-record-2.md
+    - note/implementation-structure-2.md
 ---
 
 Captured 2026-09-05 from Jonathan's direction after implementation 1.
@@ -36,14 +36,14 @@ definition and its instances:
   asks and lists; it never decides. It is stable across
   implementations and grows a question each time one was missed.
 - **Decisions** — the answers for one implementation, recorded in a
-  note per area for that implementation (`note-<area>-<N>`), with the
+  note per area for that implementation (`note/<area>-<N>.md`), with the
   guide linked. This is the instance. The implementation record stays
   a short list of bullet points: one line per area, stating the
   choice and linking to the note that holds the detail.
 
 A decision becomes a **standard** when it should hold for every
 implementation until deliberately revised; it then moves into
-[note-implementation-standards.md](note-implementation-standards.md)
+[note/implementation-standards.md](implementation-standards.md)
 (or a per-area standards artifact once one exists) and later records
 simply say "per the standard". A decision that shapes the software's
 structure and had real alternatives becomes a workbench **ADR** in
@@ -89,12 +89,12 @@ structure and had real alternatives becomes a workbench **ADR** in
 
 Guides that exist:
 
-- UI standards — [note-ui-standards-definition.md](note-ui-standards-definition.md)
-- Test method — [note-test-method-definition.md](note-test-method-definition.md)
-- Acceptance criteria — [note-acceptance-criteria-definition.md](note-acceptance-criteria-definition.md)
-- Test data — [note-test-data-definition.md](note-test-data-definition.md)
+- UI standards — [note/ui-standards-definition.md](ui-standards-definition.md)
+- Test method — [note/test-method-definition.md](test-method-definition.md)
+- Acceptance criteria — [note/acceptance-criteria-definition.md](acceptance-criteria-definition.md)
+- Test data — [note/test-data-definition.md](test-data-definition.md)
 - Quality standards (what, not how; execution methods belong to the
-  method proper, later) — [note-quality-standards-definition.md](note-quality-standards-definition.md)
+  method proper, later) — [note/quality-standards-definition.md](quality-standards-definition.md)
 
 Guides to write when the first implementation that needs them is being
 planned (not before):

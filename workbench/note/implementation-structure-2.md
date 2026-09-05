@@ -1,25 +1,25 @@
 ---
-id: note-implementation-structure-2
+id: implementation-structure-2
 type: note
 title: Implementation 2 — implementation structure
 links:
   related-to:
-    - note-implementation-record-2.md
-    - note-decision-guides.md
+    - note/implementation-record-2.md
+    - note/decision-guides.md
 ---
 
 Decisions of implementation 2, made while building it. The
 implementation record
-([note-implementation-record-2.md](note-implementation-record-2.md))
+([note/implementation-record-2.md](implementation-record-2.md))
 keeps one line per area and links here; this note holds the detail. No
 guide exists yet for this area (code conventions and data model are
-foreseen in [note-decision-guides.md](note-decision-guides.md)); this
+foreseen in [note/decision-guides.md](decision-guides.md)); this
 note is the second instance from which one will be derived.
 
 ## Repeated unchanged from implementation 1
 
 Each of these is implementation 1's decision, taken again for the same
-reason ([note-implementation-structure-1.md](note-implementation-structure-1.md)):
+reason ([note/implementation-structure-1.md](implementation-structure-1.md)):
 
 - **Model:** an idea is `{ id, content }`. The title is derived from the
   content on every render; it is not stored.
@@ -41,7 +41,7 @@ reason ([note-implementation-structure-1.md](note-implementation-structure-1.md)
   keyboard navigation of the list).
 
 Both implementations having taken them, these are the candidates for
-workbench ADRs that [note-decision-guides.md](note-decision-guides.md)
+workbench ADRs that [note/decision-guides.md](decision-guides.md)
 foresees, once Jonathan agrees they should bind later implementations.
 No ADR is written here: an ADR records a decision that has been taken,
 and this one is his to take.
@@ -118,5 +118,5 @@ and this one is his to take.
   is the route used, because a raw GitHub download gains a `.txt`
   extension on iPadOS. A durable route — a hosted page, a release asset,
   GitHub Pages — is still undecided, and is the subject of the delivery
-  guide that [note-decision-guides.md](note-decision-guides.md)
+  guide that [note/decision-guides.md](decision-guides.md)
   foresees.

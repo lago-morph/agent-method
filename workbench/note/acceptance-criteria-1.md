@@ -1,15 +1,15 @@
 ---
-id: note-acceptance-criteria-1
+id: acceptance-criteria-1
 type: note
 title: Implementation 1 — acceptance criteria
 links:
   related-to:
-    - note-implementation-record-1.md
-    - note-acceptance-criteria-definition.md
-    - note-automated-checks-1.md
+    - note/implementation-record-1.md
+    - note/acceptance-criteria-definition.md
+    - note/automated-checks-1.md
 ---
 
-Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note-implementation-record-1.md](note-implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note-acceptance-criteria-definition.md](note-acceptance-criteria-definition.md). The Chromium column is filled from the checks in [note-automated-checks-1.md](note-automated-checks-1.md).
+Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note/implementation-record-1.md](implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note/acceptance-criteria-definition.md](acceptance-criteria-definition.md). The Chromium column is filled from the checks in [note/automated-checks-1.md](automated-checks-1.md).
 
 Each row traces to a sentence in the use case or a decision in this
 record. "Chromium" is the automated result; "iPad" is Jonathan's

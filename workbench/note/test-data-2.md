@@ -1,24 +1,24 @@
 ---
-id: note-test-data-2
+id: test-data-2
 type: note
 title: Implementation 2 — test data
 links:
   related-to:
-    - note-implementation-record-2.md
-    - note-test-data-definition.md
+    - note/implementation-record-2.md
+    - note/test-data-definition.md
 ---
 
 Decisions of implementation 2, made while building it. The
 implementation record
-([note-implementation-record-2.md](note-implementation-record-2.md))
+([note/implementation-record-2.md](implementation-record-2.md))
 keeps one line per area and links here; this note holds the detail.
-Guide: [note-test-data-definition.md](note-test-data-definition.md).
+Guide: [note/test-data-definition.md](test-data-definition.md).
 
 ## The set
 
 The set is the one the Initial UI use case designed, reused unchanged:
 19 ideas per load, each present for a named reason, described item by
-item in [note-test-data-1.md](note-test-data-1.md). The Edit ideas use
+item in [note/test-data-1.md](test-data-1.md). The Edit ideas use
 case states that no new test data is needed because the existing set
 already exercises its corner cases, so nothing was added, nothing was
 changed, and every title is byte-identical to implementation 1's — which
@@ -31,7 +31,7 @@ implementations. The set is embedded in
 
 1. **What is in the set, and which corner case does each item cover?**
    As designed in the Initial UI use case and itemized in
-   [note-test-data-1.md](note-test-data-1.md). *Repeated unchanged.*
+   [note/test-data-1.md](test-data-1.md). *Repeated unchanged.*
 2. **How are items identified?** By their title, kept stable. *Repeated
    unchanged.*
 3. **Where does the set live for this implementation?** Embedded in the

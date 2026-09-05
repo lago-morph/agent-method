@@ -1,14 +1,14 @@
 ---
-id: note-test-data-1
+id: test-data-1
 type: note
 title: Implementation 1 — test data
 links:
   related-to:
-    - note-implementation-record-1.md
-    - note-test-data-definition.md
+    - note/implementation-record-1.md
+    - note/test-data-definition.md
 ---
 
-Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note-implementation-record-1.md](note-implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note-test-data-definition.md](note-test-data-definition.md). The set is embedded in `implementations/1/idea-workbench.html`.
+Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note/implementation-record-1.md](implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note/test-data-definition.md](test-data-definition.md). The set is embedded in `implementations/1/idea-workbench.html`.
 
 The set embedded in the file, 19 ideas per load, each present for a
 named reason:

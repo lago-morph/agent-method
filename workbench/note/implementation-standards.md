@@ -1,14 +1,14 @@
 ---
-id: note-implementation-standards
+id: implementation-standards
 type: note
 title: Implementation standards
 links:
   related-to:
-    - vision.md
-    - note-implementation-record-definition.md
-    - note-implementation-record-1.md
-    - note-decision-guides.md
-    - note-implementation-record-2.md
+    - vision/vision.md
+    - note/implementation-record-definition.md
+    - note/implementation-record-1.md
+    - note/decision-guides.md
+    - note/implementation-record-2.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. The standards that apply

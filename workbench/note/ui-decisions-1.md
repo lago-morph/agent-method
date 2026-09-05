@@ -1,14 +1,14 @@
 ---
-id: note-ui-decisions-1
+id: ui-decisions-1
 type: note
 title: Implementation 1 — UI decisions
 links:
   related-to:
-    - note-implementation-record-1.md
-    - note-ui-standards-definition.md
+    - note/implementation-record-1.md
+    - note/ui-standards-definition.md
 ---
 
-Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note-implementation-record-1.md](note-implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note-ui-standards-definition.md](note-ui-standards-definition.md). Values, not adjectives; every one of them took the guide's default.
+Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note/implementation-record-1.md](implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note/ui-standards-definition.md](ui-standards-definition.md). Values, not adjectives; every one of them took the guide's default.
 
 - **Platform conventions:** follow the host platform (iPadOS Safari).
   System font stack (`-apple-system, system-ui, …`), 17 px base size,
