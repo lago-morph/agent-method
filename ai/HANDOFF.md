@@ -107,12 +107,17 @@ the last item is ratified):
   checks (unit test standards, type checking, static analysis,
   integration, UI, end-to-end) are specified as what we want, not how.
 
-Deferred by Jonathan's explicit direction (2026-09-05): the execution
-methods for quality checks — AI skills, reference procedures, linters,
-CI pipelines — are part of the method proper and are to be built only
-after the first rounds of implementing the workbench are done, when
-the artifact schemas and other support materials are developed. Do
-not start them before he says so.
+Execution methods for the quality guides (Jonathan's direction,
+2026-09-05): the formal versions — AI skills, reference procedures,
+linters, CI pipelines in the method proper — are built only after the
+first rounds of implementing the workbench, when the artifact schemas
+and other support materials are developed. Until then, the AI partner
+records what it actually did, retrospectively and never as a forward
+design step, as non-normative working documents in ai/procedures/
+(started after implementation 1: Playwright UI checks, the link
+reciprocity check, the use-case neutrality check, delivery to the
+iPad). Revise those files whenever the same work is done again for a
+later implementation; add one when something new is done.
 
 - Per Jonathan's markup on record 1 (PR #16): an implementation record
   is a short list of bullets linking to structured documents with the
