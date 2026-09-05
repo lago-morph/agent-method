@@ -14,6 +14,7 @@ links:
     - note/test-data-definition.md
     - note/quality-standards-definition.md
     - note/implementation-record-2.md
+    - note/implementation-record-3.md
     - note/implementation-structure-2.md
 ---
 

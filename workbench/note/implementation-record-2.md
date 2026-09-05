@@ -21,6 +21,7 @@ links:
     - note/acceptance-criteria-2.md
     - note/test-data-2.md
     - note/automated-checks-2.md
+    - note/implementation-record-3.md
 ---
 
 Implementation 2 implements a version of the spec consisting of the
