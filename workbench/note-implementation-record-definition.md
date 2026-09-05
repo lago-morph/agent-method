@@ -6,6 +6,7 @@ links:
   related-to:
     - note-implementation-standards.md
     - note-implementation-record-1.md
+    - note-decision-guides.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. This note defines what
@@ -38,6 +39,15 @@ anyway:
 - **Logging requirements.**
 
 The list is open; this is what we know we need today.
+
+## Shape
+
+An implementation record is a short list of bullet points: one per
+decision, stating the choice and linking to the structured document
+that holds the detail. Detail never accumulates in the record itself
+(Jonathan, 2026-09-05, PR #16). Decisions made while building get the
+same treatment: one line each in the record, the detail in a note per
+area, per [note-decision-guides.md](note-decision-guides.md).
 
 Numbering of records and where implementation artifacts are stored are
 decided once for all implementations, in

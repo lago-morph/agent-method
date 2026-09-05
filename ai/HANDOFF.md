@@ -40,8 +40,8 @@ Rules of engagement (details in ai/lessons/):
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-Current state (2026-09-05; everything below except the last item is
-ratified and on main):
+Current state (2026-09-05; everything below is on main, and all but
+the last item is ratified):
 
 - method/CONVENTIONS.md — artifact file convention (front matter,
   typed two-way links with hand-maintained reciprocals).
@@ -61,18 +61,86 @@ ratified and on main):
   memory only, no logging) opened directly in Safari on an iPad,
   implementing the Initial UI use case.
 - workbench/implementations/1/idea-workbench.html — implementation 1
-  itself, built per its record and delivered 2026-09-05 as PR #15
-  (branch claude/handoff-instructions-hn00ac) for Jonathan to review
-  and merge. Verified in headless Chromium at iPad viewports; not yet
-  tried on a real iPad.
+  itself, built per its record; merged by Jonathan 2026-09-05 (PR #15).
+  Verified in headless Chromium at iPad viewports; Jonathan's iPad
+  checkpoint has not yet produced markup.
+- workbench/use-case-edit-ideas.md — the Edit ideas use case, drafted
+  fresh 2026-09-05 and open for Jonathan's markup as PR #16 (branch
+  claude/handoff-instructions-hn00ac). The PR body lists the six
+  decisions the source notes did not make. Not ratified until he says
+  so; a merge alone is not ratification.
+- Also in PR #16, at Jonathan's direction the same day: implementation
+  record 1 enhanced with the decisions made while building it (UI,
+  structure, test method, acceptance-criteria table, test data,
+  delivery, known gaps); implementations/1/verify.js as an
+  implementation artifact; and five notes defining future artifacts —
+  note-decision-guides.md (the guide / decisions / standard pattern,
+  scoping rules, walkthrough guidance, foreseen areas such as
+  persistent storage) plus guides for UI standards, test method,
+  acceptance criteria, and test data. Open for markup like the rest.
+- method/adr/0006-use-cases-are-platform-neutral.md — adopted from
+  Jonathan's markup on the Edit ideas use case (PR #16) and his
+  clarification: the UI use cases (one or more per kind of interface,
+  logically one; Initial UI today) are the single home of the UI design
+  and name the functional areas; every other use case is
+  UI-neutral (elements by function not position, silent about other
+  use cases and persistence, platform-neutral wording, the TUI/native
+  test), with interface-specific detail allowed only in an Interface
+  guidance section holding one subsection per interface currently
+  specified (no placeholders). Adding a kind of UI means writing its UI
+  use case, then sweeping the other use cases' Interface guidance
+  sections. To be carried into the use-case type guidance when it is
+  written, distinguishing the two kinds of use case.
 
-Next step: Jonathan's checkpoint — he uses implementation 1 on his
-iPad (a checkpoint per the vision) and marks up PR #15 or the
-implementation record with what he finds; visual details were
-deliberately left to be settled there. Only after he says so does the
-expected following round start: drafting the Edit ideas use case —
-fresh; an earlier draft was rolled back unreviewed and must not be
-treated as ratified material.
+- workbench/note-automated-checks-1.md and
+  method/adr/0007-artifacts-must-suffice-for-regeneration.md — from
+  Jonathan's markup on verify.js: the checks are specified in a note
+  the script is derived from (environment, hooks contract, sequence
+  with expected values, output contract, decisions with reasons,
+  regeneration steps), and the method rule is that workbench/ plus
+  method/ handed to an agent with no other context must yield a
+  similar result including all QA checks. The test-method guide now
+  says what such a note must contain.
+
+- workbench/note-quality-standards-definition.md — from Jonathan's
+  markup on the acceptance-criteria guide: the non-user-visible quality
+  checks (unit test standards, type checking, static analysis,
+  integration, UI, end-to-end) are specified as what we want, not how.
+
+Execution methods for the quality guides (Jonathan's direction,
+2026-09-05): the formal versions — AI skills, reference procedures,
+linters, CI pipelines in the method proper — are built only after the
+first rounds of implementing the workbench, when the artifact schemas
+and other support materials are developed. Until then, the AI partner
+records what it actually did, retrospectively and never as a forward
+design step, as non-normative working documents in ai/procedures/
+(started after implementation 1: Playwright UI checks, the link
+reciprocity check, the use-case neutrality check, delivery to the
+iPad). Revise those files whenever the same work is done again for a
+later implementation; add one when something new is done.
+
+- Per Jonathan's markup on record 1 (PR #16): an implementation record
+  is a short list of bullets linking to structured documents with the
+  detail. Record 1 now keeps one line per area; the detail lives in
+  note-ui-decisions-1, note-implementation-structure-1,
+  note-test-method-1, note-acceptance-criteria-1, note-test-data-1
+  (and note-automated-checks-1). He expects these to become artifact
+  types later. The record definition carries the shape rule.
+
+Standing direction from Jonathan (2026-09-05): capture every decision
+an implementation makes that the spec did not, so implementation is
+repeatable and deterministic; future implementations with more choices
+(persistent storage, UI) need structured artifacts that guide the
+decision and durably record it. note-decision-guides.md is the current
+home of that pattern; before planning implementation 2, read the
+guides and propose the open decisions in its record first.
+
+Next step: work Jonathan's markup on PR #16 until he says it is done.
+Nothing after that is started until he names it; the expected
+following round, per the build order and the implementation standards,
+is an implementation record for the next implementation (record 2,
+covering Initial UI plus Edit ideas, with its decisions proposed per
+the guides), then building it.
 
 The larger arc continues per ai/PLAN.md's high-level sequence: grow
 outward from the vision one artifact at a time (use cases in their

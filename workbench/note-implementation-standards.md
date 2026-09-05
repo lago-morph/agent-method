@@ -7,6 +7,7 @@ links:
     - vision.md
     - note-implementation-record-definition.md
     - note-implementation-record-1.md
+    - note-decision-guides.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. The standards that apply
