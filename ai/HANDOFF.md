@@ -40,8 +40,8 @@ Rules of engagement (details in ai/lessons/):
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-Current state (2026-09-05; everything below except the last item is
-ratified and on main):
+Current state (2026-09-05; everything below is on main, and all but
+the last item is ratified):
 
 - method/CONVENTIONS.md — artifact file convention (front matter,
   typed two-way links with hand-maintained reciprocals).
@@ -61,18 +61,20 @@ ratified and on main):
   memory only, no logging) opened directly in Safari on an iPad,
   implementing the Initial UI use case.
 - workbench/implementations/1/idea-workbench.html — implementation 1
-  itself, built per its record and delivered 2026-09-05 as PR #15
-  (branch claude/handoff-instructions-hn00ac) for Jonathan to review
-  and merge. Verified in headless Chromium at iPad viewports; not yet
-  tried on a real iPad.
+  itself, built per its record; merged by Jonathan 2026-09-05 (PR #15).
+  Verified in headless Chromium at iPad viewports; Jonathan's iPad
+  checkpoint has not yet produced markup.
+- workbench/use-case-edit-ideas.md — the Edit ideas use case, drafted
+  fresh 2026-09-05 and open for Jonathan's markup as PR #16 (branch
+  claude/handoff-instructions-hn00ac). The PR body lists the six
+  decisions the source notes did not make. Not ratified until he says
+  so; a merge alone is not ratification.
 
-Next step: Jonathan's checkpoint — he uses implementation 1 on his
-iPad (a checkpoint per the vision) and marks up PR #15 or the
-implementation record with what he finds; visual details were
-deliberately left to be settled there. Only after he says so does the
-expected following round start: drafting the Edit ideas use case —
-fresh; an earlier draft was rolled back unreviewed and must not be
-treated as ratified material.
+Next step: work Jonathan's markup on the Edit ideas use case until he
+says it is done. Nothing after that is started until he names it; the
+expected following round, per the build order and the implementation
+standards, is an implementation record for the next implementation
+(record 2, covering Initial UI plus Edit ideas), then building it.
 
 The larger arc continues per ai/PLAN.md's high-level sequence: grow
 outward from the vision one artifact at a time (use cases in their
