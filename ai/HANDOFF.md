@@ -92,6 +92,16 @@ the last item is ratified):
   sections. To be carried into the use-case type guidance when it is
   written, distinguishing the two kinds of use case.
 
+- workbench/note-automated-checks-1.md and
+  method/adr/0007-artifacts-must-suffice-for-regeneration.md — from
+  Jonathan's markup on verify.js: the checks are specified in a note
+  the script is derived from (environment, hooks contract, sequence
+  with expected values, output contract, decisions with reasons,
+  regeneration steps), and the method rule is that workbench/ plus
+  method/ handed to an agent with no other context must yield a
+  similar result including all QA checks. The test-method guide now
+  says what such a note must contain.
+
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
 repeatable and deterministic; future implementations with more choices

@@ -13,6 +13,7 @@ links:
     - note-test-method-definition.md
     - note-acceptance-criteria-definition.md
     - note-test-data-definition.md
+    - note-automated-checks-1.md
 ---
 
 Implementation 1 implements a version of the spec consisting of the
@@ -111,7 +112,15 @@ Guide: [note-test-method-definition.md](note-test-method-definition.md).
   at iPad landscape (1024 × 768) and portrait (768 × 1024) with touch
   emulation. Each check is named for the use-case sentence it verifies
   and prints as JSON; the run ends PASS or FAIL. Screenshots are
-  written outside the repository.
+  written outside the repository. The full specification of the checks
+  — hooks, sequence, expected values, output contract, and the
+  decisions behind them — is
+  [note-automated-checks-1.md](note-automated-checks-1.md); the script
+  is derived from it.
+- **Test hooks:** the implementation exposes stable element ids and
+  classes for the checks to locate panes, rows, selection, placeholder
+  rows, the text element, and the load control; the checks never
+  locate anything by screen position.
 - **Visual review:** one look at the screenshots per orientation for
   layout sanity before delivery.
 - **Real-device check:** Jonathan, on the iPad, at the checkpoint.
@@ -201,5 +210,7 @@ implementation.
 Everything implementation 1 produces lives in `implementations/1/`:
 
 - `idea-workbench.html` — the implementation.
-- `verify.js` — the automated checks; how to run it is in its header
-  comment. Its screenshots are not kept in the repository.
+- `verify.js` — the automated checks, derived from
+  [note-automated-checks-1.md](note-automated-checks-1.md); how to run
+  it is in its header comment. Its screenshots are not kept in the
+  repository.
