@@ -69,12 +69,30 @@ the last item is ratified):
   claude/handoff-instructions-hn00ac). The PR body lists the six
   decisions the source notes did not make. Not ratified until he says
   so; a merge alone is not ratification.
+- Also in PR #16, at Jonathan's direction the same day: implementation
+  record 1 enhanced with the decisions made while building it (UI,
+  structure, test method, acceptance-criteria table, test data,
+  delivery, known gaps); implementations/1/verify.js as an
+  implementation artifact; and five notes defining future artifacts —
+  note-decision-guides.md (the guide / decisions / standard pattern,
+  scoping rules, walkthrough guidance, foreseen areas such as
+  persistent storage) plus guides for UI standards, test method,
+  acceptance criteria, and test data. Open for markup like the rest.
 
-Next step: work Jonathan's markup on the Edit ideas use case until he
-says it is done. Nothing after that is started until he names it; the
-expected following round, per the build order and the implementation
-standards, is an implementation record for the next implementation
-(record 2, covering Initial UI plus Edit ideas), then building it.
+Standing direction from Jonathan (2026-09-05): capture every decision
+an implementation makes that the spec did not, so implementation is
+repeatable and deterministic; future implementations with more choices
+(persistent storage, UI) need structured artifacts that guide the
+decision and durably record it. note-decision-guides.md is the current
+home of that pattern; before planning implementation 2, read the
+guides and propose the open decisions in its record first.
+
+Next step: work Jonathan's markup on PR #16 until he says it is done.
+Nothing after that is started until he names it; the expected
+following round, per the build order and the implementation standards,
+is an implementation record for the next implementation (record 2,
+covering Initial UI plus Edit ideas, with its decisions proposed per
+the guides), then building it.
 
 The larger arc continues per ai/PLAN.md's high-level sequence: grow
 outward from the vision one artifact at a time (use cases in their
