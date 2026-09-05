@@ -5,6 +5,8 @@ title: Automated checks for implementation 1
 links:
   related-to:
     - note-implementation-record-1.md
+    - note-test-method-1.md
+    - note-acceptance-criteria-1.md
     - note-test-method-definition.md
 ---
 

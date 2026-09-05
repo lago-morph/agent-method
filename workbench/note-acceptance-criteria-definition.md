@@ -7,13 +7,14 @@ links:
     - note-decision-guides.md
     - note-test-method-definition.md
     - note-implementation-record-1.md
+    - note-acceptance-criteria-1.md
     - note-quality-standards-definition.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
 what must be true for an implementation to be accepted, and how that
-is derived. The first recorded instance is the table in implementation
-record 1 under "Acceptance criteria". Candidate for a real artifact
+is derived. The first recorded instance is
+[note-acceptance-criteria-1.md](note-acceptance-criteria-1.md). Candidate for a real artifact
 type — probably one per implementation, generated from the use cases
 it includes.
 

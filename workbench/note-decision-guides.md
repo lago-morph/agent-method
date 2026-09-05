@@ -7,6 +7,7 @@ links:
     - note-implementation-record-definition.md
     - note-implementation-standards.md
     - note-implementation-record-1.md
+    - note-implementation-structure-1.md
     - note-ui-standards-definition.md
     - note-test-method-definition.md
     - note-acceptance-criteria-definition.md
@@ -32,9 +33,11 @@ definition and its instances:
   belongs to it, and the questions to walk Jonathan through. A guide
   asks and lists; it never decides. It is stable across
   implementations and grows a question each time one was missed.
-- **Decisions** — the answers for one implementation, recorded in that
-  implementation's record under a heading per area, with the guide
-  linked. This is the instance.
+- **Decisions** — the answers for one implementation, recorded in a
+  note per area for that implementation (`note-<area>-<N>`), with the
+  guide linked. This is the instance. The implementation record stays
+  a short list of bullet points: one line per area, stating the
+  choice and linking to the note that holds the detail.
 
 A decision becomes a **standard** when it should hold for every
 implementation until deliberately revised; it then moves into

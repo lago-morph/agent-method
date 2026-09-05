@@ -114,6 +114,14 @@ after the first rounds of implementing the workbench are done, when
 the artifact schemas and other support materials are developed. Do
 not start them before he says so.
 
+- Per Jonathan's markup on record 1 (PR #16): an implementation record
+  is a short list of bullets linking to structured documents with the
+  detail. Record 1 now keeps one line per area; the detail lives in
+  note-ui-decisions-1, note-implementation-structure-1,
+  note-test-method-1, note-acceptance-criteria-1, note-test-data-1
+  (and note-automated-checks-1). He expects these to become artifact
+  types later. The record definition carries the shape rule.
+
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
 repeatable and deterministic; future implementations with more choices
