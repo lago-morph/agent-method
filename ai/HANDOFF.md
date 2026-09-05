@@ -192,9 +192,18 @@ guides and propose the open decisions in its record first.
   history. The link validator (third version, in
   ai/procedures/artifact-link-check.md) checks the new layout.
 
+- Jonathan's direction (2026-09-05): the implementation procedure is,
+  explicitly, hand-off to a clean-context subagent with specific
+  (tiered) document access — ai/procedures/implement-by-subagent.md
+  (prompt template, review checklist, metrics table with run 1). Opus
+  until a run works from the procedure as written; then Sonnet. It
+  stress-tests repeatability and context preservation through
+  progressive disclosure. Use it for implementation 3 (the revised use
+  cases in PR #18) when he says the use cases are done and to go.
+
 Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
-markup on PRs #17 and #18 (#18 now also carries the folder
-restructure); work that markup until he says it is done. Nothing after that is started until he
+markup on PRs #17 and #18 (#18 also carries the folder restructure and
+this procedure); work that markup until he says it is done. Nothing after that is started until he
 names it. The build order's next use case is Save ideas, which needs the
 persistent-storage guide foreseen in note/decision-guides.md; the
 test-data guide's open questions are to be raised in that round.
