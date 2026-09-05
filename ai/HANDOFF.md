@@ -78,6 +78,15 @@ the last item is ratified):
   scoping rules, walkthrough guidance, foreseen areas such as
   persistent storage) plus guides for UI standards, test method,
   acceptance criteria, and test data. Open for markup like the rest.
+- method/adr/0006-use-cases-are-platform-neutral.md — adopted from
+  Jonathan's first markup on the Edit ideas use case (PR #16): name
+  elements by function not position, a use case is silent about other
+  use cases and about persistence, platform-neutral wording, the
+  TUI/native test, and a separate Implementation guidance section per
+  kind of interface where platform detail is unavoidable. To be carried
+  into the use-case type guidance when it is written. The ratified
+  Initial UI use case predates it and names panes by position; revising
+  it is a round for Jonathan to call.
 
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
