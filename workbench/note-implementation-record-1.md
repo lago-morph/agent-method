@@ -14,6 +14,7 @@ links:
     - note-acceptance-criteria-definition.md
     - note-test-data-definition.md
     - note-automated-checks-1.md
+    - note-quality-standards-definition.md
 ---
 
 Implementation 1 implements a version of the spec consisting of the
@@ -123,6 +124,11 @@ Guide: [note-test-method-definition.md](note-test-method-definition.md).
   locate anything by screen position.
 - **Visual review:** one look at the screenshots per orientation for
   layout sanity before delivery.
+- **Quality checks beyond the UI checks:** none. No unit tests, type
+  checking, static analysis, or integration tests; the automated
+  checks are UI-level, end-to-end checks and double as the acceptance
+  criteria. Guide:
+  [note-quality-standards-definition.md](note-quality-standards-definition.md).
 - **Real-device check:** Jonathan, on the iPad, at the checkpoint.
   Nothing here was run in Safari or WebKit; Chromium stands in for it
   and the gap is known.

@@ -11,6 +11,7 @@ links:
     - note-test-method-definition.md
     - note-acceptance-criteria-definition.md
     - note-test-data-definition.md
+    - note-quality-standards-definition.md
 ---
 
 Captured 2026-09-05 from Jonathan's direction after implementation 1.
@@ -81,6 +82,8 @@ Guides that exist:
 - Test method — [note-test-method-definition.md](note-test-method-definition.md)
 - Acceptance criteria — [note-acceptance-criteria-definition.md](note-acceptance-criteria-definition.md)
 - Test data — [note-test-data-definition.md](note-test-data-definition.md)
+- Quality standards (what, not how; execution methods belong to the
+  method proper, later) — [note-quality-standards-definition.md](note-quality-standards-definition.md)
 
 Guides to write when the first implementation that needs them is being
 planned (not before):

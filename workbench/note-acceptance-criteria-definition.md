@@ -7,6 +7,7 @@ links:
     - note-decision-guides.md
     - note-test-method-definition.md
     - note-implementation-record-1.md
+    - note-quality-standards-definition.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
@@ -33,6 +34,10 @@ one-line definition of done for the implementation.
   back to the use case rather than keeping an orphan check.
 - Criteria say what must be true; the test method says how it is
   checked. A criterion does not name a tool.
+- Criteria cover what the user can observe. The quality checks the
+  user never sees — unit tests, type checking, static analysis,
+  integration, UI, and end-to-end testing standards — are the subject
+  of [note-quality-standards-definition.md](note-quality-standards-definition.md).
 - A criterion is implementation-independent where the use case is;
   rows sourced from the record are specific to that implementation.
 - One table per implementation, covering all the use cases it

@@ -9,6 +9,7 @@ links:
     - note-test-data-definition.md
     - note-implementation-record-1.md
     - note-automated-checks-1.md
+    - note-quality-standards-definition.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):

@@ -102,6 +102,18 @@ the last item is ratified):
   similar result including all QA checks. The test-method guide now
   says what such a note must contain.
 
+- workbench/note-quality-standards-definition.md — from Jonathan's
+  markup on the acceptance-criteria guide: the non-user-visible quality
+  checks (unit test standards, type checking, static analysis,
+  integration, UI, end-to-end) are specified as what we want, not how.
+
+Deferred by Jonathan's explicit direction (2026-09-05): the execution
+methods for quality checks — AI skills, reference procedures, linters,
+CI pipelines — are part of the method proper and are to be built only
+after the first rounds of implementing the workbench are done, when
+the artifact schemas and other support materials are developed. Do
+not start them before he says so.
+
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
 repeatable and deterministic; future implementations with more choices
