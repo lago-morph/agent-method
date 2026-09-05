@@ -79,14 +79,15 @@ the last item is ratified):
   persistent storage) plus guides for UI standards, test method,
   acceptance criteria, and test data. Open for markup like the rest.
 - method/adr/0006-use-cases-are-platform-neutral.md — adopted from
-  Jonathan's first markup on the Edit ideas use case (PR #16): name
-  elements by function not position, a use case is silent about other
-  use cases and about persistence, platform-neutral wording, the
-  TUI/native test, and a separate Implementation guidance section per
-  kind of interface where platform detail is unavoidable. To be carried
-  into the use-case type guidance when it is written. The ratified
-  Initial UI use case predates it and names panes by position; revising
-  it is a round for Jonathan to call.
+  Jonathan's markup on the Edit ideas use case (PR #16) and his
+  clarification: the UI use case (Initial UI) is the single home of the
+  UI design and names the functional areas; every other use case is
+  UI-neutral (elements by function not position, silent about other
+  use cases and persistence, platform-neutral wording, the TUI/native
+  test), with a per-interface Implementation guidance section only as
+  a fallback. A new kind of UI is a new UI use case. To be carried into
+  the use-case type guidance when it is written, distinguishing the two
+  kinds of use case.
 
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
