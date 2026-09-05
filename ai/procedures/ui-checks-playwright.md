@@ -4,7 +4,7 @@
 **Observed in:** implementation 1, PR #15 (first run, ad hoc script in
 the scratch directory) and PR #16 (script moved into
 `workbench/implementations/1/verify.js`, specified by
-`workbench/note-automated-checks-1.md`); implementation 2 (a fresh
+`workbench/note/automated-checks-1.md`); implementation 2 (a fresh
 agent following this procedure, then the reviewer's independent script
 written from the use case rather than from the checks note).
 
@@ -58,7 +58,7 @@ written from the use case rather than from the checks note).
 
 5. **Reported in the PR body**: a "Verified" paragraph listing what was
    checked and at which sizes, and a "Known gaps" statement (not run in
-   Safari or WebKit). Later, `note-acceptance-criteria-1.md` carried the
+   Safari or WebKit). Later, `note/acceptance-criteria-1.md` carried the
    same facts as a table with a Chromium column and an empty iPad
    column.
 
@@ -103,7 +103,7 @@ written from the use case rather than from the checks note).
   `implementations/<N>/` from the start.
 - Expected counts (19 per load, 57 after three) came from reading the
   test data in the implementation, not from an artifact; they are now
-  in `note-test-data-1.md` and `note-automated-checks-1.md`. Derive
+  in `note/test-data-1.md` and `note/automated-checks-1.md`. Derive
   expected values from the data artifact, not from the code under test.
 - The `NODE_PATH` requirement is environment-specific and easy to
   forget; it lives in the script's header comment for that reason.

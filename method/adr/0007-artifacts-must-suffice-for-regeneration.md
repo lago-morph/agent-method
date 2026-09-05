@@ -70,9 +70,9 @@ similar implementation and the same checks. Consequently:
 
 ## References
 
-- `../../workbench/note-automated-checks-1.md` — the first artifact
+- `../../workbench/note/automated-checks-1.md` — the first artifact
   written to this rule.
-- `../../workbench/note-decision-guides.md` — the pattern for
+- `../../workbench/note/decision-guides.md` — the pattern for
   capturing decisions per area.
 - `0004-preserve-definitions-separately-from-instances.md` — the
   definition/instance split the automated-checks note follows.

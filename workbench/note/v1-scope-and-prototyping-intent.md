@@ -1,10 +1,10 @@
 ---
-id: note-v1-scope-and-prototyping-intent
+id: v1-scope-and-prototyping-intent
 type: note
 title: V1 scope, prototyping approach, and why custom-built
 links:
   related-to:
-    - vision.md
+    - vision/vision.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction at the start of the vision

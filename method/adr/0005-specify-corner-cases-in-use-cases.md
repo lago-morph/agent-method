@@ -42,5 +42,5 @@ test data doubles as a demonstration script for the corner cases.
 
 ## References
 
-- `../../workbench/use-case-initial-ui.md` — the worked example: its
+- `../../workbench/use-case/initial-ui.md` — the worked example: its
   behavior sections and test-data design follow this decision.

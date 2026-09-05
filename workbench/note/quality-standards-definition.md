@@ -1,14 +1,14 @@
 ---
-id: note-quality-standards-definition
+id: quality-standards-definition
 type: note
 title: Quality standards — guide for the checks the user never sees
 links:
   related-to:
-    - note-decision-guides.md
-    - note-acceptance-criteria-definition.md
-    - note-test-method-definition.md
-    - note-implementation-record-1.md
-    - note-implementation-record-2.md
+    - note/decision-guides.md
+    - note/acceptance-criteria-definition.md
+    - note/test-method-definition.md
+    - note/implementation-record-1.md
+    - note/implementation-record-2.md
 ---
 
 Captured 2026-09-05 from Jonathan's markup on the acceptance-criteria

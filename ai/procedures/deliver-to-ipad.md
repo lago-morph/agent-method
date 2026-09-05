@@ -35,7 +35,7 @@ Two routes were used together:
 
 - No GitHub Pages, release asset, or other durable delivery method.
   Delivery is recorded as an open decision in
-  `workbench/note-implementation-record-1.md`.
+  `workbench/note/implementation-record-1.md`.
 
 ## Pitfalls observed
 
@@ -51,6 +51,6 @@ Two routes were used together:
 
 ## Notes for formalizing
 
-- A delivery guide (foreseen in `workbench/note-decision-guides.md`)
+- A delivery guide (foreseen in `workbench/note/decision-guides.md`)
   should list the routes with their properties: keeps the extension,
   is durable, exercises the real opening method, needs no account.

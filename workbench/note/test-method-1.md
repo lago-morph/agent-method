@@ -1,15 +1,15 @@
 ---
-id: note-test-method-1
+id: test-method-1
 type: note
 title: Implementation 1 — test method
 links:
   related-to:
-    - note-implementation-record-1.md
-    - note-test-method-definition.md
-    - note-automated-checks-1.md
+    - note/implementation-record-1.md
+    - note/test-method-definition.md
+    - note/automated-checks-1.md
 ---
 
-Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note-implementation-record-1.md](note-implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note-test-method-definition.md](note-test-method-definition.md). The automated checks themselves are specified in [note-automated-checks-1.md](note-automated-checks-1.md).
+Decisions of implementation 1, made while building it and captured 2026-09-05 at Jonathan's direction. The implementation record ([note/implementation-record-1.md](implementation-record-1.md)) keeps one line per area and links here; this note holds the detail. Guide: [note/test-method-definition.md](test-method-definition.md). The automated checks themselves are specified in [note/automated-checks-1.md](automated-checks-1.md).
 
 - **Automated checks** in `implementations/1/verify.js`, run with
   Playwright and headless Chromium, loading the file over `file://`
@@ -19,7 +19,7 @@ Decisions of implementation 1, made while building it and captured 2026-09-05 at
   written outside the repository. The full specification of the checks
   — hooks, sequence, expected values, output contract, and the
   decisions behind them — is
-  [note-automated-checks-1.md](note-automated-checks-1.md); the script
+  [note/automated-checks-1.md](automated-checks-1.md); the script
   is derived from it.
 - **Test hooks:** the implementation exposes stable element ids and
   classes for the checks to locate panes, rows, selection, placeholder
@@ -31,7 +31,7 @@ Decisions of implementation 1, made while building it and captured 2026-09-05 at
   checking, static analysis, or integration tests; the automated
   checks are UI-level, end-to-end checks and double as the acceptance
   criteria. Guide:
-  [note-quality-standards-definition.md](note-quality-standards-definition.md).
+  [note/quality-standards-definition.md](quality-standards-definition.md).
 - **Real-device check:** Jonathan, on the iPad, at the checkpoint.
   Nothing here was run in Safari or WebKit; Chromium stands in for it
   and the gap is known.

@@ -1,20 +1,20 @@
 ---
-id: note-ui-standards-definition
+id: ui-standards-definition
 type: note
 title: UI standards — guide for the appearance and interaction decisions
 links:
   related-to:
-    - note-decision-guides.md
-    - note-implementation-record-1.md
-    - note-ui-decisions-1.md
-    - note-implementation-record-2.md
-    - note-ui-decisions-2.md
+    - note/decision-guides.md
+    - note/implementation-record-1.md
+    - note/ui-decisions-1.md
+    - note/implementation-record-2.md
+    - note/ui-decisions-2.md
 ---
 
-A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
+A guide in the sense of [note/decision-guides.md](decision-guides.md):
 the questions to settle about how an implementation looks and feels,
 which the use cases deliberately do not answer. The first recorded
-answers are in [note-ui-decisions-1.md](note-ui-decisions-1.md). Candidate for a
+answers are in [note/ui-decisions-1.md](ui-decisions-1.md). Candidate for a
 real artifact type once two implementations have answered it.
 
 ## What the artifact would be
@@ -46,7 +46,7 @@ implementation deviations recorded in the implementation record.
 
 With the default in brackets — the answer to assume when Jonathan says
 "whatever is conventional". Implementation 1 took every default
-([note-ui-decisions-1.md](note-ui-decisions-1.md)).
+([note/ui-decisions-1.md](ui-decisions-1.md)).
 
 1. Which platform's conventions are followed? [the host platform's:
    system font, system-like colours and controls]

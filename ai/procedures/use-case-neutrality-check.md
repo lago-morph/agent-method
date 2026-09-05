@@ -1,7 +1,7 @@
 # Checking a functional use case for UI neutrality (ADR 0006)
 
 **Status:** working document, non-normative. Retrospective.
-**Observed in:** PR #16, on `workbench/use-case-edit-ideas.md`, after
+**Observed in:** PR #16, on `workbench/use-case/edit-ideas.md`, after
 Jonathan's markup that the first draft was welded to the screen.
 
 ## What was done
@@ -13,7 +13,7 @@ Jonathan's markup that the first draft was welded to the screen.
 
    ```sh
    grep -n -i "pane\|tab\|browser\|persist\|sav\|later\|next use case\|order" \
-     workbench/use-case-edit-ideas.md
+     workbench/use-case/edit-ideas.md
    ```
 
    Every hit was then classified: inside Interface guidance (allowed);
@@ -33,7 +33,7 @@ Jonathan's markup that the first draft was welded to the screen.
    held only the interfaces currently specified:
 
    ```sh
-   grep -n "^## \|^### " workbench/use-case-edit-ideas.md
+   grep -n "^## \|^### " workbench/use-case/edit-ideas.md
    ```
 
 ## What was not done

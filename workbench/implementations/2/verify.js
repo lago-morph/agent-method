@@ -9,7 +9,7 @@
 // plus an overall PASS/FAIL. Screenshots go to output-dir (default: a temp
 // directory), never into the repository.
 //
-// This script is derived from workbench/note-automated-checks-2.md: the
+// This script is derived from workbench/note/automated-checks-2.md: the
 // sequence, the expected values, and the hooks it relies on are specified
 // there. When script and note disagree, the note is corrected first and the
 // script regenerated.

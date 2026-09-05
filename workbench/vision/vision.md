@@ -4,11 +4,11 @@ type: vision
 title: Idea Workbench vision
 links:
   includes:
-    - use-case-initial-ui.md
-    - use-case-edit-ideas.md
+    - use-case/initial-ui.md
+    - use-case/edit-ideas.md
   related-to:
-    - note-v1-scope-and-prototyping-intent.md
-    - note-implementation-standards.md
+    - note/v1-scope-and-prototyping-intent.md
+    - note/implementation-standards.md
 ---
 
 ## Pain points
@@ -46,7 +46,7 @@ them there:
 - Automatic saving and restored UI state make it a trustworthy home —
   close it, reopen it, and everything is where I left it.
 
-The written use cases ([input/00-use-case-list.md](input/00-use-case-list.md),
+The written use cases ([input/00-use-case-list.md](../input/00-use-case-list.md),
 detailed in the pages alongside it) define this behavior completely, in
 an order that builds each capability on the previous one.
 

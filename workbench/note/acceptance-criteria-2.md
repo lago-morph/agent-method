@@ -1,27 +1,27 @@
 ---
-id: note-acceptance-criteria-2
+id: acceptance-criteria-2
 type: note
 title: Implementation 2 — acceptance criteria
 links:
   related-to:
-    - note-implementation-record-2.md
-    - note-acceptance-criteria-definition.md
-    - note-automated-checks-2.md
+    - note/implementation-record-2.md
+    - note/acceptance-criteria-definition.md
+    - note/automated-checks-2.md
 ---
 
 Decisions of implementation 2, made while building it. The
 implementation record
-([note-implementation-record-2.md](note-implementation-record-2.md))
+([note/implementation-record-2.md](implementation-record-2.md))
 keeps one line per area and links here; this note holds the detail.
 Guide:
-[note-acceptance-criteria-definition.md](note-acceptance-criteria-definition.md).
+[note/acceptance-criteria-definition.md](acceptance-criteria-definition.md).
 The Chromium column is filled from the checks in
-[note-automated-checks-2.md](note-automated-checks-2.md).
+[note/automated-checks-2.md](automated-checks-2.md).
 
 Each row traces to a sentence in one of the included use cases or a
 decision in the record. "Chromium" is the automated result; "iPad" is
 Jonathan's checkpoint. The Initial UI rows are copied verbatim from
-[note-acceptance-criteria-1.md](note-acceptance-criteria-1.md), as the
+[note/acceptance-criteria-1.md](acceptance-criteria-1.md), as the
 guide directs, so the results stay comparable across implementations.
 
 ## The guide's questions, answered
@@ -47,7 +47,7 @@ The Interface guidance section of the Edit ideas use case is not a
 source of criteria — it is guidance for implementers, not behavior — so
 nothing about buttons, shortcuts, or the on-screen keyboard appears
 below. Those are things for Jonathan to look at, listed in
-[note-test-method-2.md](note-test-method-2.md).
+[note/test-method-2.md](test-method-2.md).
 
 ## Criteria
 

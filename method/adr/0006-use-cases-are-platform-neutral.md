@@ -119,16 +119,16 @@ from functional use cases explicitly.
   bounded sweep: the Interface guidance sections of the other use
   cases, each gaining at most one subsection. Nothing in the behavior
   sections changes.
-- The Initial UI use case (`../../workbench/use-case-initial-ui.md`)
+- The Initial UI use case (`../../workbench/use-case/initial-ui.md`)
   is, so far, the only UI use case for the current three-pane design;
   its positional language is correct there.
 
 ## References
 
-- `../../workbench/use-case-edit-ideas.md` — the worked example of a
+- `../../workbench/use-case/edit-ideas.md` — the worked example of a
   UI-neutral functional use case with an Interface guidance section
   holding the one interface currently specified.
-- `../../workbench/use-case-initial-ui.md` — the UI use case for the
+- `../../workbench/use-case/initial-ui.md` — the UI use case for the
   three-pane design.
 - `0005-specify-corner-cases-in-use-cases.md` — the previous rule
   about what a use case must contain; this one is about where UI

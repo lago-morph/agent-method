@@ -1,20 +1,20 @@
 ---
-id: note-implementation-record-definition
+id: implementation-record-definition
 type: note
 title: Implementation record — what each one must decide
 links:
   related-to:
-    - note-implementation-standards.md
-    - note-implementation-record-1.md
-    - note-decision-guides.md
-    - note-implementation-record-2.md
+    - note/implementation-standards.md
+    - note/implementation-record-1.md
+    - note/decision-guides.md
+    - note/implementation-record-2.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. This note defines what
 an implementation record is: the information every implementation
 record must contain, with example options for each decision. It is the
 type definition; each numbered implementation record (starting with
-[note-implementation-record-1.md](note-implementation-record-1.md)) is
+[note/implementation-record-1.md](implementation-record-1.md)) is
 an instance that makes these decisions for one implementation. Both are
 preserved separately — "we need to have this type of information" is
 not the same as the first instance of it. Candidate for promotion to a
@@ -49,8 +49,8 @@ decision, stating the choice and linking to the structured document
 that holds the detail. Detail never accumulates in the record itself
 (Jonathan, 2026-09-05, PR #16). Decisions made while building get the
 same treatment: one line each in the record, the detail in a note per
-area, per [note-decision-guides.md](note-decision-guides.md).
+area, per [note/decision-guides.md](decision-guides.md).
 
 Numbering of records and where implementation artifacts are stored are
 decided once for all implementations, in
-[note-implementation-standards.md](note-implementation-standards.md).
+[note/implementation-standards.md](implementation-standards.md).
