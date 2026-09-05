@@ -100,7 +100,7 @@ and have the list reflect what I typed as I type it.
 The behavior above holds for any kind of user interface. This section
 says how the interfaces currently specified are expected to expose it;
 it is guidance for implementers, not behavior. A subsection is added
-here whenever a new UI use case is written.
+here whenever a new kind of interface is specified.
 
 ### Browser, touch or pointer (the Initial UI use case)
 

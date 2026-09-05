@@ -80,8 +80,9 @@ the last item is ratified):
   acceptance criteria, and test data. Open for markup like the rest.
 - method/adr/0006-use-cases-are-platform-neutral.md — adopted from
   Jonathan's markup on the Edit ideas use case (PR #16) and his
-  clarification: the UI use case (Initial UI) is the single home of the
-  UI design and names the functional areas; every other use case is
+  clarification: the UI use cases (one or more per kind of interface,
+  logically one; Initial UI today) are the single home of the UI design
+  and name the functional areas; every other use case is
   UI-neutral (elements by function not position, silent about other
   use cases and persistence, platform-neutral wording, the TUI/native
   test), with interface-specific detail allowed only in an Interface
