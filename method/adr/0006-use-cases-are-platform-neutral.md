@@ -25,7 +25,11 @@ implemented as a terminal UI or as a native windowed application.
 His stated objective: keep the overall UI design in one place — the UI
 use case — with the more general functional decisions in the other use
 cases, so that specifying a new UI, such as a TUI, is a change that is
-easily isolated.
+easily isolated. Some overflow of UI detail into the functional use
+cases is fine and makes them easier to review, provided it sits in one
+specific section of the use case. That section is filled in only for
+the interfaces currently being worked on; no placeholder or
+"not applicable" subsections for interfaces nobody is thinking about.
 
 ## Decision
 
@@ -56,15 +60,23 @@ and commands onto its own medium, and nothing else changes.
 - **The acceptance test:** re-read the use case imagining a terminal
   implementation and a native windowed implementation. Any sentence
   that would be false or meaningless for either is rewritten.
-- **Where a functional use case cannot avoid platform detail** — a
-  command that will be a shortcut on one platform, a button on another,
-  and a menu item on a third — the behavior section stays generic, and
-  the platform detail goes in a separate **Implementation guidance**
-  section with one subsection per kind of interface (browser, terminal,
-  native windowed, command line where applicable). That section is
-  guidance for implementers, not behavior, and is not part of the
-  acceptance criteria. It is the fallback, not the norm: whatever can
-  be said once in the UI use case is said there instead.
+- **Interface detail lives in one section: Interface guidance.** Where
+  a functional use case has interface-specific detail to give — a
+  command that is a shortcut on one platform, a button on another, a
+  menu item on a third; what "closed" means; how the insertion point
+  is kept visible — the behavior section stays generic, and the detail
+  goes in a separate **Interface guidance** section, with one
+  subsection per interface, each named for the UI use case it serves.
+  That section is guidance for implementers, not behavior, and is not
+  part of the acceptance criteria. It contains subsections only for
+  the interfaces currently specified: no placeholders, no "not
+  applicable" entries for interfaces nobody is working on.
+- **Adding a kind of interface is a two-step task.** Write its UI use
+  case; then review the Interface guidance section of every other use
+  case and add a subsection for it where that use case has something
+  interface-specific to say. Kinds of interface named in this ADR
+  (browser, native windowed, terminal, command line) are illustrations
+  for ADR and schema guidance, not a list use cases must cover.
 - **Links carry the dependency.** A use case that builds on another
   says so through its `depends-on` link and at most one sentence
   naming what it builds on; the rest of the text stands alone.
@@ -85,9 +97,10 @@ from functional use cases explicitly.
 - **Strip platform detail entirely, with no home for it** — rejected:
   implementers then invent how a command is exposed, and the same
   question is answered differently in every implementation.
-- **Per-platform guidance in every functional use case** — kept only
-  as the fallback: it spreads the UI across every use case, which is
-  exactly what makes a new UI hard to isolate.
+- **Every interface pre-listed in every use case, with "not
+  applicable" where it does not fit** — rejected: it fills use cases
+  with sections about interfaces nobody is thinking about, and the
+  empty entries get no review.
 
 ## Consequences
 
@@ -95,8 +108,11 @@ from functional use cases explicitly.
   implementations, with different interfaces, are checked against.
 - The UI use case is where UI decisions are made and marked up, and
   it is expected to grow: as functional use cases introduce areas and
-  commands, the UI use case says where and how they appear. A new kind
-  of interface is a new UI use case, not a sweep through the others.
+  commands, the UI use case says where and how they appear.
+- A new kind of interface costs one new UI use case plus one
+  bounded sweep: the Interface guidance sections of the other use
+  cases, each gaining at most one subsection. Nothing in the behavior
+  sections changes.
 - The Initial UI use case (`../../workbench/use-case-initial-ui.md`)
   is the UI use case for the current three-pane design; its positional
   language is correct there.
@@ -104,8 +120,8 @@ from functional use cases explicitly.
 ## References
 
 - `../../workbench/use-case-edit-ideas.md` — the worked example of a
-  UI-neutral functional use case, with an Implementation guidance
-  section as the fallback pattern.
+  UI-neutral functional use case with an Interface guidance section
+  holding the one interface currently specified.
 - `../../workbench/use-case-initial-ui.md` — the UI use case.
 - `0005-specify-corner-cases-in-use-cases.md` — the previous rule
   about what a use case must contain; this one is about where UI

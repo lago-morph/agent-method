@@ -95,13 +95,14 @@ and have the list reflect what I typed as I type it.
   an idea always starts with an empty history, so nothing done to a
   previous idea can be undone from a later one.
 
-## Implementation guidance
+## Interface guidance
 
-The behavior above holds for any kind of user interface. What follows
-is how each kind is expected to expose it; it is guidance for
-implementers, not behavior.
+The behavior above holds for any kind of user interface. This section
+says how the interfaces currently specified are expected to expose it;
+it is guidance for implementers, not behavior. A subsection is added
+here whenever a new UI use case is written.
 
-### Browser, touch or pointer
+### Browser, touch or pointer (the Initial UI use case)
 
 - New, Undo, and Redo are on-screen buttons, and also respond to the
   platform's standard keyboard shortcuts when a keyboard is present.
@@ -112,27 +113,6 @@ implementers, not behavior.
   the keyboard.
 - "The application is closed" means the page's tab or window is
   closed.
-
-### Terminal (TUI)
-
-- New, Undo, and Redo are key bindings, listed in an on-screen key
-  hint or help view.
-- Copy, cut, and paste are the terminal's own or the editor widget's
-  standard bindings.
-- "The application is closed" means the process exits.
-
-### Native windowed application
-
-- New, Undo, and Redo are menu items with their platform-standard
-  accelerators; New may also be a toolbar button.
-- Copy, cut, and paste are the platform's Edit menu items and
-  accelerators.
-- "The application is closed" means the window or the application is
-  closed.
-
-### Command line
-
-Not applicable: this use case needs an interactive editing surface.
 
 ## Test data (scaffolding)
 

@@ -84,10 +84,12 @@ the last item is ratified):
   UI design and names the functional areas; every other use case is
   UI-neutral (elements by function not position, silent about other
   use cases and persistence, platform-neutral wording, the TUI/native
-  test), with a per-interface Implementation guidance section only as
-  a fallback. A new kind of UI is a new UI use case. To be carried into
-  the use-case type guidance when it is written, distinguishing the two
-  kinds of use case.
+  test), with interface-specific detail allowed only in an Interface
+  guidance section holding one subsection per interface currently
+  specified (no placeholders). Adding a kind of UI means writing its UI
+  use case, then sweeping the other use cases' Interface guidance
+  sections. To be carried into the use-case type guidance when it is
+  written, distinguishing the two kinds of use case.
 
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
