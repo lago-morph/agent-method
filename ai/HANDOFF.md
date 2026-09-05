@@ -40,7 +40,8 @@ Rules of engagement (details in ai/lessons/):
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-Current state (2026-08-30, all ratified and on main):
+Current state (2026-09-05; everything below except the last item is
+ratified and on main):
 
 - method/CONVENTIONS.md — artifact file convention (front matter,
   typed two-way links with hand-maintained reciprocals).
@@ -59,12 +60,17 @@ Current state (2026-08-30, all ratified and on main):
   single-page HTML file (HTML/CSS/JS, no build step, no dependencies,
   memory only, no logging) opened directly in Safari on an iPad,
   implementing the Initial UI use case.
+- workbench/implementations/1/idea-workbench.html — implementation 1
+  itself, built per its record and delivered 2026-09-05 as PR #15
+  (branch claude/handoff-instructions-hn00ac) for Jonathan to review
+  and merge. Verified in headless Chromium at iPad viewports; not yet
+  tried on a real iPad.
 
-Next step: build implementation 1 per
-workbench/note-implementation-record-1.md, into
-workbench/implementations/1/, delivered as a PR for Jonathan to review
-and merge. After he uses it on his iPad (a checkpoint per the vision),
-the expected following round is drafting the Edit ideas use case —
+Next step: Jonathan's checkpoint — he uses implementation 1 on his
+iPad (a checkpoint per the vision) and marks up PR #15 or the
+implementation record with what he finds; visual details were
+deliberately left to be settled there. Only after he says so does the
+expected following round start: drafting the Edit ideas use case —
 fresh; an earlier draft was rolled back unreviewed and must not be
 treated as ratified material.
 

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Idea Workbench</title>
+<style>
+  /* Implementation 1 of the Idea Workbench spec: the Initial UI use case.
+     Single file, no build step, no dependencies, memory only. */
+
+  :root {
+    --border: #c8c8cc;
+    --pane-bg: #ffffff;
+    --chrome-bg: #f2f2f5;
+    --text: #1c1c1e;
+    --muted: #8e8e93;
+    --selected-bg: #d9e7ff;
+    --button-bg: #0a66ff;
+    --button-text: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;              /* only the panes scroll */
+    font-family: -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    color: var(--text);
+    background: var(--chrome-bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  header {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--chrome-bg);
+  }
+
+  header h1 {
+    flex: 1;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  button {
+    font: inherit;
+    min-height: 44px;              /* comfortable touch target */
+    padding: 0 16px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--button-bg);
+    color: var(--button-text);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:active { opacity: 0.7; }
+
+  main {
+    flex: 1;
+    min-height: 0;                 /* lets the panes scroll instead of the page */
+    display: grid;
+    grid-template-columns: 1fr 2fr 4fr;
+    background: var(--border);     /* shows through the 1px gaps as pane dividers */
+    gap: 1px;
+  }
+
+  .pane {
+    min-height: 0;
+    min-width: 0;
+    background: var(--pane-bg);
+    overflow-y: auto;              /* each pane scrolls vertically on its own */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Middle pane: the idea list */
+  #ideas {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ideas li {
+    min-height: 44px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ececef;
+    white-space: nowrap;           /* one line per idea ... */
+    overflow: hidden;
+    text-overflow: ellipsis;       /* ... truncated with "…" when wider than the pane */
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #ideas li.empty { color: var(--muted); }
+  #ideas li.selected { background: var(--selected-bg); }
+
+  /* Right pane: the idea text */
+  #text {
+    padding: 12px 16px;
+    white-space: pre-wrap;         /* keeps the literal text, wraps long lines */
+    overflow-wrap: anywhere;       /* even unbroken runs wrap: no horizontal scrolling */
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Idea Workbench</h1>
+  <button id="load-test-data" type="button">Load test data</button>
+</header>
+
+<main>
+  <section class="pane" id="left" aria-label="Labels"></section>
+  <section class="pane" id="middle" aria-label="Ideas">
+    <ul id="ideas"></ul>
+  </section>
+  <section class="pane" id="right" aria-label="Idea text">
+    <div id="text"></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---- Model: ideas held in memory only -----------------------------------
+  // An idea is { id, content }. The title is the first line of the content.
+
+  var ideas = [];
+  var nextId = 1;
+  var selectedId = null;
+
+  function titleOf(idea) {
+    return idea.content.split('\n')[0];
+  }
+
+  function isEmpty(idea) {
+    return idea.content.trim() === '';
+  }
+
+  // Sorted view: "(empty)" ideas first, then alphabetical by title,
+  // case-insensitive. Array.prototype.sort is stable, so ideas that
+  // compare equal keep their insertion order.
+  function sortedIdeas() {
+    return ideas.slice().sort(function (a, b) {
+      var ea = isEmpty(a), eb = isEmpty(b);
+      if (ea !== eb) return ea ? -1 : 1;
+      if (ea) return 0;
+      return titleOf(a).toLocaleLowerCase().localeCompare(titleOf(b).toLocaleLowerCase());
+    });
+  }
+
+  // ---- View ---------------------------------------------------------------
+
+  var listEl = document.getElementById('ideas');
+  var textEl = document.getElementById('text');
+
+  function render() {
+    listEl.textContent = '';
+    sortedIdeas().forEach(function (idea) {
+      var li = document.createElement('li');
+      li.dataset.id = idea.id;
+      if (isEmpty(idea)) {
+        li.textContent = '(empty)';
+        li.className = 'empty';
+      } else {
+        li.textContent = titleOf(idea);
+      }
+      if (idea.id === selectedId) li.classList.add('selected');
+      listEl.appendChild(li);
+    });
+
+    var selected = null;
+    for (var i = 0; i < ideas.length; i++) {
+      if (ideas[i].id === selectedId) { selected = ideas[i]; break; }
+    }
+    textEl.textContent = selected ? selected.content : '';
+  }
+
+  listEl.addEventListener('click', function (event) {
+    var li = event.target.closest('li');
+    if (!li) return;
+    selectedId = Number(li.dataset.id);
+    render();
+  });
+
+  // ---- Test data (scaffolding; removed once save exists) ------------------
+
+  var wideTitle =
+    'This idea has a first line that is far wider than the middle pane so that ' +
+    'the title must be truncated with an ellipsis rather than wrapping or ' +
+    'spilling over into the neighbouring pane, no matter how wide the screen is.';
+
+  var longParagraph =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
+    'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ' +
+    'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ' +
+    'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse ' +
+    'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat ' +
+    'non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+  var largeText = 'A very large idea\n\n';
+  for (var p = 1; p <= 40; p++) {
+    largeText += 'Paragraph ' + p + ' of 40. ' + longParagraph + '\n\n';
+  }
+  largeText += 'An unbroken run to exercise wrapping without horizontal scrolling: ' +
+    'abcdefghijklmnopqrstuvwxyz0123456789'.repeat(6) + '\n\n' +
+    'The end of the very large idea.';
+
+  var testSet = [
+    // A dozen or so short ideas with varied first letters and mixed case.
+    // "apple pie" / "Apple crumble" and "Banana bread" / "banana split" only
+    // sort correctly if ordering ignores case.
+    'apple pie recipe\nUse the tart apples from the market.',
+    'Apple crumble\nOats in the topping this time.',
+    'Zebra crossing near the school\nAsk the council about it.',
+    'Banana bread',
+    'banana split for the kids',
+    'Quantum garden\nWhat if the plant labels were QR codes?',
+    'mango sorbet',
+    'Elephant memory app\nA reminder tool that never forgets.',
+    'kite festival weekend',
+    'Yak wool socks\nOrder before winter.',
+    'cherry blossom walk\nEarly April, before it rains.',
+    'Dinosaur museum trip',
+    'umbrella stand by the door',
+    'Walnut desk plans',
+    'lighthouse tour',
+    // One idea whose first line is much wider than the middle pane.
+    wideTitle + '\nThe second line is short.',
+    // One idea whose text is much larger than the display area.
+    largeText,
+    // One idea with no content at all, and one containing only whitespace.
+    '',
+    '  \n\t \n   '
+  ];
+
+  document.getElementById('load-test-data').addEventListener('click', function () {
+    // Each click appends another full copy; every idea gets its own identity.
+    testSet.forEach(function (content) {
+      ideas.push({ id: nextId++, content: content });
+    });
+    render();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
