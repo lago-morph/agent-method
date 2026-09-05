@@ -167,9 +167,18 @@ guides and propose the open decisions in its record first.
   until more examples exist). Initial UI gains the message area
   (current message with ×, list button, session message list with
   times) and fixes list-update timing (after every change). Consequence
-  flagged to Jonathan: the empty and whitespace-only test-data items are
-  deleted at load and never appear. Implementation 2 implements the
-  previous spec version; implementation 3 would implement this one.
+  confirmed by Jonathan: the empty and whitespace-only test-data items
+  are deleted at load and never appear (the test data confirms the
+  startup behavior); trailing whitespace is kept; whitespace typed at
+  the start is stripped before it is visible. His deletion rule:
+  consecutive deletions are one change while they remove one unit (a
+  run of non-whitespace plus the whitespace before it). Implementation
+  2 implements the previous spec version; implementation 3 would
+  implement this one. At his direction the work was split: PR #17
+  (branch claude/handoff-instructions-hn00ac) holds everything through
+  implementation 2 and its review; the use-case revisions are a
+  stacked PR on branch claude/use-cases-whitespace-undo-messages,
+  based on PR #17's branch until that merges.
 
 Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
 markup on PR #17, now including the revised use cases; work that markup

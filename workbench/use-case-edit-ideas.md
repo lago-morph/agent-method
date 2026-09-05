@@ -112,8 +112,11 @@ and have the list reflect what I typed as I type it.
   at the insertion point, consisting of any whitespace followed by any
   non-whitespace — leading whitespace goes with the text that follows
   it, and a sequence of whitespace is treated as one unit; a run of
-  consecutive deletions at one place; or a single paste, cut, or
-  replacement. "Detailed behavior" below makes this exact.
+  consecutive deletions at one place that removes characters of one
+  **unit** of the text, a unit being a sequence of non-whitespace
+  characters together with the whitespace immediately before it; or a
+  single paste, cut, or replacement. "Detailed behavior" below makes
+  this exact.
 - The undo history is long: it covers every change made since the idea
   was selected, however many, back to the text as it was at selection.
   Undoing at that point does nothing further; redoing when nothing has
@@ -139,7 +142,12 @@ there are more examples to generalize from.)
 
 Notation: `·` is a space, `⏎` a newline, `⇥` a tab. "Update" means an
 update of the idea list; for the Initial UI use case's interface that
-is after every change to the active idea's text.
+is after every change to the active idea's text. The **units** of a
+text are found by splitting it so that each unit is a maximal sequence
+of whitespace followed by a maximal sequence of non-whitespace;
+whitespace at the very end of the text is a unit of its own. So
+`hello·world··` has the units `hello`, `·world`, `··`. Typing builds
+one unit per change; deleting removes one unit per change.
 
 ### Edge cases
 
@@ -160,7 +168,10 @@ is after every change to the active idea's text.
 | 13 | I type `hello···` then select another idea | The idea is left with `hello···` (trailing whitespace is kept; only leading whitespace is stripped). The history is cleared. |
 | 14 | Text `hello`; I paste `·x` at the start | Text `·xhello` → update strips → `xhello`; message; one undo entry; undo → `hello`. |
 | 15 | I paste anywhere else | One undo entry for the paste, whatever it contains. |
-| 16 | I press Backspace five times in a row | One undo entry (a run of deletions). Backspace, type, Backspace: three entries. |
+| 16 | Text `hello·world`, insertion point at the end; I press Backspace five times | Removes `world`: one entry. A sixth Backspace removes the space before it: the same entry (the unit's leading whitespace). A seventh removes `o` of `hello`: a new entry. Backspace, type, Backspace: three entries. |
+| 16a | Text `hello·world`, insertion point after `hello`; I press Delete (forward) six times | Removes `·world`, one unit, one entry. |
+| 16b | Text `hello···`, insertion point at the end; I press Backspace three times, then twice more | The three spaces are a unit of their own at the end: one entry. The next two, removing `lo`, start a new entry. |
+| 16c | I delete a selection that spans several units | One entry, like a paste (a selection is removed in one act). |
 | 17 | I select all the text and delete it | One entry. The idea is blank and active: entry shows "(empty)", idea stays. Undo restores the text. Selecting another idea while it is blank deletes it. |
 | 18 | I delete the first word of `hello·world`, leaving `·world` | The deletion is one entry; the update strips the space → `world`; message (the stripping was caused by my edit). Undo → `hello·world`. |
 | 19 | The platform replaces text (autocorrect, a replacement suggestion) | One entry, like a paste. If the replacement puts whitespace at the start, it is stripped with a message. |
@@ -207,10 +218,17 @@ on typed character c at the insertion point:
     apply c; run.entry = snapshot()
     listUpdate(causedByEdit = true)
 
-on deletion at one place (Backspace, Delete, deleting a selection):
-    if run is none or run.kind != 'delete' or not adjacent to the run's end:
+on deletion of one character (Backspace or Delete):
+    if run is none or run.kind != 'delete' or not adjacent to the run's end
+       or the character being removed is not in the same unit as the
+       characters the run has removed (units taken from the text as it
+       was when the run opened):
         closeRun(); openRun('delete', 'text')
     apply; run.entry = snapshot()
+    listUpdate(causedByEdit = true)
+
+on deletion of a selection:
+    closeRun(); openRun('delete', 'text'); apply; run.entry = snapshot(); closeRun()
     listUpdate(causedByEdit = true)
 
 on paste, cut, or platform replacement:
@@ -297,6 +315,9 @@ here whenever a new kind of interface is specified.
     was removed; undo does nothing.
   - Type " world" at the end of "Aardvark" and undo once: the whole
     " world" goes (edge case 9).
+  - Type " world" again, then press Backspace six times: "world" and
+    the space before it go; undo once brings " world" back (edge case
+    16).
   - Change the first line of "Zebra crossing near the school" to start
     with "Bus ": it moves up the list, staying selected and visible;
     undo twice ("Bus" then " " were typed as text then whitespace —
