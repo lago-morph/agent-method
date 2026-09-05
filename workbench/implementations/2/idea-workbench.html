@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Idea Workbench</title>
+<style>
+  /* Implementation 2 of the Idea Workbench spec: the Initial UI and Edit
+     ideas use cases. Single file, no build step, no dependencies, memory
+     only. Decisions are recorded in note-implementation-record-2.md and
+     the per-area notes it links. */
+
+  :root {
+    --border: #c8c8cc;
+    --pane-bg: #ffffff;
+    --chrome-bg: #f2f2f5;
+    --text: #1c1c1e;
+    --muted: #8e8e93;
+    --selected-bg: #d9e7ff;
+    --button-bg: #0a66ff;
+    --button-text: #ffffff;
+    --button-secondary-bg: #ffffff;
+    --button-secondary-text: #1c1c1e;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;              /* only the panes scroll */
+    font-family: -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    color: var(--text);
+    background: var(--chrome-bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  header {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--chrome-bg);
+  }
+
+  header h1 {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    font: inherit;
+    flex: none;
+    min-height: 44px;              /* comfortable touch target */
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.primary {
+    border-color: var(--button-bg);
+    background: var(--button-bg);
+    color: var(--button-text);
+  }
+  button:active { opacity: 0.7; }
+
+  main {
+    flex: 1;
+    min-height: 0;                 /* lets the panes scroll instead of the page */
+    display: grid;
+    grid-template-columns: 1fr 2fr 4fr;
+    background: var(--border);     /* shows through the 1px gaps as pane dividers */
+    gap: 1px;
+  }
+
+  .pane {
+    min-height: 0;
+    min-width: 0;
+    background: var(--pane-bg);
+    overflow-y: auto;              /* each pane scrolls vertically on its own */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Middle pane: the idea list */
+  #ideas {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ideas li {
+    min-height: 44px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ececef;
+    white-space: nowrap;           /* one line per idea ... */
+    overflow: hidden;
+    text-overflow: ellipsis;       /* ... truncated with "…" when wider than the pane */
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* A row with no visible content, and a row standing in for a missing
+     title, are distinguished the same way: greyed. */
+  #ideas li.empty,
+  #ideas li.placeholder-title { color: var(--muted); }
+  #ideas li.selected { background: var(--selected-bg); }
+
+  /* Right pane: the idea edit area. The textarea itself is the scroller,
+     so that the caret can be kept in view. */
+  #right {
+    display: flex;
+    overflow: hidden;
+  }
+
+  #text {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 16px;
+    border: 0;
+    outline: none;
+    resize: none;
+    font: inherit;
+    line-height: 1.4;
+    color: var(--text);
+    background: var(--pane-bg);
+    overflow-y: auto;              /* the edit area scrolls vertically ... */
+    overflow-x: hidden;            /* ... and never horizontally */
+    overflow-wrap: anywhere;       /* even unbroken runs wrap */
+    word-break: break-word;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Not editable when no idea is selected, but still a plain white pane. */
+  #text:disabled {
+    opacity: 1;
+    color: var(--text);
+    -webkit-text-fill-color: var(--text);
+    background: var(--pane-bg);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Idea Workbench</h1>
+  <button id="new" type="button" class="primary">New</button>
+  <button id="undo" type="button">Undo</button>
+  <button id="redo" type="button">Redo</button>
+  <button id="load-test-data" type="button">Load test data</button>
+</header>
+
+<main>
+  <section class="pane" id="left" aria-label="Labels"></section>
+  <section class="pane" id="middle" aria-label="Ideas">
+    <ul id="ideas"></ul>
+  </section>
+  <section class="pane" id="right" aria-label="Idea text">
+    <textarea id="text" aria-label="Idea text" disabled></textarea>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---- Model: ideas held in memory only -----------------------------------
+  // An idea is { id, content }. The title is derived from the content on
+  // every render; it is not stored.
+
+  var ideas = [];
+  var nextId = 1;
+  var selectedId = null;
+
+  function isEmpty(idea) {
+    return idea.content.trim() === '';
+  }
+
+  // The line shown for an idea in the list. Normally the first line. When the
+  // first line is blank but later lines have content, the first line that has
+  // visible content stands in for the missing title (and is greyed like the
+  // "(empty)" placeholder).
+  function titleOf(idea) {
+    var lines = idea.content.split('\n');
+    if (lines[0].trim() !== '') return { text: lines[0], standIn: false };
+    for (var i = 1; i < lines.length; i++) {
+      if (lines[i].trim() !== '') return { text: lines[i], standIn: true };
+    }
+    return { text: '', standIn: false };   // only reachable for empty ideas
+  }
+
+  function ideaById(id) {
+    for (var i = 0; i < ideas.length; i++) {
+      if (ideas[i].id === id) return ideas[i];
+    }
+    return null;
+  }
+
+  // Sorted view: "(empty)" ideas first, then alphabetical by the line the row
+  // shows, case-insensitive. Array.prototype.sort is stable, so ideas that
+  // compare equal keep their insertion order.
+  function sortedIdeas() {
+    return ideas.slice().sort(function (a, b) {
+      var ea = isEmpty(a), eb = isEmpty(b);
+      if (ea !== eb) return ea ? -1 : 1;
+      if (ea) return 0;
+      return titleOf(a).text.toLocaleLowerCase()
+        .localeCompare(titleOf(b).text.toLocaleLowerCase());
+    });
+  }
+
+  // ---- View ---------------------------------------------------------------
+
+  var listEl = document.getElementById('ideas');
+  var middleEl = document.getElementById('middle');
+  var textEl = document.getElementById('text');
+
+  function render() {
+    // Rebuilding the list would otherwise reset the pane's scroll position on
+    // every keystroke; keep it, then make sure the selected row is in view.
+    var keepScroll = middleEl.scrollTop;
+    listEl.textContent = '';
+    var selectedRow = null;
+
+    sortedIdeas().forEach(function (idea) {
+      var li = document.createElement('li');
+      li.dataset.id = idea.id;
+      if (isEmpty(idea)) {
+        li.textContent = '(empty)';
+        li.className = 'empty';
+      } else {
+        var title = titleOf(idea);
+        li.textContent = title.text;
+        if (title.standIn) li.className = 'placeholder-title';
+      }
+      if (idea.id === selectedId) {
+        li.classList.add('selected');
+        selectedRow = li;
+      }
+      listEl.appendChild(li);
+    });
+
+    middleEl.scrollTop = keepScroll;
+    if (selectedRow) selectedRow.scrollIntoView({ block: 'nearest' });
+
+    var selected = ideaById(selectedId);
+    if (selected) {
+      // Only write the value when it differs, so typing keeps its caret.
+      if (textEl.value !== selected.content) textEl.value = selected.content;
+      textEl.disabled = false;
+    } else {
+      textEl.value = '';
+      textEl.disabled = true;
+    }
+  }
+
+  // ---- Undo history -------------------------------------------------------
+  // Snapshots of the selected idea's text, from the text as it was when the
+  // idea was selected. Consecutive non-whitespace characters typed at the
+  // insertion point extend the current entry; anything else starts a new one.
+
+  var history = [];
+  var historyIndex = 0;
+  var runOpen = false;      // a run of typed characters is being extended
+  var lastCaret = 0;
+
+  function resetHistory() {
+    history = [{ content: textEl.value, start: textEl.selectionStart || 0, end: textEl.selectionEnd || 0 }];
+    historyIndex = 0;
+    runOpen = false;
+    lastCaret = textEl.selectionStart || 0;
+  }
+
+  function applyHistory(index) {
+    var selected = ideaById(selectedId);
+    if (!selected) return;
+    historyIndex = index;
+    var snapshot = history[historyIndex];
+    selected.content = snapshot.content;
+    textEl.value = snapshot.content;
+    textEl.setSelectionRange(snapshot.start, snapshot.end);
+    runOpen = false;
+    lastCaret = snapshot.start;
+    render();
+    if (!textEl.disabled) textEl.focus();
+  }
+
+  function undo() {
+    if (historyIndex > 0) applyHistory(historyIndex - 1);
+  }
+
+  function redo() {
+    if (historyIndex < history.length - 1) applyHistory(historyIndex + 1);
+  }
+
+  // ---- Editing ------------------------------------------------------------
+
+  textEl.addEventListener('input', function (event) {
+    var selected = ideaById(selectedId);
+    if (!selected) return;
+    selected.content = textEl.value;
+
+    var caret = textEl.selectionStart;
+    var typed = event.inputType === 'insertText' && !!event.data && !/\s/.test(event.data);
+    var extendsRun = typed && runOpen && caret === lastCaret + event.data.length;
+    var snapshot = { content: textEl.value, start: caret, end: textEl.selectionEnd };
+
+    if (extendsRun) {
+      history[historyIndex] = snapshot;
+    } else {
+      history.length = historyIndex + 1;   // a new change discards the redo tail
+      history.push(snapshot);
+      historyIndex++;
+    }
+    runOpen = typed;
+    lastCaret = caret;
+
+    render();
+  });
+
+  // ---- Selecting, leaving, and creating -----------------------------------
+
+  // Leaving an idea with no visible content deletes it.
+  function leaveSelected() {
+    var selected = ideaById(selectedId);
+    if (selected && isEmpty(selected)) {
+      ideas = ideas.filter(function (idea) { return idea !== selected; });
+    }
+  }
+
+  function select(id) {
+    if (id === selectedId) return;   // re-selecting is not leaving
+    leaveSelected();
+    selectedId = id;
+    render();
+    resetHistory();
+  }
+
+  function newIdea() {
+    leaveSelected();
+    var idea = { id: nextId++, content: '' };
+    ideas.push(idea);
+    selectedId = idea.id;
+    render();
+    resetHistory();
+    textEl.focus();
+  }
+
+  listEl.addEventListener('click', function (event) {
+    var li = event.target.closest('li');
+    if (!li) return;
+    select(Number(li.dataset.id));
+  });
+
+  document.getElementById('new').addEventListener('click', newIdea);
+  document.getElementById('undo').addEventListener('click', undo);
+  document.getElementById('redo').addEventListener('click', redo);
+
+  // The platform's standard shortcuts for the same commands. Undo and redo are
+  // handled here rather than by the text control, so that the history is the
+  // one this use case specifies.
+  document.addEventListener('keydown', function (event) {
+    if (!event.metaKey && !event.ctrlKey) return;
+    var key = event.key.toLowerCase();
+    if (key === 'z' && !event.shiftKey) {
+      event.preventDefault();
+      undo();
+    } else if ((key === 'z' && event.shiftKey) || key === 'y') {
+      event.preventDefault();
+      redo();
+    } else if (key === 'n') {
+      event.preventDefault();
+      newIdea();
+    }
+  });
+
+  // On-screen keyboards shrink the visual viewport rather than the layout
+  // one; following it keeps the edit area, and so the insertion point, clear
+  // of the keyboard.
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', function () {
+      document.body.style.height = window.visualViewport.height + 'px';
+    });
+  }
+
+  // ---- Test data (scaffolding; removed once save exists) ------------------
+
+  var wideTitle =
+    'This idea has a first line that is far wider than the middle pane so that ' +
+    'the title must be truncated with an ellipsis rather than wrapping or ' +
+    'spilling over into the neighbouring pane, no matter how wide the screen is.';
+
+  var longParagraph =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
+    'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ' +
+    'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ' +
+    'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse ' +
+    'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat ' +
+    'non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+  var largeText = 'A very large idea\n\n';
+  for (var p = 1; p <= 40; p++) {
+    largeText += 'Paragraph ' + p + ' of 40. ' + longParagraph + '\n\n';
+  }
+  largeText += 'An unbroken run to exercise wrapping without horizontal scrolling: ' +
+    'abcdefghijklmnopqrstuvwxyz0123456789'.repeat(6) + '\n\n' +
+    'The end of the very large idea.';
+
+  var testSet = [
+    // A dozen or so short ideas with varied first letters and mixed case.
+    // "apple pie" / "Apple crumble" and "Banana bread" / "banana split" only
+    // sort correctly if ordering ignores case.
+    'apple pie recipe\nUse the tart apples from the market.',
+    'Apple crumble\nOats in the topping this time.',
+    'Zebra crossing near the school\nAsk the council about it.',
+    'Banana bread',
+    'banana split for the kids',
+    'Quantum garden\nWhat if the plant labels were QR codes?',
+    'mango sorbet',
+    'Elephant memory app\nA reminder tool that never forgets.',
+    'kite festival weekend',
+    'Yak wool socks\nOrder before winter.',
+    'cherry blossom walk\nEarly April, before it rains.',
+    'Dinosaur museum trip',
+    'umbrella stand by the door',
+    'Walnut desk plans',
+    'lighthouse tour',
+    // One idea whose first line is much wider than the middle pane.
+    wideTitle + '\nThe second line is short.',
+    // One idea whose text is much larger than the display area.
+    largeText,
+    // One idea with no content at all, and one containing only whitespace.
+    '',
+    '  \n\t \n   '
+  ];
+
+  document.getElementById('load-test-data').addEventListener('click', function () {
+    // Each click appends another full copy; every idea gets its own identity.
+    testSet.forEach(function (content) {
+      ideas.push({ id: nextId++, content: content });
+    });
+    render();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>

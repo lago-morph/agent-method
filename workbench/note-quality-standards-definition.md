@@ -8,6 +8,7 @@ links:
     - note-acceptance-criteria-definition.md
     - note-test-method-definition.md
     - note-implementation-record-1.md
+    - note-implementation-record-2.md
 ---
 
 Captured 2026-09-05 from Jonathan's markup on the acceptance-criteria

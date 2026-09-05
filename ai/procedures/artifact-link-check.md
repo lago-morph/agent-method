@@ -3,7 +3,10 @@
 **Status:** working document, non-normative. Retrospective.
 **Observed in:** PR #16, run four times as `workbench/` grew from 12 to
 19 artifacts, each time immediately before committing changes to front
-matter.
+matter; implementation 2's regeneration run (the fresh agent ran it and
+separately hand-checked the omissions listed below); the review of that
+run, where the omissions were folded into the script (second version
+below) and run over 26 artifacts.
 
 ## What was done
 
@@ -48,13 +51,45 @@ indentation (two spaces for the link type, four for entries) and
 ignores the `id`, `type`, and `title` keys. It relies on the front
 matter being exactly as `CONVENTIONS.md` prescribes.
 
+### Second version (implementation 2 review): front matter and body links too
+
+Folds in the omissions of the first version. Same invocation pattern.
+
+```python
+import re, os, glob, sys
+recip = {'is-part-of': 'includes', 'includes': 'is-part-of',
+         'depends-on': 'depended-on-by', 'depended-on-by': 'depends-on',
+         'related-to': 'related-to'}
+links = {}; probs = []
+for p in sorted(glob.glob('workbench/*.md')):
+    s = open(p).read(); m = re.match(r'---\n(.*?)\n---\n', s, re.S)
+    if not m: continue
+    fm = m.group(1); name = os.path.basename(p)
+    keys = [l.split(':')[0] for l in fm.split('\n') if l and not l.startswith(' ')]
+    if keys != ['id', 'type', 'title', 'links']: probs.append(f'{name}: keys {keys}')
+    if re.search(r'^id: (.*)$', fm, re.M).group(1).strip() != name[:-3]: probs.append(f'{name}: id')
+    if re.search(r'^type: (.*)$', fm, re.M).group(1).strip() not in ('vision','use-case','component','interface','note'): probs.append(f'{name}: type')
+    if '[]' in fm: probs.append(f'{name}: empty [] list')
+    d = {}; cur = None
+    for line in fm.split('\n'):
+        mm = re.match(r'  (\S+):', line)
+        if mm: cur = mm.group(1); d[cur] = []; continue
+        mm = re.match(r'    - (\S+)', line)
+        if mm and cur: d[cur].append(mm.group(1))
+    links[name] = d
+    for t in re.findall(r'\]\(([^)#]+\.md)\)', s):
+        if not os.path.exists(os.path.join('workbench', t)): probs.append(f'{name}: body link {t} missing')
+for a, d in links.items():
+    for t, ts in d.items():
+        for b in ts:
+            if b not in links or a not in links[b].get(recip[t], []): probs.append(f'{a}:{t}->{b}')
+print('artifacts', len(links), 'problems:', probs or 'none'); sys.exit(1 if probs else 0)
+```
+
 ## What was not done
 
-- It does not check that `id` matches the filename, that `type` is one
-  of the five allowed values, that only the four keys are present, or
-  that empty lists are omitted rather than written as `[]`.
-- It does not check links inside the markdown body, only front matter.
-- It was never committed; it was retyped (pasted) each time.
+- Neither version is committed as tooling; both are retyped (pasted)
+  each time. The second version is the one to promote.
 
 ## Pitfalls observed
 

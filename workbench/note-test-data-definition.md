@@ -8,6 +8,8 @@ links:
     - note-test-method-definition.md
     - note-implementation-record-1.md
     - note-test-data-1.md
+    - note-implementation-record-2.md
+    - note-test-data-2.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
@@ -31,7 +33,10 @@ and from the checks that use it.
 ## Rules for scoping
 
 - Every item exists for a named reason. An item with no corner case
-  behind it is removed; a corner case with no item is a gap in the set.
+  behind it is removed; a corner case with no item is a gap in the set
+  — unless the case only arises from an edit rather than from loaded
+  data, in which case the use case's walk-through creates it and names
+  it, and no item is needed.
 - Items have stable, distinctive titles, so checks and walk-throughs
   can find them by name ("A very large idea"). Change a set by adding
   to it; changing or removing an item breaks the checks that name it,

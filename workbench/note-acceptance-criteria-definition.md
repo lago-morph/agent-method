@@ -9,6 +9,8 @@ links:
     - note-implementation-record-1.md
     - note-acceptance-criteria-1.md
     - note-quality-standards-definition.md
+    - note-implementation-record-2.md
+    - note-acceptance-criteria-2.md
 ---
 
 A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
@@ -35,6 +37,10 @@ one-line definition of done for the implementation.
   back to the use case rather than keeping an orphan check.
 - Criteria say what must be true; the test method says how it is
   checked. A criterion does not name a tool.
+- A use case's Interface guidance section is not a source of criteria
+  rows; it is guidance, not behavior. What it describes (buttons,
+  shortcuts, the on-screen keyboard) becomes items for the person to
+  check at the checkpoint, listed in the test-method note.
 - Criteria cover what the user can observe. The quality checks the
   user never sees — unit tests, type checking, static analysis,
   integration, UI, and end-to-end testing standards — are the subject

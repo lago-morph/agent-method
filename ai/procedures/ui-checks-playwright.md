@@ -4,7 +4,9 @@
 **Observed in:** implementation 1, PR #15 (first run, ad hoc script in
 the scratch directory) and PR #16 (script moved into
 `workbench/implementations/1/verify.js`, specified by
-`workbench/note-automated-checks-1.md`).
+`workbench/note-automated-checks-1.md`); implementation 2 (a fresh
+agent following this procedure, then the reviewer's independent script
+written from the use case rather than from the checks note).
 
 ## What was done
 
@@ -60,6 +62,30 @@ the scratch directory) and PR #16 (script moved into
    same facts as a table with a Chromium column and an empty iPad
    column.
 
+### Added by implementation 2
+
+6. **Two sequences separated by a page reload** once a behavior
+   changes the row count for every later step (deletion on leaving).
+   Sequence A keeps the previous implementation's counts so results
+   stay comparable; sequence B starts from a known state.
+7. **Diagnose before changing anything.** The one failing check of the
+   fresh agent's run (`typingAtEndScrollsEditorToCaret`) and the one
+   failing check of the reviewer's run (a row expected first that
+   sorted second) were both wrong assertions, not wrong
+   implementations. Dump the inputs of the failing assertion first
+   (row texts and classes, scroll metrics), then decide which side is
+   wrong. Neither implementation needed a change.
+8. **Independent review script.** The reviewer wrote a second script
+   from the use case text alone — not from the automated-checks note —
+   and ran it at both sizes. Where it agreed with the checks note it
+   confirmed the checks; where its expectation differed (new idea
+   position, undo step counts) it surfaced the ambiguities the fresh
+   agent had reported. Observations were kept as numbers (undos
+   needed: 2 for "Bus "; 12 for six words), not only booleans, so the
+   granularity decision is visible in the output.
+9. **Rerun the delivered script before reviewing anything else** — a
+   PASS reproduced independently is the baseline for the review.
+
 ## What was not done
 
 - No WebKit run: `/opt/pw-browsers` had no WebKit build and installing
@@ -81,6 +107,17 @@ the scratch directory) and PR #16 (script moved into
   expected values from the data artifact, not from the code under test.
 - The `NODE_PATH` requirement is environment-specific and easy to
   forget; it lives in the script's header comment for that reason.
+- Locale ordering sorts a space before letters, so "A very large idea"
+  precedes "Aardvark"; an assertion that expects a typed title to be
+  "first non-empty row" is wrong whenever an earlier title has a space
+  at the right position. Derive expected positions from the sort rule,
+  not from intuition.
+- A textarea exposes no caret geometry; any "insertion point stays
+  visible" check is written against the scroller and must allow for
+  bottom padding.
+- Playwright's `keyboard.type` fires one `input` event per character;
+  the undo-granularity rule decides how many history entries that
+  makes, so expected undo counts depend on that rule.
 
 ## Notes for formalizing
 

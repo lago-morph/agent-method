@@ -135,12 +135,30 @@ decision and durably record it. note-decision-guides.md is the current
 home of that pattern; before planning implementation 2, read the
 guides and propose the open decisions in its record first.
 
-Next step: work Jonathan's markup on PR #16 until he says it is done.
-Nothing after that is started until he names it; the expected
-following round, per the build order and the implementation standards,
-is an implementation record for the next implementation (record 2,
-covering Initial UI plus Edit ideas, with its decisions proposed per
-the guides), then building it.
+- 2026-09-05, later: PR #16 merged by Jonathan; he ratified the Edit
+  ideas use case in conversation and named implementation 2 as the next
+  round, to be built as a regeneration test (ADR 0007). A fresh Opus
+  subagent, given only method/, workbench/, and ai/procedures/, built
+  implementation 2 (Initial UI plus Edit ideas, same environment as 1):
+  workbench/implementations/2/, note-implementation-record-2.md and its
+  six per-area notes. Reviewed by the session with a rerun of its checks,
+  an independent Playwright script from the use case, the front-matter
+  and link validator, and screenshots; all clean. Delivered as PR #17
+  (branch claude/handoff-instructions-hn00ac), the file attached in chat
+  and a hosted copy published. The run's 15 ambiguities are folded into
+  the guides (questions added), the procedures (revised, plus
+  ai/procedures/regeneration-run.md), and the PR body. Three are
+  use-case defects listed in the PR for Jonathan's markup: where a new
+  idea sits among the placeholders, what one undoable "change" is, and
+  Initial UI's "or 'new' is clicked" clause. Ratified use cases were not
+  edited.
+
+Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
+markup on PR #17, including the three use-case questions; work that
+markup until he says it is done. Nothing after that is started until he
+names it. The build order's next use case is Save ideas, which needs the
+persistent-storage guide foreseen in note-decision-guides.md; the
+test-data guide's open questions are to be raised in that round.
 
 The larger arc continues per ai/PLAN.md's high-level sequence: grow
 outward from the vision one artifact at a time (use cases in their
