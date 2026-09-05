@@ -8,7 +8,7 @@
 // (default: a temp directory), never into the repository.
 //
 // Each check is named for the use-case sentence it verifies; see the
-// acceptance-criteria table in note-implementation-record-1.md.
+// acceptance-criteria table in note/implementation-record-1.md.
 
 const { chromium } = require('playwright');
 const path = require('path');

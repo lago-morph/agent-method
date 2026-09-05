@@ -2,7 +2,7 @@
 
 **Status:** working document, non-normative. Retrospective.
 **Observed in:** PR #16, run four times as `workbench/` grew from 12 to
-19 artifacts, each time immediately before committing changes to front
+19 artifacts (flat layout), each time immediately before committing changes to front
 matter; implementation 2's regeneration run (the fresh agent ran it and
 separately hand-checked the omissions listed below); the review of that
 run, where the omissions were folded into the script (second version
@@ -86,10 +86,49 @@ for a, d in links.items():
 print('artifacts', len(links), 'problems:', probs or 'none'); sys.exit(1 if probs else 0)
 ```
 
+### Third version (per-type folders, PR #18)
+
+When artifacts moved into `workbench/<type>/` (2026-09-05), the glob,
+the id rule, and link resolution changed. The validator now used:
+
+```python
+import re, os, glob, sys
+W = 'workbench'; TYPES = ('vision', 'use-case', 'component', 'interface', 'note')
+recip = {'is-part-of': 'includes', 'includes': 'is-part-of',
+         'depends-on': 'depended-on-by', 'depended-on-by': 'depends-on',
+         'related-to': 'related-to'}
+links = {}; probs = []
+for p in sorted(glob.glob(f'{W}/*/*.md')):
+    folder = p.split('/')[1]
+    if folder not in TYPES: continue                       # input/, implementations/, adr/
+    s = open(p).read(); m = re.match(r'---\n(.*?)\n---\n', s, re.S)
+    if not m: probs.append(f'{p}: no front matter'); continue
+    fm = m.group(1); key = p[len(W)+1:]                    # 'type/id.md'
+    keys = [l.split(':')[0] for l in fm.split('\n') if l and not l.startswith(' ')]
+    if keys != ['id', 'type', 'title', 'links']: probs.append(f'{key}: keys {keys}')
+    if re.search(r'^id: (.*)$', fm, re.M).group(1).strip() != os.path.basename(p)[:-3]: probs.append(f'{key}: id')
+    if re.search(r'^type: (.*)$', fm, re.M).group(1).strip() != folder: probs.append(f'{key}: type != folder')
+    if '[]' in fm: probs.append(f'{key}: empty [] list')
+    d = {}; cur = None
+    for line in fm.split('\n'):
+        mm = re.match(r'  (\S+):', line)
+        if mm: cur = mm.group(1); d[cur] = []; continue
+        mm = re.match(r'    - (\S+)', line)
+        if mm and cur: d[cur].append(mm.group(1))
+    links[key] = d
+    for t in re.findall(r'\]\(([^)#]+\.md)\)', s):          # body links resolve from the file's folder
+        if not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(p), t))): probs.append(f'{key}: body link {t} missing')
+for a, d in links.items():
+    for t, ts in d.items():
+        for b in ts:
+            if b not in links or a not in links[b].get(recip[t], []): probs.append(f'{a}:{t}->{b}')
+print('artifacts', len(links), 'problems:', probs or 'none'); sys.exit(1 if probs else 0)
+```
+
 ## What was not done
 
-- Neither version is committed as tooling; both are retyped (pasted)
-  each time. The second version is the one to promote.
+- No version is committed as tooling; each is retyped (pasted) when
+  needed. The third version is the one to promote.
 
 ## Pitfalls observed
 
@@ -98,7 +137,7 @@ print('artifacts', len(links), 'problems:', probs or 'none'); sys.exit(1 if prob
   a PR about something else. The convention requires it; the PR body
   should say so.
 - When a reciprocal was added by string replacement on an anchor line
-  such as `    - note-implementation-record-1.md\n`, the replacement
+  such as `    - note/implementation-record-1.md\n`, the replacement
   had to be limited to the first occurrence; otherwise a file linking
   to the record twice (under two link types) gets the new link twice.
 

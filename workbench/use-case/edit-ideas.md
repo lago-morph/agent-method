@@ -1,17 +1,17 @@
 ---
-id: use-case-edit-ideas
+id: edit-ideas
 type: use-case
 title: Edit ideas
 links:
   is-part-of:
-    - vision.md
+    - vision/vision.md
   depends-on:
-    - use-case-initial-ui.md
+    - use-case/initial-ui.md
   depended-on-by:
-    - note-implementation-record-2.md
+    - note/implementation-record-2.md
 ---
 
-Derived from [input/02-edit-ideas.md](input/02-edit-ideas.md) ("Edit
+Derived from [input/02-edit-ideas.md](../input/02-edit-ideas.md) ("Edit
 ideas" on the master list). Adds editing to the idea list area and the
 idea text area that the Initial UI use case establishes; that area is
 called the idea edit area here.

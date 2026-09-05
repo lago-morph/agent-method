@@ -1,21 +1,21 @@
 ---
-id: note-test-method-2
+id: test-method-2
 type: note
 title: Implementation 2 — test method
 links:
   related-to:
-    - note-implementation-record-2.md
-    - note-test-method-definition.md
-    - note-automated-checks-2.md
+    - note/implementation-record-2.md
+    - note/test-method-definition.md
+    - note/automated-checks-2.md
 ---
 
 Decisions of implementation 2, made while building it. The
 implementation record
-([note-implementation-record-2.md](note-implementation-record-2.md))
+([note/implementation-record-2.md](implementation-record-2.md))
 keeps one line per area and links here; this note holds the detail.
-Guide: [note-test-method-definition.md](note-test-method-definition.md).
+Guide: [note/test-method-definition.md](test-method-definition.md).
 The automated checks themselves are specified in
-[note-automated-checks-2.md](note-automated-checks-2.md).
+[note/automated-checks-2.md](automated-checks-2.md).
 
 ## The guide's questions, answered
 
@@ -57,7 +57,7 @@ to locate the panes, rows, selection, placeholder rows, the text
 control, and the four commands; the checks never locate anything by
 screen position. Two hooks changed shape from implementation 1 because
 the idea text area became editable; both changes are tabulated in
-[note-automated-checks-2.md](note-automated-checks-2.md), which is the
+[note/automated-checks-2.md](automated-checks-2.md), which is the
 contract.
 
 ## Quality checks beyond the UI checks
@@ -68,7 +68,7 @@ as the acceptance criteria. This repeats implementation 1's answer for
 the same reason: the implementation is one file with no modules to
 integrate and no build to fail, and the method has no execution
 materials for those kinds yet. Guide:
-[note-quality-standards-definition.md](note-quality-standards-definition.md).
+[note/quality-standards-definition.md](quality-standards-definition.md).
 
 ## Real-device check
 
@@ -85,4 +85,4 @@ device".
 The checks and their results are summarized where the implementation is
 handed over, together with the known gaps; the automated results fill
 the Chromium column of
-[note-acceptance-criteria-2.md](note-acceptance-criteria-2.md).
+[note/acceptance-criteria-2.md](acceptance-criteria-2.md).

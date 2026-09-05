@@ -1,17 +1,17 @@
 ---
-id: use-case-initial-ui
+id: initial-ui
 type: use-case
 title: Initial UI
 links:
   is-part-of:
-    - vision.md
+    - vision/vision.md
   depended-on-by:
-    - note-implementation-record-1.md
-    - use-case-edit-ideas.md
-    - note-implementation-record-2.md
+    - note/implementation-record-1.md
+    - use-case/edit-ideas.md
+    - note/implementation-record-2.md
 ---
 
-Derived from [input/01-display-ideas.md](input/01-display-ideas.md)
+Derived from [input/01-display-ideas.md](../input/01-display-ideas.md)
 ("Initial UI" on the master list). First use case in the v1 build
 order; every later use case builds on this screen.
 

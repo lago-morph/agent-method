@@ -43,7 +43,7 @@ against whatever the previous instance happened to choose.
 
 ## References
 
-- `../../workbench/note-implementation-record-definition.md` — the
+- `../../workbench/note/implementation-record-definition.md` — the
   restored definition.
-- `../../workbench/note-implementation-record-1.md` — the first
+- `../../workbench/note/implementation-record-1.md` — the first
   instance.

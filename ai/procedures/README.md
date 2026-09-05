@@ -10,7 +10,7 @@ session. Each file records what was done, what was not done, what went
 wrong, and what would change; it is revised whenever the same work is
 done again for a later implementation. When the method proper gains its
 support materials (skills, reference procedures, linters, CI pipelines,
-per `workbench/note-quality-standards-definition.md`), these are the
+per `workbench/note/quality-standards-definition.md`), these are the
 starting point for formalizing them into `method/`, and the files here
 become working residue.
 

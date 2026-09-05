@@ -1,21 +1,21 @@
 ---
-id: note-test-data-definition
+id: test-data-definition
 type: note
 title: Test data — guide for designing, storing, and managing test data
 links:
   related-to:
-    - note-decision-guides.md
-    - note-test-method-definition.md
-    - note-implementation-record-1.md
-    - note-test-data-1.md
-    - note-implementation-record-2.md
-    - note-test-data-2.md
+    - note/decision-guides.md
+    - note/test-method-definition.md
+    - note/implementation-record-1.md
+    - note/test-data-1.md
+    - note/implementation-record-2.md
+    - note/test-data-2.md
 ---
 
-A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
+A guide in the sense of [note/decision-guides.md](decision-guides.md):
 the questions to settle about the data used to exercise an
 implementation. The first recorded instance is
-[note-test-data-1.md](note-test-data-1.md), the set embedded in
+[note/test-data-1.md](test-data-1.md), the set embedded in
 `implementations/1/idea-workbench.html`. Candidate for a real artifact
 type, and eventually part of test cases or general test data
 management.

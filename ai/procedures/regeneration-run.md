@@ -21,7 +21,7 @@ checks.
    implementation 1). Everything else was "for you to decide per the
    artifacts".
 3. **Named the outputs by the artifacts' own conventions:** the record
-   (`note-implementation-record-2.md`), the per-area notes
+   (`note/implementation-record-2.md`), the per-area notes
    (`note-<area>-2.md`, listing the six expected), the implementation
    and its checks under `implementations/2/`, reciprocal links with the
    link check run before finishing, and a report file outside the

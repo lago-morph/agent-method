@@ -1,18 +1,18 @@
 ---
-id: note-ui-decisions-2
+id: ui-decisions-2
 type: note
 title: Implementation 2 — UI decisions
 links:
   related-to:
-    - note-implementation-record-2.md
-    - note-ui-standards-definition.md
+    - note/implementation-record-2.md
+    - note/ui-standards-definition.md
 ---
 
 Decisions of implementation 2, made while building it. The
 implementation record
-([note-implementation-record-2.md](note-implementation-record-2.md))
+([note/implementation-record-2.md](implementation-record-2.md))
 keeps one line per area and links here; this note holds the detail.
-Guide: [note-ui-standards-definition.md](note-ui-standards-definition.md).
+Guide: [note/ui-standards-definition.md](ui-standards-definition.md).
 Values, not adjectives.
 
 ## The guide's questions, answered

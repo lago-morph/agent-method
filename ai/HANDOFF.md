@@ -45,18 +45,18 @@ the last item is ratified):
 
 - method/CONVENTIONS.md — artifact file convention (front matter,
   typed two-way links with hand-maintained reciprocals).
-- workbench/vision.md — the Idea Workbench vision;
+- workbench/vision/vision.md — the Idea Workbench vision;
   method/types/vision.md is the vision type guidance and template.
-- workbench/use-case-initial-ui.md — the first use case (three-pane
+- workbench/use-case/initial-ui.md — the first use case (three-pane
   screen), ratified.
-- workbench/note-implementation-record-definition.md — what every
+- workbench/note/implementation-record-definition.md — what every
   implementation record must decide, with example options.
-- workbench/note-implementation-standards.md — decided-once standards:
+- workbench/note/implementation-standards.md — decided-once standards:
   terminology (implementations of a version of the spec; "prototype"
   only in descriptive prose), non-repeating integer numbering,
   artifacts under implementations/<N>/ beside the specification
   artifacts.
-- workbench/note-implementation-record-1.md — implementation 1: a
+- workbench/note/implementation-record-1.md — implementation 1: a
   single-page HTML file (HTML/CSS/JS, no build step, no dependencies,
   memory only, no logging) opened directly in Safari on an iPad,
   implementing the Initial UI use case.
@@ -64,7 +64,7 @@ the last item is ratified):
   itself, built per its record; merged by Jonathan 2026-09-05 (PR #15).
   Verified in headless Chromium at iPad viewports; Jonathan's iPad
   checkpoint has not yet produced markup.
-- workbench/use-case-edit-ideas.md — the Edit ideas use case, drafted
+- workbench/use-case/edit-ideas.md — the Edit ideas use case, drafted
   fresh 2026-09-05 and open for Jonathan's markup as PR #16 (branch
   claude/handoff-instructions-hn00ac). The PR body lists the six
   decisions the source notes did not make. Not ratified until he says
@@ -74,7 +74,7 @@ the last item is ratified):
   structure, test method, acceptance-criteria table, test data,
   delivery, known gaps); implementations/1/verify.js as an
   implementation artifact; and five notes defining future artifacts —
-  note-decision-guides.md (the guide / decisions / standard pattern,
+  note/decision-guides.md (the guide / decisions / standard pattern,
   scoping rules, walkthrough guidance, foreseen areas such as
   persistent storage) plus guides for UI standards, test method,
   acceptance criteria, and test data. Open for markup like the rest.
@@ -92,7 +92,7 @@ the last item is ratified):
   sections. To be carried into the use-case type guidance when it is
   written, distinguishing the two kinds of use case.
 
-- workbench/note-automated-checks-1.md and
+- workbench/note/automated-checks-1.md and
   method/adr/0007-artifacts-must-suffice-for-regeneration.md — from
   Jonathan's markup on verify.js: the checks are specified in a note
   the script is derived from (environment, hooks contract, sequence
@@ -102,7 +102,7 @@ the last item is ratified):
   similar result including all QA checks. The test-method guide now
   says what such a note must contain.
 
-- workbench/note-quality-standards-definition.md — from Jonathan's
+- workbench/note/quality-standards-definition.md — from Jonathan's
   markup on the acceptance-criteria guide: the non-user-visible quality
   checks (unit test standards, type checking, static analysis,
   integration, UI, end-to-end) are specified as what we want, not how.
@@ -122,16 +122,16 @@ later implementation; add one when something new is done.
 - Per Jonathan's markup on record 1 (PR #16): an implementation record
   is a short list of bullets linking to structured documents with the
   detail. Record 1 now keeps one line per area; the detail lives in
-  note-ui-decisions-1, note-implementation-structure-1,
-  note-test-method-1, note-acceptance-criteria-1, note-test-data-1
-  (and note-automated-checks-1). He expects these to become artifact
+  note/ui-decisions-1, note/implementation-structure-1,
+  note/test-method-1, note/acceptance-criteria-1, note/test-data-1
+  (and note/automated-checks-1). He expects these to become artifact
   types later. The record definition carries the shape rule.
 
 Standing direction from Jonathan (2026-09-05): capture every decision
 an implementation makes that the spec did not, so implementation is
 repeatable and deterministic; future implementations with more choices
 (persistent storage, UI) need structured artifacts that guide the
-decision and durably record it. note-decision-guides.md is the current
+decision and durably record it. note/decision-guides.md is the current
 home of that pattern; before planning implementation 2, read the
 guides and propose the open decisions in its record first.
 
@@ -140,7 +140,7 @@ guides and propose the open decisions in its record first.
   round, to be built as a regeneration test (ADR 0007). A fresh Opus
   subagent, given only method/, workbench/, and ai/procedures/, built
   implementation 2 (Initial UI plus Edit ideas, same environment as 1):
-  workbench/implementations/2/, note-implementation-record-2.md and its
+  workbench/implementations/2/, note/implementation-record-2.md and its
   six per-area notes. Reviewed by the session with a rerun of its checks,
   an independent Playwright script from the use case, the front-matter
   and link validator, and screenshots; all clean. Delivered as PR #17
@@ -180,11 +180,23 @@ guides and propose the open decisions in its record first.
   stacked PR on branch claude/use-cases-whitespace-undo-messages,
   based on PR #17's branch until that merges.
 
+- Also in PR #18, at Jonathan's direction: artifacts moved into one
+  folder per type — workbench/vision/, workbench/use-case/,
+  workbench/note/ (component/ and interface/ when they exist). Ids no
+  longer repeat the type (note/test-data-1.md has id test-data-1);
+  front-matter links are type/id.md relative to workbench/; body links
+  are relative to the file's folder. method/CONVENTIONS.md revised
+  accordingly; every reference in workbench/, method/, ai/procedures/,
+  ai/HANDOFF.md, ai/PLAN.md and the implementations' comments updated;
+  ai/retrospective/ and the 2026-08-30 conventions proposal left as
+  history. The link validator (third version, in
+  ai/procedures/artifact-link-check.md) checks the new layout.
+
 Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
-markup on PR #17, now including the revised use cases; work that markup
-until he says it is done. Nothing after that is started until he
+markup on PRs #17 and #18 (#18 now also carries the folder
+restructure); work that markup until he says it is done. Nothing after that is started until he
 names it. The build order's next use case is Save ideas, which needs the
-persistent-storage guide foreseen in note-decision-guides.md; the
+persistent-storage guide foreseen in note/decision-guides.md; the
 test-data guide's open questions are to be raised in that round.
 
 The larger arc continues per ai/PLAN.md's high-level sequence: grow

@@ -1,22 +1,22 @@
 ---
-id: note-acceptance-criteria-definition
+id: acceptance-criteria-definition
 type: note
 title: Acceptance criteria — guide for deciding when an implementation is done
 links:
   related-to:
-    - note-decision-guides.md
-    - note-test-method-definition.md
-    - note-implementation-record-1.md
-    - note-acceptance-criteria-1.md
-    - note-quality-standards-definition.md
-    - note-implementation-record-2.md
-    - note-acceptance-criteria-2.md
+    - note/decision-guides.md
+    - note/test-method-definition.md
+    - note/implementation-record-1.md
+    - note/acceptance-criteria-1.md
+    - note/quality-standards-definition.md
+    - note/implementation-record-2.md
+    - note/acceptance-criteria-2.md
 ---
 
-A guide in the sense of [note-decision-guides.md](note-decision-guides.md):
+A guide in the sense of [note/decision-guides.md](decision-guides.md):
 what must be true for an implementation to be accepted, and how that
 is derived. The first recorded instance is
-[note-acceptance-criteria-1.md](note-acceptance-criteria-1.md). Candidate for a real artifact
+[note/acceptance-criteria-1.md](acceptance-criteria-1.md). Candidate for a real artifact
 type — probably one per implementation, generated from the use cases
 it includes.
 
@@ -44,7 +44,7 @@ one-line definition of done for the implementation.
 - Criteria cover what the user can observe. The quality checks the
   user never sees — unit tests, type checking, static analysis,
   integration, UI, and end-to-end testing standards — are the subject
-  of [note-quality-standards-definition.md](note-quality-standards-definition.md).
+  of [note/quality-standards-definition.md](quality-standards-definition.md).
 - A criterion is implementation-independent where the use case is;
   rows sourced from the record are specific to that implementation.
 - One table per implementation, covering all the use cases it
