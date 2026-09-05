@@ -153,9 +153,27 @@ guides and propose the open decisions in its record first.
   Initial UI's "or 'new' is clicked" clause. Ratified use cases were not
   edited.
 
+- 2026-09-05, later still: Jonathan answered the three use-case
+  questions and added rules, in conversation; applied to the ratified
+  use cases on the same branch (PR #17): leading whitespace is stripped
+  at every list update (message to the user when their edit caused it);
+  blank ideas exist only while active and are deleted otherwise,
+  including blank loaded content at load; undo groups leading
+  whitespace with the text that follows and treats whitespace
+  sequences as one; New selects the new idea with the insertion point
+  at the start. Edit ideas now carries an edge-case table and a
+  pseudocode algorithm, with a note that such material may later move
+  to its own artifact (a detailed design or similar; decision deferred
+  until more examples exist). Initial UI gains the message area
+  (current message with ×, list button, session message list with
+  times) and fixes list-update timing (after every change). Consequence
+  flagged to Jonathan: the empty and whitespace-only test-data items are
+  deleted at load and never appear. Implementation 2 implements the
+  previous spec version; implementation 3 would implement this one.
+
 Next step: Jonathan's checkpoint on implementation 2 (iPad) and his
-markup on PR #17, including the three use-case questions; work that
-markup until he says it is done. Nothing after that is started until he
+markup on PR #17, now including the revised use cases; work that markup
+until he says it is done. Nothing after that is started until he
 names it. The build order's next use case is Save ideas, which needs the
 persistent-storage guide foreseen in note-decision-guides.md; the
 test-data guide's open questions are to be raised in that round.
