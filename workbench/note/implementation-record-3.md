@@ -11,6 +11,7 @@ links:
     - note/implementation-standards.md
     - note/decision-guides.md
     - note/implementation-record-2.md
+    - note/implementation-record-4.md
     - note/ui-standards-definition.md
     - note/test-method-definition.md
     - note/acceptance-criteria-definition.md

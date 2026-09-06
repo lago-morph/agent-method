@@ -10,6 +10,7 @@ links:
     - use-case/edit-ideas.md
     - note/implementation-record-2.md
     - note/implementation-record-3.md
+    - note/implementation-record-4.md
 ---
 
 Derived from [input/01-display-ideas.md](../input/01-display-ideas.md)

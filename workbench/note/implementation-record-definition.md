@@ -9,6 +9,7 @@ links:
     - note/decision-guides.md
     - note/implementation-record-2.md
     - note/implementation-record-3.md
+    - note/implementation-record-4.md
 ---
 
 Captured 2026-08-30 from Jonathan's direction. This note defines what
