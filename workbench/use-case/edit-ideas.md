@@ -306,7 +306,7 @@ here whenever a new kind of interface is specified.
   whitespace-only items now exercise deletion of blank loaded content
   (edge cases 1 and 2): after a load they are not in the list. Walking
   through the corner cases in order:
-  - Load test data: the list has 19 entries; no "(empty)" row.
+  - Load test data: the list has 20 entries; no "(empty)" row.
   - Issue New: an "(empty)" row at the top, selected; type "Aardvark":
     the entry moves to the top of the alphabetical list as the first
     letter appears; add a second line and confirm the entry is

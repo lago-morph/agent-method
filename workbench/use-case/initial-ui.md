@@ -44,6 +44,9 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - The first line of each idea is its title, and is what the middle pane
   displays for it — by default just that first line, truncated with
   "…" when it is wider than the pane.
+- Truncation is by width, not by word: when even the first word of a
+  first line is wider than the pane, the "…" appears after the part of
+  the word that fits.
 - When there are no ideas, the list is simply empty; nothing else
   changes.
 - When there are more ideas than fit the visible list, the middle pane
@@ -60,6 +63,16 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - When the text is larger than the display area, the right pane scrolls
   vertically. Lines longer than the pane wrap; there is no horizontal
   scrolling.
+- A word wider than the pane is split across lines at whatever
+  character makes it fit, with a hyphen shown at each split; a word
+  that spans several lines gets a hyphen at every line it is split
+  across. The splits follow no hyphenation rules. The hyphen is red, to
+  show that it is not part of the word.
+- Splitting is display only: the idea's content is unchanged, and the
+  hyphens are neither part of the text nor copied with it. Splitting
+  happens as the text is typed: a word that grows past the pane's width
+  is split while it is being written, and a word that shrinks back to
+  fit is shown whole again.
 
 ### Ideas with no visible content
 
@@ -111,6 +124,11 @@ See my ideas in one place: the three-pane screen that is the workbench.
     whose second line is A;
   - one idea whose first line is much wider than the middle pane,
     exercising title truncation;
+  - one idea whose first line is a single unbroken word wider than the
+    middle pane — sixty letters with no spaces — followed by a short
+    second line, exercising "…" after a partial word in the list and
+    red-hyphen splitting in the right pane; the large idea's unbroken
+    run of characters exercises a word split across several lines;
   - one idea whose text is much larger than the display area,
     exercising right-pane scrolling and line wrapping;
   - one idea with no content at all, and one containing only
