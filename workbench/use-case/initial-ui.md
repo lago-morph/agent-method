@@ -66,8 +66,7 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - A word wider than the pane is split across lines at whatever
   character makes it fit, with a hyphen shown at each split; a word
   that spans several lines gets a hyphen at every line it is split
-  across. The splits follow no hyphenation rules. The hyphen is red, to
-  show that it is not part of the word.
+  across. The splits follow no hyphenation rules.
 - Splitting is display only: the idea's content is unchanged, and the
   hyphens are neither part of the text nor copied with it. Splitting
   happens as the text is typed: a word that grows past the pane's width
@@ -127,7 +126,7 @@ See my ideas in one place: the three-pane screen that is the workbench.
   - one idea whose first line is a single unbroken word wider than the
     middle pane — sixty letters with no spaces — followed by a short
     second line, exercising "…" after a partial word in the list and
-    red-hyphen splitting in the right pane; the large idea's unbroken
+    hyphen splitting in the right pane; the large idea's unbroken
     run of characters exercises a word split across several lines;
   - one idea whose text is much larger than the display area,
     exercising right-pane scrolling and line wrapping;
