@@ -35,6 +35,12 @@ See my ideas in one place: the three-pane screen that is the workbench.
 
 - The middle pane lists ideas, initially in alphabetical order.
   Ordering is case-insensitive.
+- Ordering compares an idea's entire content, not only the first line
+  that the pane displays. Two ideas whose first lines are the same are
+  ordered by what follows: an idea whose content is `A`, newline, `A`
+  sorts before one whose content is `A`, newline, `B`, whichever was
+  created first. Only ideas whose entire content is identical keep
+  their creation order.
 - The first line of each idea is its title, and is what the middle pane
   displays for it — by default just that first line, truncated with
   "…" when it is wider than the pane.
@@ -97,6 +103,12 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - The set is designed to show off the corner cases:
   - a dozen or so short ideas with varied first letters and mixed case,
     exercising alphabetical ordering;
+  - two ideas with the same first line and different second lines,
+    created in the reverse of their sorted order — "Same first line"
+    followed by "second line B", then "Same first line" followed by
+    "second line A" — exercising whole-content ordering: after a load,
+    the first of the two rows reading "Same first line" is the one
+    whose second line is A;
   - one idea whose first line is much wider than the middle pane,
     exercising title truncation;
   - one idea whose text is much larger than the display area,
