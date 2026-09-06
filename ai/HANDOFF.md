@@ -195,7 +195,7 @@ guides and propose the open decisions in its record first.
 - Jonathan's direction (2026-09-05): the implementation procedure is,
   explicitly, hand-off to a clean-context subagent with specific
   (tiered) document access — ai/procedures/implement-by-subagent.md
-  (prompt template, review checklist, metrics table with run 1). Opus
+  (prompt template, review checklist, metrics table per implementation). Opus
   until a run works from the procedure as written; then Sonnet. It
   stress-tests repeatability and context preservation through
   progressive disclosure. The record is the subagent's input: draft
@@ -216,8 +216,8 @@ guides and propose the open decisions in its record first.
   that; it adds the build-time sections and per-area notes.
 
 - Record 3 merged (PR #19); Jonathan said "run it as per procedure".
-  Run 2 of ai/procedures/implement-by-subagent.md (Opus, prompt
-  template verbatim, input = record 3) built implementation 3:
+  ai/procedures/implement-by-subagent.md (Opus, prompt template
+  verbatim, input = record 3) built implementation 3:
   workbench/implementations/3/, record 3's build-time sections, six
   per-area notes; PASS with 67 checks per orientation plus 3 inspection
   checks, mutation-tested by the agent itself; 33 documents read in
