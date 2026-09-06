@@ -1,17 +1,22 @@
 # Handoff prompt
 
 Maintained by the AI partner; updated at the end of every working
-session so a new session can start without losing state. Replaces the
-original kickstart prompt, whose steps are complete or absorbed below.
-The block below is the opening prompt of the next session.
+session so a new session can start without losing state. The block
+below is the opening prompt of the next session. The chronological
+record of how the state came about is in this file's git history
+(the version at commit 780fba6 is the last log-style one) and in
+ai/retrospective/.
 
 ---
 
 Read CLAUDE.md, ai/PLAN.md, method/CONVENTIONS.md, every lesson in
-ai/lessons/ (they are binding), and the artifacts in workbench/. You
-are Jonathan's drafting partner: he decides intent and approves
-content; you draft, reflect back, and critique. Work in small rounds
-and pause for his input.
+ai/lessons/ (they are binding), ai/procedures/README.md, and the
+artifacts in workbench/ — start with workbench/README.md,
+note/decision-guides.md, note/implementation-standards.md, and
+note/implementation-record-definition.md, then the vision and the two
+use cases, then the rest as needed. You are Jonathan's drafting
+partner: he decides intent and approves content; you draft, reflect
+back, and critique. Work in small rounds and pause for his input.
 
 The objective, per ai/PLAN.md: we are prototyping the design artifacts
 themselves by building real software with them. Idea-workbench is the
@@ -22,241 +27,143 @@ used for future applications. When work here teaches a method lesson,
 that lesson is part of the deliverable (as method ADRs, type guidance,
 or ai/lessons/ entries, per its kind).
 
-Rules of engagement (details in ai/lessons/):
+## Rules of engagement (details in ai/lessons/)
 
 - One artifact at a time; each stays open for Jonathan's markup until
   he says it is done.
-- Jonathan does all merges unless he explicitly delegates a specific
-  one. A merge is never a signal to advance — only his explicit word
-  in conversation is.
+- Jonathan does all merges. A merge is never a signal to advance, and
+  ratification is only his explicit statement in conversation.
 - PRs are the approval mechanism: write every merge-approved document
-  so its text is already correct after the merge.
+  so its text is already correct after the merge; no pending-state
+  markers inside artifacts.
 - Commit and push at the end of every turn; chat is never the only
   home of anything. If Jonathan says something that sounds like
   intent, capture it in an artifact or note and show him.
+- A delivered implementation, its record, and its per-area notes are
+  never edited afterwards: they are the historical record. Markup
+  after delivery goes to the use cases, in its own PR, for the next
+  implementation. Changes after a delivery PR's first commit are
+  sectioned off into their own PR.
+- Use cases never depend on the specific test-data set: examples, not
+  counts or item names. The UI use case (Initial UI) owns display and
+  layout; other use cases are UI-neutral, with interface detail only
+  in an Interface guidance section (ADR 0006).
+- Refer to implementations by their record number, never by run
+  numbers.
 - Keep the three concerns separate (method/, workbench/, ai/); keep
   workbench/ self-contained (relative links only). Do not read
   archive/ or archive-2/ unless Jonathan names a file.
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-Current state (ratified by Jonathan 2026-09-06, explicitly, in
-conversation, covering everything on main through PR #21):
+## Current state (everything on main is ratified; Jonathan stated it
+## explicitly on 2026-09-06, recorded in PR #22)
 
-- method/CONVENTIONS.md — artifact file convention (front matter,
-  typed two-way links with hand-maintained reciprocals).
-- workbench/vision/vision.md — the Idea Workbench vision;
-  method/types/vision.md is the vision type guidance and template.
-- workbench/use-case/initial-ui.md — the first use case (three-pane
-  screen), ratified.
-- workbench/note/implementation-record-definition.md — what every
-  implementation record must decide, with example options.
-- workbench/note/implementation-standards.md — decided-once standards:
-  terminology (implementations of a version of the spec; "prototype"
-  only in descriptive prose), non-repeating integer numbering,
-  artifacts under implementations/<N>/ beside the specification
-  artifacts.
-- workbench/note/implementation-record-1.md — implementation 1: a
-  single-page HTML file (HTML/CSS/JS, no build step, no dependencies,
-  memory only, no logging) opened directly in Safari on an iPad,
-  implementing the Initial UI use case.
-- workbench/implementations/1/idea-workbench.html — implementation 1
-  itself, built per its record; merged by Jonathan 2026-09-05 (PR #15).
-  Verified in headless Chromium at iPad viewports; Jonathan's iPad
-  checkpoint has not yet produced markup.
-- workbench/use-case/edit-ideas.md — the Edit ideas use case, drafted
-  fresh 2026-09-05 and open for Jonathan's markup as PR #16 (branch
-  claude/handoff-instructions-hn00ac). The PR body listed the six
-  decisions the source notes did not make; revised in PRs #18 and #21
-  at his direction and ratified 2026-09-06.
-- Also in PR #16, at Jonathan's direction the same day: implementation
-  record 1 enhanced with the decisions made while building it (UI,
-  structure, test method, acceptance-criteria table, test data,
-  delivery, known gaps); implementations/1/verify.js as an
-  implementation artifact; and five notes defining future artifacts —
+Method (method/):
+- CONVENTIONS.md — one folder per artifact type under workbench/
+  (vision/, use-case/, note/; component/ and interface/ when they
+  exist); id = filename stem; front-matter links are type/id.md with
+  hand-maintained reciprocals; body links are file-relative and need
+  no reciprocal.
+- adr/0001–0007 — ADRs live with their concern; discuss before
+  delivering on intent-level work; keep the three concerns separate;
+  preserve definitions separately from instances; specify corner cases
+  in use cases; the UI design lives in the UI use cases and other use
+  cases are UI-neutral; artifacts must suffice for regeneration (the
+  workbench plus the method handed to an agent with no other context
+  yields a similar result including the QA checks).
+- types/vision.md — the vision type's guidance and template (the only
+  type description written so far; the rest wait for real instances).
+
+Workbench (workbench/):
+- vision/vision.md.
+- use-case/initial-ui.md — the UI use case: three panes plus a message
+  area (current message with ×, list button always present, session
+  message list with times, opens empty); list updated after every
+  change; ordering case-insensitive over the entire content; first
+  line as title, truncated by width; words wider than the right pane
+  split with display-only hyphens as typed; "(empty)" placeholder; the
+  designed test-data set with an item per corner case.
+- use-case/edit-ideas.md — the functional editing use case: edit area,
+  New (selects, insertion point at start), the list follows the text,
+  leading whitespace stripped at every update with a message when the
+  user's edit caused it, blank ideas exist only while active, undo by
+  units (typed runs with their leading whitespace; deletion runs by
+  unit; paste as one), a Detailed behavior section with an edge-case
+  table and pseudocode algorithm (may later move to its own artifact),
+  an Interface guidance section with the browser subsection, and a
+  walk-through of examples.
+- note/implementation-record-definition.md (what a record decides; a
+  record is short bullets linking to per-area notes),
+  note/implementation-standards.md (numbering, implementations/<N>/,
+  delivered implementations are frozen),
   note/decision-guides.md (the guide / decisions / standard pattern,
-  scoping rules, walkthrough guidance, foreseen areas such as
-  persistent storage) plus guides for UI standards, test method,
-  acceptance criteria, and test data. Ratified 2026-09-06.
-- method/adr/0006-use-cases-are-platform-neutral.md — adopted from
-  Jonathan's markup on the Edit ideas use case (PR #16) and his
-  clarification: the UI use cases (one or more per kind of interface,
-  logically one; Initial UI today) are the single home of the UI design
-  and name the functional areas; every other use case is
-  UI-neutral (elements by function not position, silent about other
-  use cases and persistence, platform-neutral wording, the TUI/native
-  test), with interface-specific detail allowed only in an Interface
-  guidance section holding one subsection per interface currently
-  specified (no placeholders). Adding a kind of UI means writing its UI
-  use case, then sweeping the other use cases' Interface guidance
-  sections. To be carried into the use-case type guidance when it is
-  written, distinguishing the two kinds of use case.
+  scoping rules, walkthrough guidance, foreseen areas including
+  persistent storage and delivery to the device), and the guides:
+  note/ui-standards-definition.md, test-method-definition.md,
+  acceptance-criteria-definition.md, test-data-definition.md,
+  quality-standards-definition.md (what, not how; execution methods
+  belong to the method proper later). note/v1-scope-and-prototyping-
+  intent.md holds Jonathan's scope discipline.
+- Implementations 1, 2, 3 — each a single HTML file plus verify.js
+  under implementations/<N>/, with note/implementation-record-<N>.md
+  and per-area notes (ui-decisions, implementation-structure,
+  test-method, acceptance-criteria, test-data, automated-checks).
+  1: Initial UI only. 2: Initial UI plus Edit ideas as first ratified.
+  3: the 2026-09-05 revision (whitespace, blank ideas, undo by units,
+  message area), built by the subagent procedure with Opus; frozen.
+  The use-case rules added at Jonathan's implementation 3 checkpoint
+  (ordering over the entire content, partial-word truncation, hyphen
+  splitting, empty message list) are implemented by no one yet.
 
-- workbench/note/automated-checks-1.md and
-  method/adr/0007-artifacts-must-suffice-for-regeneration.md — from
-  Jonathan's markup on verify.js: the checks are specified in a note
-  the script is derived from (environment, hooks contract, sequence
-  with expected values, output contract, decisions with reasons,
-  regeneration steps), and the method rule is that workbench/ plus
-  method/ handed to an agent with no other context must yield a
-  similar result including all QA checks. The test-method guide now
-  says what such a note must contain.
+Procedures (ai/procedures/, non-normative working documents, revised
+whenever the same work recurs): implement-by-subagent.md (the
+implementation procedure: record N first, then a clean-context
+subagent with tiered document access; prompt template, review
+checklist, per-implementation metrics for 2 and 3; Opus worked as
+written, so the next implementation tries Sonnet), ui-checks-
+playwright.md, artifact-link-check.md (third-version validator),
+use-case-neutrality-check.md, deliver-to-ipad.md (attach the file in
+chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
 
-- workbench/note/quality-standards-definition.md — from Jonathan's
-  markup on the acceptance-criteria guide: the non-user-visible quality
-  checks (unit test standards, type checking, static analysis,
-  integration, UI, end-to-end) are specified as what we want, not how.
+## Known open points (not pending markup)
 
-Execution methods for the quality guides (Jonathan's direction,
-2026-09-05): the formal versions — AI skills, reference procedures,
-linters, CI pipelines in the method proper — are built only after the
-first rounds of implementing the workbench, when the artifact schemas
-and other support materials are developed. Until then, the AI partner
-records what it actually did, retrospectively and never as a forward
-design step, as non-normative working documents in ai/procedures/
-(started after implementation 1: Playwright UI checks, the link
-reciprocity check, the use-case neutrality check, delivery to the
-iPad). Revise those files whenever the same work is done again for a
-later implementation; add one when something new is done.
+- Implementation 3 reported seven ambiguities it decided and Jonathan
+  did not change the use cases for: platform word-deletion is one
+  change; the algorithm's run.entry aliases history[index]; an open
+  deletion run goes stale when a strip changes its base text; Initial
+  UI's whitespace-only sub-case is unreachable with editing in force;
+  the message list is a panel directly above the area; the message
+  area is 44 px holding one line; no test item has leading whitespace
+  with visible content. The next implementation follows implementation
+  3's decisions (in its notes) unless the use cases change, and reports
+  them again.
+- A spec version is identified only by date and PR number.
+- Delivery to the device has no durable route yet; the persistent-
+  storage guide is needed by the Save use case; the test data needs a
+  home once the load button goes.
+- No implementation has been verified in Safari or WebKit; the iPad
+  checkpoint is Jonathan's, and his findings arrive as use-case markup.
 
-- Per Jonathan's markup on record 1 (PR #16): an implementation record
-  is a short list of bullets linking to structured documents with the
-  detail. Record 1 now keeps one line per area; the detail lives in
-  note/ui-decisions-1, note/implementation-structure-1,
-  note/test-method-1, note/acceptance-criteria-1, note/test-data-1
-  (and note/automated-checks-1). He expects these to become artifact
-  types later. The record definition carries the shape rule.
+## Standing directions from Jonathan
 
-Standing direction from Jonathan (2026-09-05): capture every decision
-an implementation makes that the spec did not, so implementation is
-repeatable and deterministic; future implementations with more choices
-(persistent storage, UI) need structured artifacts that guide the
-decision and durably record it. note/decision-guides.md is the current
-home of that pattern; before planning implementation 2, read the
-guides and propose the open decisions in its record first.
+- Capture every decision an implementation makes that the spec did not,
+  in the per-area notes, so implementation is repeatable; guides gain a
+  question whenever one was missing.
+- Execution methods are recorded retrospectively in ai/procedures/;
+  the formal versions (skills, linters, CI) come after the first rounds
+  of implementing the workbench, when the method's schemas and support
+  materials are built.
+- Implementation is by the subagent procedure: record N's owner
+  decisions drafted first for his markup, then the run, then the
+  review checklist, then delivery as a PR with the file attached and a
+  hosted copy.
 
-- 2026-09-05, later: PR #16 merged by Jonathan; he ratified the Edit
-  ideas use case in conversation and named implementation 2 as the next
-  round, to be built as a regeneration test (ADR 0007). A fresh Opus
-  subagent, given only method/, workbench/, and ai/procedures/, built
-  implementation 2 (Initial UI plus Edit ideas, same environment as 1):
-  workbench/implementations/2/, note/implementation-record-2.md and its
-  six per-area notes. Reviewed by the session with a rerun of its checks,
-  an independent Playwright script from the use case, the front-matter
-  and link validator, and screenshots; all clean. Delivered as PR #17
-  (branch claude/handoff-instructions-hn00ac), the file attached in chat
-  and a hosted copy published. The run's 15 ambiguities are folded into
-  the guides (questions added), the procedures (revised, plus
-  ai/procedures/regeneration-run.md), and the PR body. Three are
-  use-case defects listed in the PR for Jonathan's markup: where a new
-  idea sits among the placeholders, what one undoable "change" is, and
-  Initial UI's "or 'new' is clicked" clause. Ratified use cases were not
-  edited.
+## Next step
 
-- 2026-09-05, later still: Jonathan answered the three use-case
-  questions and added rules, in conversation; applied to the ratified
-  use cases on the same branch (PR #17): leading whitespace is stripped
-  at every list update (message to the user when their edit caused it);
-  blank ideas exist only while active and are deleted otherwise,
-  including blank loaded content at load; undo groups leading
-  whitespace with the text that follows and treats whitespace
-  sequences as one; New selects the new idea with the insertion point
-  at the start. Edit ideas now carries an edge-case table and a
-  pseudocode algorithm, with a note that such material may later move
-  to its own artifact (a detailed design or similar; decision deferred
-  until more examples exist). Initial UI gains the message area
-  (current message with ×, list button, session message list with
-  times) and fixes list-update timing (after every change). Consequence
-  confirmed by Jonathan: the empty and whitespace-only test-data items
-  are deleted at load and never appear (the test data confirms the
-  startup behavior); trailing whitespace is kept; whitespace typed at
-  the start is stripped before it is visible. His deletion rule:
-  consecutive deletions are one change while they remove one unit (a
-  run of non-whitespace plus the whitespace before it). Implementation
-  2 implements the previous spec version; implementation 3 would
-  implement this one. At his direction the work was split: PR #17
-  (branch claude/handoff-instructions-hn00ac) holds everything through
-  implementation 2 and its review; the use-case revisions are a
-  stacked PR on branch claude/use-cases-whitespace-undo-messages,
-  based on PR #17's branch until that merges.
-
-- Also in PR #18, at Jonathan's direction: artifacts moved into one
-  folder per type — workbench/vision/, workbench/use-case/,
-  workbench/note/ (component/ and interface/ when they exist). Ids no
-  longer repeat the type (note/test-data-1.md has id test-data-1);
-  front-matter links are type/id.md relative to workbench/; body links
-  are relative to the file's folder. method/CONVENTIONS.md revised
-  accordingly; every reference in workbench/, method/, ai/procedures/,
-  ai/HANDOFF.md, ai/PLAN.md and the implementations' comments updated;
-  ai/retrospective/ and the 2026-08-30 conventions proposal left as
-  history. The link validator (third version, in
-  ai/procedures/artifact-link-check.md) checks the new layout.
-
-- Jonathan's direction (2026-09-05): the implementation procedure is,
-  explicitly, hand-off to a clean-context subagent with specific
-  (tiered) document access — ai/procedures/implement-by-subagent.md
-  (prompt template, review checklist, metrics table per implementation). Opus
-  until a run works from the procedure as written; then Sonnet. It
-  stress-tests repeatability and context preservation through
-  progressive disclosure. The record is the subagent's input: draft
-  implementation record N's owner decisions (use cases, environment,
-  UI method, language, storage, build, UI-design line, logging) as an
-  artifact first, with Jonathan's markup; the prompt says only
-  "implement record N". Use it for implementation 3 (the revised use
-  cases in PR #18) when he says the use cases are done and to go: first
-  round is record 3's draft.
-
-- PRs #17 and #18 merged by Jonathan 2026-09-05; he then said "let's
-  do it" for implementation 3. Per the procedure, round one is
-  workbench/note/implementation-record-3.md — the owner decisions only
-  (use cases as revised in PR #18; environment, UI method, language,
-  storage, build, UI-design line, logging unchanged from 2) — delivered
-  as a PR for his markup. The Opus run of
-  ai/procedures/implement-by-subagent.md starts only on his word after
-  that; it adds the build-time sections and per-area notes.
-
-- Record 3 merged (PR #19); Jonathan said "run it as per procedure".
-  ai/procedures/implement-by-subagent.md (Opus, prompt template
-  verbatim, input = record 3) built implementation 3:
-  workbench/implementations/3/, record 3's build-time sections, six
-  per-area notes; PASS with 67 checks per orientation plus 3 inspection
-  checks, mutation-tested by the agent itself; 33 documents read in
-  tier order, none of the -1 notes but test-data-1. Reviewed per the
-  checklist (rerun, notes and source read, validator, an independent
-  Playwright script from the revised use cases, screenshots): no defect
-  found. Guide-level findings folded into the guides and procedures;
-  CONVENTIONS clarified that body links need no reciprocal. Delivered
-  as a PR with the file attached and a hosted copy. The run's six
-  use-case findings are listed in the PR for Jonathan (word deletion;
-  the algorithm's run.entry alias; an open deletion run after a strip;
-  where the message list appears; whether the dismiss × is always
-  present; Initial UI's whitespace sub-case, now unreachable; plus a
-  test-data item with leading whitespace to exercise edge case 3).
-
-- 2026-09-06: Jonathan's checkpoint markup on PR #20. Applied to the
-  use cases on a stacked branch (claude/use-case-markup-3-checkpoint):
-  ordering compares the entire content (with test data); truncation
-  after a partial first word; long words split with display-only
-  hyphens as typed (no colour requirement); the message list opens
-  empty, list button always present, × only with a message; the Edit
-  ideas walk-through gives examples, never counts tied to the test
-  data. A mistake and its rule: the message-list markup was first
-  applied to implementation 3 itself; Jonathan: a finished
-  implementation is never edited, it is the historical record for
-  building the method, and changes after a delivery PR's first commit
-  are sectioned off. Implementation 3 was restored to its delivery
-  commit; the rule is ai/lessons/finished-implementations-are-never-
-  edited.md and a bullet in note/implementation-standards.md. The
-  ordering and long-word rules are for the next implementation.
-
-- 2026-09-06: PRs #20 and #21 merged. Jonathan then stated explicitly
-  that everything is ratified: every artifact on main — the vision,
-  both use cases as revised, the notes (records 1–3 and their per-area
-  notes, the guides, standards, definitions), CONVENTIONS as revised,
-  ADRs 0001–0007 — and that ratification is always his explicit
-  statement, never inferred (ai/lessons/ratification-is-explicit.md).
-  ai/procedures/ remain non-normative working documents by design.
-
-Next step: on Jonathan's word, the next implementation — record 4's
-owner decisions first, for his markup, then the procedure with a
-Sonnet subagent against the ratified use cases.
+On Jonathan's word: implementation 4 — draft record 4's owner
+decisions (the use cases as on main; the environment unchanged unless
+he says otherwise) as a PR for his markup; when he says go, run
+ai/procedures/implement-by-subagent.md with a Sonnet subagent; review
+per its checklist; add the metrics row and compare with implementations
+2 and 3; deliver. Nothing starts before he says so.
