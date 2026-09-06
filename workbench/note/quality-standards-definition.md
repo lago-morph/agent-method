@@ -10,6 +10,7 @@ links:
     - note/implementation-record-1.md
     - note/implementation-record-2.md
     - note/implementation-record-3.md
+    - note/implementation-record-4.md
 ---
 
 Captured 2026-09-05 from Jonathan's markup on the acceptance-criteria

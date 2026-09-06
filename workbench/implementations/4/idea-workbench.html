@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Idea Workbench</title>
+<style>
+  /* Implementation 4 of the Idea Workbench spec: the Initial UI and Edit
+     ideas use cases as revised on 2026-09-06 (PR #21) — the message list
+     opens empty, ordering compares an idea's entire content, and a word
+     wider than the right pane is split across lines with display-only
+     hyphens as it is typed. Single file, no build step, no dependencies,
+     memory only. Decisions are recorded in note/implementation-record-4.md
+     and the per-area notes it links. */
+
+  :root {
+    --border: #c8c8cc;
+    --pane-bg: #ffffff;
+    --chrome-bg: #f2f2f5;
+    --text: #1c1c1e;
+    --muted: #8e8e93;
+    --selected-bg: #d9e7ff;
+    --button-bg: #0a66ff;
+    --button-text: #ffffff;
+    --button-secondary-bg: #ffffff;
+    --button-secondary-text: #1c1c1e;
+    --row-separator: #ececef;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;              /* only the panes and the message list scroll */
+    font-family: -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    color: var(--text);
+    background: var(--chrome-bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  header {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--chrome-bg);
+  }
+
+  header h1 {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    font: inherit;
+    flex: none;
+    min-height: 44px;              /* comfortable touch target */
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.primary {
+    border-color: var(--button-bg);
+    background: var(--button-bg);
+    color: var(--button-text);
+  }
+  button:active { opacity: 0.7; }
+
+  main {
+    flex: 1;
+    min-height: 0;                 /* lets the panes scroll instead of the page */
+    display: grid;
+    grid-template-columns: 1fr 2fr 4fr;
+    background: var(--border);     /* shows through the 1px gaps as pane dividers */
+    gap: 1px;
+  }
+
+  .pane {
+    min-height: 0;
+    min-width: 0;
+    background: var(--pane-bg);
+    overflow-y: auto;              /* each pane scrolls vertically on its own */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Middle pane: the idea list */
+  #ideas {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #ideas li {
+    min-height: 44px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--row-separator);
+    white-space: nowrap;           /* one line per idea ... */
+    overflow: hidden;
+    text-overflow: ellipsis;       /* ... truncated with "…" when wider than the pane */
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #ideas li.empty { color: var(--muted); }
+  #ideas li.selected { background: var(--selected-bg); }
+
+  /* Right pane: the idea edit area. Two layers occupy the same box:
+     #text-display, which is what is actually seen (it renders the idea's
+     text with a display-only hyphen inserted wherever a word wider than
+     the pane is split across lines); and #text, a textarea stacked on top
+     of it with transparent text and a transparent background, which is
+     the sole interactive surface — it holds focus, the caret, the native
+     selection highlight, and the platform's own copy/cut/paste and
+     on-screen keyboard, and its value is always exactly the idea's
+     content, with no hyphen ever added to it. The textarea is the
+     scroller the platform keeps the caret within; #text-display's scroll
+     position is kept in step with it so the two stay aligned. See
+     note/implementation-structure-4.md, "Splitting a word with
+     display-only hyphens". */
+  #right {
+    display: flex;
+    overflow: hidden;
+  }
+
+  #text-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+
+  #text-display,
+  #text {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 12px 16px;
+    border: 0;
+    font: inherit;
+    line-height: 1.4;
+    white-space: pre-wrap;         /* real newlines break lines; long runs wrap */
+    overflow-y: auto;              /* the edit area scrolls vertically ... */
+    overflow-x: hidden;            /* ... and never horizontally */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #text-display {
+    color: var(--text);
+    background: var(--pane-bg);
+    overflow-wrap: normal;         /* breaks only at the hyphens this file inserts */
+    word-break: normal;
+    pointer-events: none;          /* never the target of a tap, a selection, or a copy */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #text {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    caret-color: var(--text);
+    background: transparent;
+    outline: none;
+    resize: none;
+    overflow-wrap: anywhere;       /* the invisible layer always wraps, so it never scrolls sideways */
+    word-break: break-word;
+  }
+
+  /* ---- Message area: full width, one line high, below the three panes --- */
+
+  #messages {
+    position: relative;            /* the message list is anchored to this */
+    flex: none;
+    display: flex;
+    align-items: center;
+    height: 44px;                  /* one line of text in a 44px touch strip */
+    border-top: 1px solid var(--border);
+    background: var(--chrome-bg);
+  }
+
+  #messages button {
+    min-height: 44px;
+    width: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 19px;
+    line-height: 1;
+  }
+
+  #message-text {
+    flex: 1;
+    min-width: 0;
+    padding: 0 4px;
+    white-space: nowrap;           /* a message wider than the area ... */
+    overflow: hidden;
+    text-overflow: ellipsis;       /* ... is truncated with "…" */
+  }
+
+  #message-dismiss[hidden] { display: none; }
+
+  /* The message list opens directly above the message area. */
+  #message-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--pane-bg);
+  }
+
+  #message-list[hidden] { display: none; }
+
+  #message-list header {
+    flex: none;
+    justify-content: flex-end;
+    padding: 0;
+    background: var(--pane-bg);
+    border-bottom: 1px solid var(--row-separator);
+  }
+
+  #message-list ul {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;              /* the list scrolls when it is taller than its space */
+    overscroll-behavior: contain;
+  }
+
+  #message-list li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--row-separator);
+  }
+
+  .message-time {
+    flex: none;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .message-body { min-width: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Idea Workbench</h1>
+  <button id="new" type="button" class="primary">New</button>
+  <button id="undo" type="button">Undo</button>
+  <button id="redo" type="button">Redo</button>
+  <button id="load-test-data" type="button">Load test data</button>
+</header>
+
+<main>
+  <section class="pane" id="left" aria-label="Labels"></section>
+  <section class="pane" id="middle" aria-label="Ideas">
+    <ul id="ideas"></ul>
+  </section>
+  <section class="pane" id="right" aria-label="Idea text">
+    <div id="text-wrap">
+      <div id="text-display" aria-hidden="true"></div>
+      <textarea id="text" aria-label="Idea text" disabled></textarea>
+    </div>
+  </section>
+</main>
+
+<footer id="messages" aria-label="Messages">
+  <button id="message-list-button" type="button" aria-label="Message list">☰</button>
+  <span id="message-text"></span>
+  <button id="message-dismiss" type="button" aria-label="Dismiss message" hidden>×</button>
+
+  <div id="message-list" hidden aria-label="All messages">
+    <header>
+      <button id="message-list-close" type="button" aria-label="Close message list">×</button>
+    </header>
+    <ul id="message-entries"></ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  // =========================================================================
+  // Model: ideas held in memory only. An idea is { id, content }; the title
+  // is derived from the content on every render and is not stored.
+  // =========================================================================
+
+  var ideas = [];
+  var nextId = 1;
+  var selectedId = null;          // the selected idea is the *active* idea
+
+  // Leading whitespace is stripped at every list update, so an idea's content
+  // is either empty (blank) or starts with a visible character. "Blank" is
+  // therefore just "empty after stripping".
+  function stripLeading(text) {
+    return text.replace(/^\s+/, '');
+  }
+
+  function isBlank(idea) {
+    return stripLeading(idea.content) === '';
+  }
+
+  // The title is the first line. Because leading whitespace — a leading
+  // newline included — is stripped, the first line always has visible
+  // content unless the idea is blank.
+  function titleOf(idea) {
+    var newline = idea.content.indexOf('\n');
+    return newline === -1 ? idea.content : idea.content.slice(0, newline);
+  }
+
+  function ideaById(id) {
+    for (var i = 0; i < ideas.length; i++) {
+      if (ideas[i].id === id) return ideas[i];
+    }
+    return null;
+  }
+
+  // Sorted view: blank ideas first, then case-insensitive comparison of an
+  // idea's *entire* content (not only its title). Array.prototype.sort is
+  // stable, so ideas that compare equal — the entire content identical —
+  // keep their creation order.
+  function sortedIdeas() {
+    return ideas.slice().sort(function (a, b) {
+      var ba = isBlank(a), bb = isBlank(b);
+      if (ba !== bb) return ba ? -1 : 1;
+      if (ba) return 0;
+      return a.content.toLocaleLowerCase()
+        .localeCompare(b.content.toLocaleLowerCase());
+    });
+  }
+
+  // =========================================================================
+  // View
+  // =========================================================================
+
+  var listEl = document.getElementById('ideas');
+  var middleEl = document.getElementById('middle');
+  var textEl = document.getElementById('text');
+  var textDisplayEl = document.getElementById('text-display');
+
+  // A word wider than the right pane is split across lines at whatever
+  // character makes it fit, with a hyphen shown at each split. The split is
+  // display only: it is rendered here, in the non-interactive overlay, and
+  // never touches the idea's actual content (in the model, or in #text,
+  // the interactive layer beneath). A U+00AD soft hyphen is inserted
+  // between every character of a word that measures wider than the pane;
+  // the browser only ever renders one of them — as a visible "-" — at the
+  // single point, if any, where it actually has to break that word to keep
+  // it inside the pane, so ordinary words that fit are never touched and a
+  // word that shrinks back to fit is shown whole again. See
+  // note/implementation-structure-4.md.
+  var measureCtx = document.createElement('canvas').getContext('2d');
+
+  function measureFont() {
+    var cs = getComputedStyle(textDisplayEl);
+    return cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+  }
+
+  function paneContentWidth() {
+    var cs = getComputedStyle(textDisplayEl);
+    return textDisplayEl.clientWidth -
+      parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  }
+
+  function hyphenate(text, maxWidth, font) {
+    measureCtx.font = font;
+    return text.replace(/\S+/g, function (word) {
+      return measureCtx.measureText(word).width > maxWidth
+        ? word.split('').join('\u00AD')
+        : word;
+    });
+  }
+
+  function updateDisplay(content) {
+    // A 1px margin of safety: canvas measurement and the browser's own text
+    // layout need not agree to the sub-pixel, and only "does this word get
+    // any split opportunities at all" depends on the measurement — the
+    // actual break point is still the browser's own layout decision.
+    var maxWidth = Math.max(0, paneContentWidth() - 1);
+    textDisplayEl.textContent = hyphenate(content, maxWidth, measureFont());
+    textDisplayEl.scrollTop = textEl.scrollTop;
+  }
+
+  // The textarea is the scroller the platform keeps the caret within;
+  // the display layer underneath is kept in the same scroll position.
+  textEl.addEventListener('scroll', function () {
+    textDisplayEl.scrollTop = textEl.scrollTop;
+  });
+
+  // The pane's width can change (device rotation); words that were split,
+  // or were not, may need to be reconsidered at the new width.
+  window.addEventListener('resize', function () {
+    var selected = ideaById(selectedId);
+    updateDisplay(selected ? selected.content : '');
+  });
+
+  function render() {
+    // Rebuilding the list would otherwise reset the pane's scroll position on
+    // every keystroke; keep it, then make sure the selected row is in view.
+    var keepScroll = middleEl.scrollTop;
+    listEl.textContent = '';
+    var selectedRow = null;
+
+    sortedIdeas().forEach(function (idea) {
+      var li = document.createElement('li');
+      li.dataset.id = idea.id;
+      if (isBlank(idea)) {
+        li.textContent = '(empty)';
+        li.className = 'empty';
+      } else {
+        li.textContent = titleOf(idea);
+      }
+      if (idea.id === selectedId) {
+        li.classList.add('selected');
+        selectedRow = li;
+      }
+      listEl.appendChild(li);
+    });
+
+    middleEl.scrollTop = keepScroll;
+    if (selectedRow) selectedRow.scrollIntoView({ block: 'nearest' });
+
+    var selected = ideaById(selectedId);
+    if (selected) {
+      textEl.disabled = false;
+      // Only write the value when it differs, so typing keeps its caret.
+      if (textEl.value !== selected.content) {
+        textEl.value = selected.content;
+        textEl.setSelectionRange(0, 0);   // a freshly shown idea starts at the top
+      }
+    } else {
+      textEl.value = '';
+      textEl.disabled = true;
+    }
+    // The display layer is rebuilt on every render, even when the value
+    // above was left alone, because the split shown there must track every
+    // keystroke, not only the moments the interactive layer's value changes.
+    updateDisplay(selected ? selected.content : '');
+  }
+
+  // =========================================================================
+  // Message area
+  // =========================================================================
+
+  var messages = [];              // { text, time } — newest last, session only
+  var currentMessage = null;
+  var messageTextEl = document.getElementById('message-text');
+  var messageDismissEl = document.getElementById('message-dismiss');
+  var messageListEl = document.getElementById('message-list');
+  var messageEntriesEl = document.getElementById('message-entries');
+
+  function twoDigits(n) { return (n < 10 ? '0' : '') + n; }
+
+  function showMessage(text) {
+    var now = new Date();
+    var entry = {
+      text: text,
+      time: twoDigits(now.getHours()) + ':' + twoDigits(now.getMinutes()) +
+            ':' + twoDigits(now.getSeconds())
+    };
+    // Identical messages are separate entries with their own times.
+    messages.push(entry);
+    currentMessage = entry;       // a new message replaces the current one
+    renderMessages();
+  }
+
+  function renderMessages() {
+    messageTextEl.textContent = currentMessage ? currentMessage.text : '';
+    messageDismissEl.hidden = !currentMessage;
+
+    // When no message has appeared yet, the list opens empty: no rows at
+    // all, not even a placeholder one.
+    messageEntriesEl.textContent = '';
+    messages.slice().reverse().forEach(function (entry) {   // newest first
+      var li = document.createElement('li');
+      var time = document.createElement('span');
+      time.className = 'message-time';
+      time.textContent = entry.time;
+      var body = document.createElement('span');
+      body.className = 'message-body';
+      body.textContent = entry.text;
+      li.appendChild(time);
+      li.appendChild(body);
+      messageEntriesEl.appendChild(li);
+    });
+  }
+
+  messageDismissEl.addEventListener('click', function () {
+    currentMessage = null;        // the message goes away; the list keeps it
+    renderMessages();
+  });
+
+  document.getElementById('message-list-button').addEventListener('click', function () {
+    messageListEl.hidden = !messageListEl.hidden;
+  });
+
+  document.getElementById('message-list-close').addEventListener('click', function () {
+    messageListEl.hidden = true;
+  });
+
+  // =========================================================================
+  // Undo history
+  //
+  // history is a list of snapshots { content, start, end }; history[0] is the
+  // text as it was when the idea was selected. A "run" coalesces consecutive
+  // typing or deletion into one entry, per the Edit ideas use case's
+  // algorithm: typing groups whitespace with the text that follows it,
+  // deletion groups the characters of one unit of the text.
+  // =========================================================================
+
+  var history = [];
+  var index = 0;
+  var run = null;   // { kind, phase, caret, base, units, lo, hi, unit, stale }
+
+  function snapshot() {
+    return {
+      content: textEl.value,
+      start: textEl.selectionStart,
+      end: textEl.selectionEnd
+    };
+  }
+
+  function resetHistory() {
+    history = [snapshot()];
+    index = 0;
+    run = null;
+  }
+
+  function openRun(kind, phase) {
+    history.length = index + 1;   // a new change discards what could be redone
+    history.push(snapshot());     // overwritten with the post-change snapshot
+    index++;
+    run = { kind: kind, phase: phase, caret: textEl.selectionStart };
+  }
+
+  function closeRun() {
+    if (!run) return;
+    // A change that left the text unchanged (only stripped whitespace, say)
+    // leaves no undo entry.
+    if (index > 0 && history[index].content === history[index - 1].content) {
+      history.length = index;
+      index--;
+    }
+    run = null;
+  }
+
+  function applyHistory(target) {
+    var selected = ideaById(selectedId);
+    if (!selected) return;
+    index = target;
+    var snap = history[index];
+    selected.content = snap.content;
+    textEl.value = snap.content;
+    textEl.setSelectionRange(snap.start, snap.end);
+    run = null;
+    listUpdate(false);
+    if (!textEl.disabled) textEl.focus();
+  }
+
+  function undo() {
+    closeRun();
+    if (index > 0) applyHistory(index - 1);
+  }
+
+  function redo() {
+    closeRun();
+    if (index < history.length - 1) applyHistory(index + 1);
+  }
+
+  // =========================================================================
+  // The list update: strip, delete blanks that are not active, re-sort, keep
+  // the selection visible. Called after every change to the active idea's
+  // text, after undo and redo, after loading, and when the active idea
+  // changes.
+  // =========================================================================
+
+  function listUpdate(causedByEdit) {
+    var active = ideaById(selectedId);
+
+    for (var i = ideas.length - 1; i >= 0; i--) {
+      var idea = ideas[i];
+      var stripped = stripLeading(idea.content);
+      var removed = idea.content.length - stripped.length;
+
+      if (removed > 0) {
+        idea.content = stripped;
+        if (idea === active) {
+          // The insertion point moves left by the amount removed, never
+          // before the start.
+          var start = Math.max(0, textEl.selectionStart - removed);
+          var end = Math.max(0, textEl.selectionEnd - removed);
+          textEl.value = stripped;
+          textEl.setSelectionRange(start, end);
+          if (causedByEdit) showMessage('Leading whitespace was removed.');
+          if (index < history.length) history[index] = snapshot();
+          // The unit bookkeeping of a deletion run is expressed against the
+          // text as it was when the run opened; stripping changed that text
+          // by other means, so the run may no longer be extended.
+          if (run && run.kind === 'delete') run.stale = true;
+          if (run) run.caret = textEl.selectionStart;
+        }
+      }
+
+      // A blank idea exists only while it is active.
+      if (idea.content === '' && idea !== active) ideas.splice(i, 1);
+    }
+
+    render();
+  }
+
+  // =========================================================================
+  // Editing
+  // =========================================================================
+
+  function isWhitespace(ch) { return /\s/.test(ch); }
+
+  // The units of a text: each a maximal sequence of whitespace followed by a
+  // maximal sequence of non-whitespace; whitespace at the very end of the
+  // text is a unit of its own. "hello world  " -> "hello", " world", "  ".
+  function unitsOf(text) {
+    var units = [];
+    var i = 0;
+    while (i < text.length) {
+      var start = i;
+      while (i < text.length && isWhitespace(text[i])) i++;
+      if (i === text.length) { units.push([start, i]); break; }
+      while (i < text.length && !isWhitespace(text[i])) i++;
+      units.push([start, i]);
+    }
+    return units;
+  }
+
+  function unitContaining(units, position) {
+    for (var i = 0; i < units.length; i++) {
+      if (position >= units[i][0] && position < units[i][1]) return i;
+    }
+    return -1;
+  }
+
+  var pending = null;   // the state captured before the browser applies an edit
+
+  textEl.addEventListener('beforeinput', function (event) {
+    // The text control's own history has different granularity and different
+    // clearing rules from the ones the use case specifies, so it never runs.
+    if (event.inputType === 'historyUndo' || event.inputType === 'historyRedo') {
+      event.preventDefault();
+      return;
+    }
+    pending = {
+      content: textEl.value,
+      start: textEl.selectionStart,
+      end: textEl.selectionEnd,
+      inputType: event.inputType,
+      data: event.data
+    };
+  });
+
+  // What kind of change the use case's algorithm sees.
+  function classify(before) {
+    var type = before.inputType || '';
+    var collapsed = before.start === before.end;
+
+    if (collapsed && (type === 'insertText' || type === 'insertLineBreak' ||
+                      type === 'insertParagraph')) {
+      var ch = type === 'insertText' ? before.data : '\n';
+      if (typeof ch === 'string' && ch.length === 1) return { kind: 'char', ch: ch };
+      return { kind: 'atomic' };            // an IME or multi-character insert
+    }
+    if (collapsed && type === 'deleteContentBackward') {
+      return { kind: 'delete', at: before.start - 1 };
+    }
+    if (collapsed && type === 'deleteContentForward') {
+      return { kind: 'delete', at: before.start };
+    }
+    // Pastes, cuts, drops, replacements, word deletions, and any deletion of
+    // a selection: one change each.
+    return { kind: 'atomic' };
+  }
+
+  textEl.addEventListener('input', function (event) {
+    var selected = ideaById(selectedId);
+    var before = pending;
+    pending = null;
+    if (!selected) return;
+
+    selected.content = textEl.value;
+    var change = before ? classify(before) : { kind: 'atomic' };
+
+    if (change.kind === 'char') {
+      var ws = isWhitespace(change.ch);
+      if (!run || run.kind !== 'type' || before.start !== run.caret) {
+        closeRun();
+        openRun('type', ws ? 'ws' : 'text');
+      } else if (ws && run.phase === 'text') {
+        closeRun();                          // whitespace after text starts the next run
+        openRun('type', 'ws');
+      } else if (!ws) {
+        run.phase = 'text';                  // whitespace, then text: same run
+      }
+      history[index] = snapshot();
+      run.caret = textEl.selectionStart;
+      listUpdate(true);
+
+    } else if (change.kind === 'delete') {
+      // Map the removed character back to a position in the text as it was
+      // when the run opened: the run has removed the base range [lo, hi).
+      var base = change.at;
+      var extend = !!run && run.kind === 'delete' && !run.stale &&
+                   before.start === run.caret;
+      if (extend) {
+        if (run.lo !== null && base >= run.lo) base += run.hi - run.lo;
+        var unit = unitContaining(run.units, base);
+        var contiguous = run.lo === null || base === run.lo - 1 || base === run.hi;
+        if (!contiguous || unit !== run.unit) extend = false;
+      }
+      if (!extend) {
+        closeRun();
+        openRun('delete', 'text');
+        run.base = before.content;
+        run.units = unitsOf(before.content);
+        run.lo = null;
+        run.hi = null;
+        run.unit = unitContaining(run.units, change.at);
+        base = change.at;
+      }
+      if (run.lo === null) { run.lo = base; run.hi = base + 1; }
+      else if (base === run.lo - 1) { run.lo = base; }
+      else { run.hi = base + 1; }
+      history[index] = snapshot();
+      run.caret = textEl.selectionStart;
+      listUpdate(true);
+
+    } else {
+      closeRun();
+      openRun('type', 'text');
+      history[index] = snapshot();
+      closeRun();
+      listUpdate(true);
+    }
+  });
+
+  // Moving the insertion point closes the run, so the next character starts a
+  // new change. The document-level `selectionchange` event is deliberately
+  // not used: whether it fires before or after `input` differs between
+  // engines, and a run must not be closed by its own typing.
+  function caretMoved() {
+    if (run && textEl.selectionStart !== run.caret) closeRun();
+  }
+  textEl.addEventListener('keyup', caretMoved);
+  textEl.addEventListener('pointerup', caretMoved);
+  textEl.addEventListener('select', caretMoved);
+
+  // =========================================================================
+  // Selecting, leaving, and creating
+  // =========================================================================
+
+  function setActive(id) {
+    closeRun();
+    selectedId = id;
+    // The idea just left is no longer active, so the update deletes it if it
+    // is blank; the update also puts the newly selected text in the edit area.
+    listUpdate(false);
+    resetHistory();
+  }
+
+  function select(id) {
+    if (id === selectedId) return;   // re-selecting is not leaving
+    setActive(id);
+  }
+
+  function newIdea() {
+    var idea = { id: nextId++, content: '' };
+    ideas.push(idea);
+    setActive(idea.id);
+    textEl.focus();
+    textEl.setSelectionRange(0, 0);  // the insertion point at the start
+  }
+
+  listEl.addEventListener('click', function (event) {
+    var li = event.target.closest('li');
+    if (!li) return;
+    select(Number(li.dataset.id));
+  });
+
+  document.getElementById('new').addEventListener('click', newIdea);
+  document.getElementById('undo').addEventListener('click', undo);
+  document.getElementById('redo').addEventListener('click', redo);
+
+  // The platform's standard shortcuts for the same commands, intercepted so
+  // that the application's history is the one the use case specifies.
+  document.addEventListener('keydown', function (event) {
+    if (!event.metaKey && !event.ctrlKey) return;
+    var key = event.key.toLowerCase();
+    if (key === 'z' && !event.shiftKey) {
+      event.preventDefault();
+      undo();
+    } else if ((key === 'z' && event.shiftKey) || key === 'y') {
+      event.preventDefault();
+      redo();
+    } else if (key === 'n') {
+      event.preventDefault();
+      newIdea();
+    }
+  });
+
+  // On-screen keyboards shrink the visual viewport rather than the layout
+  // one; following it keeps the edit area, and so the insertion point, clear
+  // of the keyboard.
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', function () {
+      document.body.style.height = window.visualViewport.height + 'px';
+    });
+  }
+
+  // =========================================================================
+  // Test data (scaffolding; removed once save exists)
+  //
+  // The set the Initial UI use case designed, grown by three items for the
+  // 2026-09-06 revision (note/test-data-4.md): 22 ideas per load. Its empty
+  // and whitespace-only items are blank, so the update that follows a load
+  // deletes them: 20 rows per load.
+  // =========================================================================
+
+  var wideTitle =
+    'This idea has a first line that is far wider than the middle pane so that ' +
+    'the title must be truncated with an ellipsis rather than wrapping or ' +
+    'spilling over into the neighbouring pane, no matter how wide the screen is.';
+
+  // A single unbroken word — sixty letters, no spaces — wider than both the
+  // middle pane (truncated with "…" after a partial "word", i.e. after
+  // whatever part of it fits) and the right pane (split across lines with a
+  // display-only hyphen at each split).
+  var unbrokenWordTitle = 'abcdefghijklmnopqrstuvwxyz'.repeat(3).slice(0, 60);
+
+  var longParagraph =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
+    'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ' +
+    'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ' +
+    'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse ' +
+    'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat ' +
+    'non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+  var largeText = 'A very large idea\n\n';
+  for (var p = 1; p <= 40; p++) {
+    largeText += 'Paragraph ' + p + ' of 40. ' + longParagraph + '\n\n';
+  }
+  largeText += 'An unbroken run to exercise wrapping without horizontal scrolling: ' +
+    'abcdefghijklmnopqrstuvwxyz0123456789'.repeat(6) + '\n\n' +
+    'The end of the very large idea.';
+
+  var testSet = [
+    // A dozen or so short ideas with varied first letters and mixed case.
+    // "apple pie" / "Apple crumble" and "Banana bread" / "banana split" only
+    // sort correctly if ordering ignores case.
+    'apple pie recipe\nUse the tart apples from the market.',
+    'Apple crumble\nOats in the topping this time.',
+    'Zebra crossing near the school\nAsk the council about it.',
+    'Banana bread',
+    'banana split for the kids',
+    'Quantum garden\nWhat if the plant labels were QR codes?',
+    'mango sorbet',
+    'Elephant memory app\nA reminder tool that never forgets.',
+    'kite festival weekend',
+    'Yak wool socks\nOrder before winter.',
+    'cherry blossom walk\nEarly April, before it rains.',
+    'Dinosaur museum trip',
+    'umbrella stand by the door',
+    'Walnut desk plans',
+    'lighthouse tour',
+    // Two ideas with the same first line and different second lines,
+    // created in the reverse of their sorted order, exercising ordering
+    // that compares an idea's entire content, not only its title: after a
+    // load, the row whose second line is A comes before the one whose
+    // second line is B.
+    'Same first line\nsecond line B',
+    'Same first line\nsecond line A',
+    // One idea whose first line is much wider than the middle pane.
+    wideTitle + '\nThe second line is short.',
+    // One idea whose first line is a single unbroken word wider than the
+    // middle pane and the right pane.
+    unbrokenWordTitle + '\nThe second line is short.',
+    // One idea whose text is much larger than the display area.
+    largeText,
+    // One idea with no content at all, and one containing only whitespace.
+    // Both are blank, so the update after the load deletes them.
+    '',
+    '  \n\t \n   '
+  ];
+
+  document.getElementById('load-test-data').addEventListener('click', function () {
+    // Each click appends another full copy; every idea gets its own identity.
+    // Loading is not leaving: an active blank idea survives the update.
+    testSet.forEach(function (content) {
+      ideas.push({ id: nextId++, content: content });
+    });
+    listUpdate(false);
+  });
+
+  renderMessages();
+  render();
+})();
+</script>
+
+</body>
+</html>

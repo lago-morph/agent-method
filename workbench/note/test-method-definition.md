@@ -17,6 +17,9 @@ links:
     - note/implementation-record-3.md
     - note/test-method-3.md
     - note/automated-checks-3.md
+    - note/implementation-record-4.md
+    - note/test-method-4.md
+    - note/automated-checks-4.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):

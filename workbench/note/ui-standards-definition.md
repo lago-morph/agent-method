@@ -11,6 +11,8 @@ links:
     - note/ui-decisions-2.md
     - note/implementation-record-3.md
     - note/ui-decisions-3.md
+    - note/implementation-record-4.md
+    - note/ui-decisions-4.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):

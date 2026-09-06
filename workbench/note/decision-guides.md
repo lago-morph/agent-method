@@ -18,6 +18,7 @@ links:
     - note/implementation-record-4.md
     - note/implementation-structure-2.md
     - note/implementation-structure-3.md
+    - note/implementation-structure-4.md
 ---
 
 Captured 2026-09-05 from Jonathan's direction after implementation 1.

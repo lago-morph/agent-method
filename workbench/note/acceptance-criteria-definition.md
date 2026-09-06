@@ -13,6 +13,8 @@ links:
     - note/acceptance-criteria-2.md
     - note/implementation-record-3.md
     - note/acceptance-criteria-3.md
+    - note/implementation-record-4.md
+    - note/acceptance-criteria-4.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
