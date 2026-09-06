@@ -301,32 +301,31 @@ here whenever a new kind of interface is specified.
 
 ## Test data (scaffolding)
 
-- The test data set that the Initial UI use case defines is reused
-  unchanged; the loaded ideas are edited like any other. Its empty and
-  whitespace-only items now exercise deletion of blank loaded content
-  (edge cases 1 and 2): after a load they are not in the list. Walking
-  through the corner cases in order:
-  - Load test data: the list has 17 entries; no "(empty)" row.
-  - Issue New: an "(empty)" row at the top, selected; type "Aardvark":
-    the entry moves to the top of the alphabetical list as the first
-    letter appears; add a second line and confirm the entry is
-    unchanged.
-  - With the insertion point at the start of "Aardvark", type two
-    spaces: nothing is inserted and the message says leading whitespace
-    was removed; undo does nothing.
-  - Type " world" at the end of "Aardvark" and undo once: the whole
+- No additions to the test data set are needed: loaded content that
+  includes blank items, a few short ideas, and one large idea already
+  exercises this use case's corner cases. The behaviors below are
+  examples of what to expect, not a script tied to particular items.
+  - Load content that includes an empty item and a whitespace-only
+    item: neither appears in the list, and there is no "(empty)" row.
+  - Issue New: an "(empty)" row at the top, selected. Type a title such
+    as "Aardvark": the entry takes its alphabetical place as the first
+    letter appears; add a second line and the entry is unchanged.
+  - With the insertion point at the start of an idea, type two spaces:
+    nothing is inserted, the message says leading whitespace was
+    removed, and undo does nothing.
+  - Type " world" at the end of a title and undo once: the whole
     " world" goes (edge case 9).
-  - Type " world" again, then press Backspace six times: "world" and
-    the space before it go; undo once brings " world" back (edge case
+  - Type " world" again, then press Backspace until "world" and the
+    space before it are gone: one undo brings " world" back (edge case
     16).
-  - Change the first line of "Zebra crossing near the school" to start
-    with "Bus ": it moves up the list, staying selected and visible;
-    undo twice ("Bus" then " " were typed as text then whitespace —
-    see edge case 12 for why the trailing space is its own change),
-    and it moves back.
-  - In the very large idea, make a long series of edits, then undo all
-    the way back to the original text and redo forward; select another
-    idea and confirm undo no longer applies to the large idea.
+  - Change the first line of an idea so that it sorts elsewhere — for
+    example, put "Bus " in front of a title starting with "Z": it
+    moves up the list, staying selected and visible; undo twice ("Bus"
+    then " " were typed as text then whitespace — see edge case 12 for
+    why the trailing space is its own change), and it moves back.
+  - In a large idea, make a long series of edits, then undo all the way
+    back to the original text and redo forward; select another idea and
+    confirm undo no longer applies to the large idea.
   - Select all of a short idea's text and delete it: the entry shows
     "(empty)" but the idea remains; undo restores it. Then select all,
     delete, and select another idea: the idea is gone.

@@ -177,7 +177,11 @@ not from the checks note (`ui-checks-playwright.md`); look at one
 screenshot per orientation. 7. Extract the run's metrics (below). 8.
 Fold findings back: questions into guides, decisions the review exposed
 into the implementation's notes, procedure revisions; list proposed
-markups to ratified use cases for the owner, never apply them. 9.
+markups to ratified use cases for the owner, never apply them. Once
+the PR is delivered, the implementation, its record, and its notes are
+frozen: markup from the owner's checkpoint changes the use cases, in a
+separate PR, for the next implementation to pick up (see
+`ai/lessons/finished-implementations-are-never-edited.md`). 9.
 Deliver: PR, file attached and hosted copy (`deliver-to-ipad.md`),
 handoff.
 

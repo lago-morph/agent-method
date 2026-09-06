@@ -35,9 +35,18 @@ See my ideas in one place: the three-pane screen that is the workbench.
 
 - The middle pane lists ideas, initially in alphabetical order.
   Ordering is case-insensitive.
+- Ordering compares an idea's entire content, not only the first line
+  that the pane displays. Two ideas whose first lines are the same are
+  ordered by what follows: an idea whose content is `A`, newline, `A`
+  sorts before one whose content is `A`, newline, `B`, whichever was
+  created first. Only ideas whose entire content is identical keep
+  their creation order.
 - The first line of each idea is its title, and is what the middle pane
   displays for it — by default just that first line, truncated with
   "…" when it is wider than the pane.
+- Truncation is by width, not by word: when even the first word of a
+  first line is wider than the pane, the "…" appears after the part of
+  the word that fits.
 - When there are no ideas, the list is simply empty; nothing else
   changes.
 - When there are more ideas than fit the visible list, the middle pane
@@ -54,6 +63,15 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - When the text is larger than the display area, the right pane scrolls
   vertically. Lines longer than the pane wrap; there is no horizontal
   scrolling.
+- A word wider than the pane is split across lines at whatever
+  character makes it fit, with a hyphen shown at each split; a word
+  that spans several lines gets a hyphen at every line it is split
+  across. The splits follow no hyphenation rules.
+- Splitting is display only: the idea's content is unchanged, and the
+  hyphens are neither part of the text nor copied with it. Splitting
+  happens as the text is typed: a word that grows past the pane's width
+  is split while it is being written, and a word that shrinks back to
+  fit is shown whole again.
 
 ### Ideas with no visible content
 
@@ -80,7 +98,9 @@ See my ideas in one place: the three-pane screen that is the workbench.
   space it has, and closes when the button is pressed again or the
   list's own × is pressed. Identical messages are separate entries with
   their own times.
-- When no message has appeared yet, the list shows "No messages".
+- When no message has appeared yet, the list opens empty.
+- The list button is present whether or not there is a current
+  message; the × is present only while a message is displayed.
 - Messages are not kept across sessions: closing the application
   discards them.
 
@@ -95,8 +115,19 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - The set is designed to show off the corner cases:
   - a dozen or so short ideas with varied first letters and mixed case,
     exercising alphabetical ordering;
+  - two ideas with the same first line and different second lines,
+    created in the reverse of their sorted order — "Same first line"
+    followed by "second line B", then "Same first line" followed by
+    "second line A" — exercising whole-content ordering: after a load,
+    the first of the two rows reading "Same first line" is the one
+    whose second line is A;
   - one idea whose first line is much wider than the middle pane,
     exercising title truncation;
+  - one idea whose first line is a single unbroken word wider than the
+    middle pane — sixty letters with no spaces — followed by a short
+    second line, exercising "…" after a partial word in the list and
+    hyphen splitting in the right pane; the large idea's unbroken
+    run of characters exercises a word split across several lines;
   - one idea whose text is much larger than the display area,
     exercising right-pane scrolling and line wrapping;
   - one idea with no content at all, and one containing only

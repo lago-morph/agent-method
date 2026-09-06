@@ -36,3 +36,9 @@ as a note for now; a candidate artifact type once the shape settles.
   its record's number: `implementations/1/`, `implementations/2/`, …
 - An implementation's artifacts are whatever it produces: the runnable
   thing itself and anything that comes out of building and using it.
+- Once delivered, an implementation's artifacts, its record, and its
+  per-area notes are never edited. They are the historical record of
+  what was built from that version of the spec, and the comparison
+  surface between implementations. Markup after delivery goes to the
+  specification and is implemented by the next implementation.
+  (Jonathan, 2026-09-06.)
