@@ -5,7 +5,7 @@ Proposed by the AI partner and **ratified by Jonathan 2026-08-30**
 `includes`. This records the approved convention from step 1 of
 `ai/KICKSTART.md`. **Revised 2026-09-05 at Jonathan's direction**
 (PR #18): one folder per artifact type, because the flat directory had
-become unwieldy.
+become unwieldy; the revision was ratified by Jonathan 2026-09-06.
 
 ## One folder per type, one file per artifact
 

@@ -1,7 +1,8 @@
 # ADR 0006: The UI design lives in the UI use cases; other use cases are UI-neutral
 
 - **Date**: 2026-09-05
-- **Status**: Accepted
+- **Status**: Accepted; ratified by Jonathan 2026-09-06 (in
+  conversation, after PRs #20 and #21)
 - **Adopted from**: Jonathan's markup on the Edit ideas use case, his
   clarification of its purpose, and his markup on this ADR
   (2026-09-05 working session, PR #16)

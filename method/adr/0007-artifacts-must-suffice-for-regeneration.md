@@ -1,7 +1,8 @@
 # ADR 0007: The artifacts plus the method must suffice to regenerate the result
 
 - **Date**: 2026-09-05
-- **Status**: Accepted
+- **Status**: Accepted; ratified by Jonathan 2026-09-06 (in
+  conversation, after PRs #20 and #21)
 - **Adopted from**: Jonathan's markup on `implementations/1/verify.js`
   (2026-09-05 working session, PR #16)
 

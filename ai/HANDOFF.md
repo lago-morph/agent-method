@@ -40,8 +40,8 @@ Rules of engagement (details in ai/lessons/):
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-Current state (2026-09-05; everything below is on main, and all but
-the last item is ratified):
+Current state (ratified by Jonathan 2026-09-06, explicitly, in
+conversation, covering everything on main through PR #21):
 
 - method/CONVENTIONS.md — artifact file convention (front matter,
   typed two-way links with hand-maintained reciprocals).
@@ -66,9 +66,9 @@ the last item is ratified):
   checkpoint has not yet produced markup.
 - workbench/use-case/edit-ideas.md — the Edit ideas use case, drafted
   fresh 2026-09-05 and open for Jonathan's markup as PR #16 (branch
-  claude/handoff-instructions-hn00ac). The PR body lists the six
-  decisions the source notes did not make. Not ratified until he says
-  so; a merge alone is not ratification.
+  claude/handoff-instructions-hn00ac). The PR body listed the six
+  decisions the source notes did not make; revised in PRs #18 and #21
+  at his direction and ratified 2026-09-06.
 - Also in PR #16, at Jonathan's direction the same day: implementation
   record 1 enhanced with the decisions made while building it (UI,
   structure, test method, acceptance-criteria table, test data,
@@ -77,7 +77,7 @@ the last item is ratified):
   note/decision-guides.md (the guide / decisions / standard pattern,
   scoping rules, walkthrough guidance, foreseen areas such as
   persistent storage) plus guides for UI standards, test method,
-  acceptance criteria, and test data. Open for markup like the rest.
+  acceptance criteria, and test data. Ratified 2026-09-06.
 - method/adr/0006-use-cases-are-platform-neutral.md — adopted from
   Jonathan's markup on the Edit ideas use case (PR #16) and his
   clarification: the UI use cases (one or more per kind of interface,
@@ -249,7 +249,14 @@ guides and propose the open decisions in its record first.
   edited.md and a bullet in note/implementation-standards.md. The
   ordering and long-word rules are for the next implementation.
 
-Next step: Jonathan's remaining markup on PR #20 (implementation 3,
-frozen) and on the stacked use-case PR; work it until he says both are
-done. Then, on his word, the next implementation: record 4's owner
-decisions first, then the procedure with a Sonnet subagent.
+- 2026-09-06: PRs #20 and #21 merged. Jonathan then stated explicitly
+  that everything is ratified: every artifact on main — the vision,
+  both use cases as revised, the notes (records 1–3 and their per-area
+  notes, the guides, standards, definitions), CONVENTIONS as revised,
+  ADRs 0001–0007 — and that ratification is always his explicit
+  statement, never inferred (ai/lessons/ratification-is-explicit.md).
+  ai/procedures/ remain non-normative working documents by design.
+
+Next step: on Jonathan's word, the next implementation — record 4's
+owner decisions first, for his markup, then the procedure with a
+Sonnet subagent against the ratified use cases.
