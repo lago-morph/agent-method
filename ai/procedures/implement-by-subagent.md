@@ -1,10 +1,12 @@
 # Implementing by hand-off to a clean-context subagent
 
-**Status:** working document, non-normative. Retrospective for run 1
-(implementation 2, 2026-09-05); made the explicit implementation
-procedure at Jonathan's direction the same day, to be followed for the
-next implementation with an Opus subagent and, as soon as that works,
-with Sonnet subagents.
+**Status:** working document, non-normative. Written retrospectively
+from implementation 2 (2026-09-05); made the explicit implementation
+procedure at Jonathan's direction the same day. Implementation 3
+(Opus) followed it as written and worked, so the next implementation
+tries a Sonnet subagent. Implementations are referred to by their
+implementation record (implementation 2, implementation 3, …), never
+by a run number.
 
 **What it stress-tests.** Two things at once: *repeatability* — whether
 `workbench/` plus `method/` plus these procedures, and nothing else,
@@ -187,18 +189,51 @@ it, grep it):
 
 ```sh
 T=<transcript>
-grep -o '"file_path":"[^"]*"' "$T" | sed 's/"file_path":"//;s/"$//' | awk '!seen[$0]++'   # documents opened, in order
+grep -o '"file_path":"[^"]*"' "$T" | sed 's/"file_path":"//;s/"$//' | awk '!seen[$0]++'   # documents opened with Read, in order
+grep -o '"command":"[^"]*"' "$T" | grep -oE '(workbench|method|ai)/[A-Za-z0-9_./*-]+\.(md|js|html)' | sort -u   # documents named in shell commands (cat, sed)
 grep -o '"name":"Read"' "$T" | wc -l; grep -o '"name":"Bash"' "$T" | wc -l                # tool mix
 ```
 
-| Run | Impl. | Model | Tokens | Tool uses | Minutes | Repo docs opened | Checks / orientation | Result | Ambiguities reported | Defects found in review |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 2 | Opus | ~203 k | 67 (26 Read, 30 Bash, 10 Write, 1 Edit) | 19 | 25 (order: conventions, the two use cases, decision guides, record definition, standards, record 1, then each guide with its `-1` note as that area came up, the two check procedures, implementation 1's files, the vision last; never `input/`, `method/types/`, or the other procedures) | 46 | PASS | 15 (3 use-case, 10 guides/procedures, 2 environment) | 0 (one reviewer assertion was wrong) |
+An agent may read through the shell rather than the Read tool (implementation 3's
+agent did: 4 Reads, 31 Bash calls), so union both lists; the report's own
+"Documents read" section is the authoritative order.
+
+| Implementation | Model | Tokens | Tool uses | Minutes | Repo docs opened | Checks / orientation | Result | Ambiguities reported | Defects found in review |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | Opus | ~203 k | 67 (26 Read, 30 Bash, 10 Write, 1 Edit) | 19 | 25 (order: conventions, the two use cases, decision guides, record definition, standards, record 1, then each guide with its `-1` note as that area came up, the two check procedures, implementation 1's files, the vision last; never `input/`, `method/types/`, or the other procedures) | 46 | PASS | 15 (3 use-case, 10 guides/procedures, 2 environment) | 0 (one reviewer assertion was wrong) |
+| 3 | Opus | ~227 k | 49 (4 Read, 31 Bash, 9 Write, 5 Edit) | 22 | 33, in the prompt's tier order (record 3 first; ADRs, conventions, README, standards, record definition, decision guides; the two use cases and the vision; the five guides; record 2 and its six notes plus `test-data-1` for the item list; implementation 2's two files; the two check procedures); never the other `-1` notes, `input/`, `method/types/`, or the other procedures | 67 + 3 inspection | PASS (mutation-tested: 3 faults, 26 checks fail) | 20 (6 use-case wording or algorithm, 9 guides, 5 environment or checkability) | 0 |
 
 "Repo docs opened" counts distinct repository documents; the subagent
 also opened its own outputs and screenshots.
 
-## Run 1 (implementation 2, 2026-09-05) — the retrospective record
+## Implementation 3 (2026-09-05) — the procedure as written
+
+- **Input was record 3 only**, drafted and merged first (PR #19); the
+  prompt was the template above with N=3 and the report path filled,
+  nothing else.
+- **Progressive disclosure held:** the agent read in tier order, took
+  the `-2` notes as sufficient and never opened the `-1` notes except
+  `test-data-1` (which `test-data-2` points to for the item list), and
+  never opened `input/` or `method/types/`. Token use was ~12% above
+  implementation 2's for a larger spec (the revised use cases carry an edge-case
+  table and an algorithm) and a larger suite (137 booleans against
+  92). It read through the shell, so the Read-tool grep undercounts;
+  the union command above and the report's list are the measure.
+- **Result:** implementation, checks, record sections, six notes, clean
+  links; 20 ambiguities, six of them in the use cases' new wording
+  (word deletion, `run.entry` aliasing, an open deletion run after a
+  strip, where the message list appears, whether the dismiss × is
+  always present, the whitespace sub-case Initial UI still states) —
+  all left for the owner; the guide-level ones folded into the guides
+  after the run. It added mutation testing of the suite on its own
+  initiative, now a guide question and a procedure step.
+- **Review** (checklist above, in order): report; diff limited to
+  reciprocal links and the record's new sections; PASS reproduced; the
+  record, six notes, and source read; validator clean at 33 artifacts;
+  an independent script from the revised use cases passed 43 checks per
+  orientation with no defect found; two screenshots.
+
+## Implementation 2 (2026-09-05) — the retrospective record
 
 - **Scoping** was by directory, not by prompt content, with the
   forbidden set named explicitly; outputs named by the artifacts'

@@ -195,7 +195,7 @@ guides and propose the open decisions in its record first.
 - Jonathan's direction (2026-09-05): the implementation procedure is,
   explicitly, hand-off to a clean-context subagent with specific
   (tiered) document access — ai/procedures/implement-by-subagent.md
-  (prompt template, review checklist, metrics table with run 1). Opus
+  (prompt template, review checklist, metrics table per implementation). Opus
   until a run works from the procedure as written; then Sonnet. It
   stress-tests repeatability and context preservation through
   progressive disclosure. The record is the subagent's input: draft
@@ -215,11 +215,30 @@ guides and propose the open decisions in its record first.
   ai/procedures/implement-by-subagent.md starts only on his word after
   that; it adds the build-time sections and per-area notes.
 
-Next step: Jonathan's markup on record 3; when he says it is done and
-to go, run the subagent procedure (Opus) for implementation 3, review
-per its checklist, record the run's metrics row, deliver. If that run
-works from the procedure as written, the following implementation
-tries Sonnet. Nothing after that is started until he
+- Record 3 merged (PR #19); Jonathan said "run it as per procedure".
+  ai/procedures/implement-by-subagent.md (Opus, prompt template
+  verbatim, input = record 3) built implementation 3:
+  workbench/implementations/3/, record 3's build-time sections, six
+  per-area notes; PASS with 67 checks per orientation plus 3 inspection
+  checks, mutation-tested by the agent itself; 33 documents read in
+  tier order, none of the -1 notes but test-data-1. Reviewed per the
+  checklist (rerun, notes and source read, validator, an independent
+  Playwright script from the revised use cases, screenshots): no defect
+  found. Guide-level findings folded into the guides and procedures;
+  CONVENTIONS clarified that body links need no reciprocal. Delivered
+  as a PR with the file attached and a hosted copy. The run's six
+  use-case findings are listed in the PR for Jonathan (word deletion;
+  the algorithm's run.entry alias; an open deletion run after a strip;
+  where the message list appears; whether the dismiss × is always
+  present; Initial UI's whitespace sub-case, now unreachable; plus a
+  test-data item with leading whitespace to exercise edge case 3).
+
+Next step: Jonathan's checkpoint on implementation 3 (iPad) and his
+markup on its PR, including the use-case findings; work that markup
+until he says it is done. The procedure worked as written with Opus,
+so the following implementation, when he names it, is run with a
+Sonnet subagent (model "sonnet" in the launch), same procedure, and
+its row is compared with runs 1 and 2. Nothing after that is started until he
 names it. The build order's next use case is Save ideas, which needs the
 persistent-storage guide foreseen in note/decision-guides.md; the
 test-data guide's open questions are to be raised in that round.

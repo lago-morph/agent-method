@@ -9,6 +9,8 @@ links:
     - note/ui-decisions-1.md
     - note/implementation-record-2.md
     - note/ui-decisions-2.md
+    - note/implementation-record-3.md
+    - note/ui-decisions-3.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
@@ -75,6 +77,16 @@ With the default in brackets — the answer to assume when Jonathan says
     back into the edit area (and so raise an on-screen keyboard)?
     [only when the use case says the command puts the insertion point
     there; added after implementation 2's review]
+13. When a use case states a size or shape ("one line high") that a
+    standard (the 44 px touch target) contradicts, which wins? [the
+    standard, with the use case's wording read as content, not
+    geometry: one line of text in a 44 px strip; added after
+    implementation 3 hit it]
+14. Is a control present only while there is something for it to act
+    on (a dismiss ×), as distinct from a command that is present but
+    inert (Undo with nothing to undo)? [present only with its object
+    when the use case attaches it to that object; added after
+    implementation 3]
 
 ## Guidance for the walkthrough
 

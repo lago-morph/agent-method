@@ -10,6 +10,8 @@ links:
     - note/test-data-1.md
     - note/implementation-record-2.md
     - note/test-data-2.md
+    - note/implementation-record-3.md
+    - note/test-data-3.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
@@ -70,6 +72,11 @@ the rest open.
    with the storage guide]
 7. Is there data other than the exercised set — a realistic sample
    for the checkpoint, Jonathan's real ideas? [open]
+8. Has a later use case changed which corner case an existing item
+   exercises? [say so in the implementation's test-data note and keep
+   the item if it still covers a rule; implementation 3's blank items
+   moved from "placeholder display" to "deletion of blank loaded
+   content" — added after implementation 3]
 
 ## Guidance for the walkthrough
 
