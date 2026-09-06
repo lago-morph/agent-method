@@ -56,8 +56,9 @@ or ai/lessons/ entries, per its kind).
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-## Current state (everything on main is ratified; Jonathan stated it
-## explicitly on 2026-09-06, recorded in PR #22)
+## Current state (everything on main through PR #24 is ratified;
+## Jonathan stated it explicitly on 2026-09-06, recorded in PR #22.
+## PR #25, implementation 4, awaits his checkpoint)
 
 Method (method/):
 - CONVENTIONS.md — one folder per artifact type under workbench/
@@ -103,8 +104,11 @@ Workbench (workbench/):
   note/ui-standards-definition.md, test-method-definition.md,
   acceptance-criteria-definition.md, test-data-definition.md,
   quality-standards-definition.md (what, not how; execution methods
-  belong to the method proper later). note/v1-scope-and-prototyping-
-  intent.md holds Jonathan's scope discipline.
+  belong to the method proper later). The UI guide has 15 questions
+  and the test-data guide 9 after implementation 4's review; the
+  decision guides foresee an implementation-structure guide.
+  note/v1-scope-and-prototyping-intent.md holds Jonathan's scope
+  discipline.
 - Implementations 1, 2, 3 — each a single HTML file plus verify.js
   under implementations/<N>/, with note/implementation-record-<N>.md
   and per-area notes (ui-decisions, implementation-structure,
@@ -112,9 +116,13 @@ Workbench (workbench/):
   1: Initial UI only. 2: Initial UI plus Edit ideas as first ratified.
   3: the 2026-09-05 revision (whitespace, blank ideas, undo by units,
   message area), built by the subagent procedure with Opus; frozen.
-  The use-case rules added at Jonathan's implementation 3 checkpoint
-  (ordering over the entire content, partial-word truncation, hyphen
-  splitting, empty message list) are implemented by no one yet.
+  4: the 2026-09-06 revision (ordering over the entire content,
+  partial-word truncation, display-only hyphen splitting by a two-layer
+  right pane, empty message list), built by the procedure with Sonnet
+  (PR #25); its review fixed one defect (a split inside an emoji) in a
+  separate commit; delivered for the checkpoint, frozen once merged.
+  ai/implementation-comparison-3-4.md compares 3 and 4 for Jonathan
+  (sophistication; where an architecture guide would help).
 
 Procedures (ai/procedures/, non-normative working documents, revised
 whenever the same work recurs): implement-by-subagent.md (the
