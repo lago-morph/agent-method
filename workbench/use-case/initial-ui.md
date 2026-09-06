@@ -80,7 +80,9 @@ See my ideas in one place: the three-pane screen that is the workbench.
   space it has, and closes when the button is pressed again or the
   list's own × is pressed. Identical messages are separate entries with
   their own times.
-- When no message has appeared yet, the list shows "No messages".
+- When no message has appeared yet, the list opens empty.
+- The list button is present whether or not there is a current
+  message; the × is present only while a message is displayed.
 - Messages are not kept across sessions: closing the application
   discards them.
 
