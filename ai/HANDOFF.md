@@ -154,7 +154,13 @@ chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
   inspection; two of the six 2026-09-06 wording changes were already
   implementation 3's behavior; a record that lists the spec's changes
   invites the run to classify them; the test data still has no item
-  with leading whitespace and visible content.
+  with leading whitespace and visible content. The 3-vs-4 comparison
+  found two more, left as they are because implementation 4 is
+  delivered: the two right-pane layers can differ in height when one
+  word runs to thousands of characters, leaving the last line
+  unreachable; and undo counts an emoji as two characters in both
+  implementations, because the use cases do not say what "one
+  character" is (use-case markup, for the owner).
 - A spec version is identified only by date and PR number.
 - Delivery to the device has no durable route yet; the persistent-
   storage guide is needed by the Save use case; the test data needs a
