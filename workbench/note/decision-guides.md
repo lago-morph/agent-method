@@ -118,6 +118,12 @@ planned (not before):
   method" should grow to cover this.
 - **Code conventions** — language level, file structure, naming, how
   code traces back to use-case sentences, what a comment must say.
+- **Implementation structure** — the model, rendering, and layering
+  choices an implementation makes without a guide today (recorded in
+  its implementation-structure note): implementation 4 was the first
+  to need a rendering layer distinct from the interactive control, and
+  decided its shape, its alignment with the control, and where a split
+  may fall inside a word with no question to answer.
 - **Logging and diagnostics** — what is logged, where, and how Jonathan
   gets at it on the device when something goes wrong.
 - **Data model and identity** — what an idea is in memory and in

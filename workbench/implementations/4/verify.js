@@ -408,6 +408,18 @@ const inspection = {
     await press(page, 'Backspace', growth.length);
     r.shrunkenWordShownWholeAgain = (await value(page)) === 'short' &&
       !(await displayText(page)).includes(SOFT_HYPHEN);
+    // A split never lands inside a character: a wide word carrying an emoji
+    // (two UTF-16 code units) is shown with the emoji intact, not as two
+    // broken halves around a hyphen. Added in review.
+    const emojiWord = 'x'.repeat(33) + '\u{1F600}' + 'x'.repeat(33);   // 67 graphemes
+    await page.keyboard.type(emojiWord);
+    r.splitNeverInsideACharacter = await (async () => {
+      const shown = await displayText(page);
+      const loneSurrogate = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]/;
+      return shown.includes(SOFT_HYPHEN) && shown.includes('\u{1F600}') && !loneSurrogate.test(shown);
+    })();
+    await press(page, 'Backspace', 67);   // one press per grapheme; the emoji is one
+    r.emojiWordRemovedAgain = (await value(page)) === 'short';
 
     // ---- The message area and the message list ----
     // Two "leading whitespace" messages have been produced so far.
@@ -435,9 +447,10 @@ const inspection = {
       (await listEntries(page)).length === 2;
 
     // The list button is present at every state of the message area; the ×
-    // is present only while a message is displayed — checked at the two
-    // extremes already exercised above (no message: r.noMessageAreaEmpty
-    // implied the list button by construction; here, with a message showing).
+    // is present only while a message is displayed — checked here with no
+    // message showing, and again below once a message is showing (the second
+    // half was added in review: no earlier check inspected the list button
+    // with a message present).
     r.listButtonAlwaysPresentDismissOnlyWithMessage = await page.$eval('#message-list-button', e =>
       e.hidden !== true) && await page.$eval('#message-dismiss', e => e.hidden === true);
 
@@ -447,6 +460,9 @@ const inspection = {
     await page.keyboard.type(' ');
     r.newMessageReplacesTheCurrentOne = await messageText(page) === MESSAGE &&
       (await listEntries(page)).length === 3;
+    r.listButtonAlwaysPresentDismissOnlyWithMessage = r.listButtonAlwaysPresentDismissOnlyWithMessage &&
+      await page.$eval('#message-list-button', e => e.hidden !== true) &&
+      await page.$eval('#message-dismiss', e => e.hidden !== true);
     r.messageAreaTruncatesLongMessages = await page.$eval('#message-text', e => {
       const s = getComputedStyle(e);
       return s.whiteSpace === 'nowrap' && s.overflow === 'hidden' &&

@@ -3,8 +3,9 @@
 **Status:** working document, non-normative. Written retrospectively
 from implementation 2 (2026-09-05); made the explicit implementation
 procedure at Jonathan's direction the same day. Implementation 3
-(Opus) followed it as written and worked, so the next implementation
-tries a Sonnet subagent. Implementations are referred to by their
+(Opus) followed it as written and worked; implementation 4 (Sonnet)
+followed it as written and worked, with one defect found in review.
+Implementations are referred to by their
 implementation record (implementation 2, implementation 3, …), never
 by a run number.
 
@@ -207,8 +208,44 @@ agent did: 4 Reads, 31 Bash calls), so union both lists; the report's own
 | 2 | Opus | ~203 k | 67 (26 Read, 30 Bash, 10 Write, 1 Edit) | 19 | 25 (order: conventions, the two use cases, decision guides, record definition, standards, record 1, then each guide with its `-1` note as that area came up, the two check procedures, implementation 1's files, the vision last; never `input/`, `method/types/`, or the other procedures) | 46 | PASS | 15 (3 use-case, 10 guides/procedures, 2 environment) | 0 (one reviewer assertion was wrong) |
 | 3 | Opus | ~227 k | 49 (4 Read, 31 Bash, 9 Write, 5 Edit) | 22 | 33, in the prompt's tier order (record 3 first; ADRs, conventions, README, standards, record definition, decision guides; the two use cases and the vision; the five guides; record 2 and its six notes plus `test-data-1` for the item list; implementation 2's two files; the two check procedures); never the other `-1` notes, `input/`, `method/types/`, or the other procedures | 67 + 3 inspection | PASS (mutation-tested: 3 faults, 26 checks fail) | 20 (6 use-case wording or algorithm, 9 guides, 5 environment or checkability) | 0 |
 
+| 4 | Sonnet | ~328 k | 127 (20 Read, 68 Bash, 12 Write, 26 Edit) | 29 | 33, in the prompt's tier order (record 4; conventions, the seven ADRs, README, standards, record definition, decision guides; the two use cases and the vision; the five guides; record 3 and its six notes plus `test-data-1`; implementation 3's two files; the two check procedures); never the `-2` notes, `input/`, `method/types/`, or the other procedures | 79 (76 + 3 inspection); 81 after review | PASS (mutation-tested: 3 faults, 16 checks fail) | 6 (1 use-case, 2 design, 1 checkability, 1 test data, 1 carried forward) | 1 in the implementation (a split inside a surrogate pair), 2 checks not observing their acceptance rows, 2 new guide questions unanswered, 1 miscount in the record |
 "Repo docs opened" counts distinct repository documents; the subagent
 also opened its own outputs and screenshots.
+
+## Implementation 4 (2026-09-06) — the first Sonnet run
+
+- **Input was record 4 only**, drafted as the first commit of the
+  delivery PR (#25); the prompt was the template above with N=4 and
+  the report path filled.
+- **Progressive disclosure held again:** the same 33 documents as
+  implementation 3, in tier order; never the `-2` notes, `input/`, or
+  `method/types/`. Tokens were ~45% above implementation 3's and tool
+  uses 2.6× (26 Edits against 5): the agent worked in smaller steps,
+  and the display-only hyphen split — the one change with no
+  precedent in implementation 3 — took most of the run (its report's
+  "Time sinks").
+- **Result:** implementation, 79 checks, record sections, six notes,
+  clean links at 40 artifacts; 6 ambiguities, fewer than Opus reported
+  (20 and 15) — the guides had absorbed implementation 3's, and the
+  report reads as a narrower search: it classified the record's list
+  of changes and designed the split, and did not question the guides.
+- **Review** (checklist above, in order): report; diff limited to
+  reciprocal links and the record's sections; PASS reproduced;
+  validator clean; an independent script from the use cases (78
+  checks per orientation, Opus, mutation-tested) passed with no defect
+  found; a read-through of the record, notes, and source (Opus)
+  found one implementation defect the checks could not see — a word
+  split by UTF-16 code unit puts a soft hyphen inside an emoji —
+  plus two checks that did not observe what their acceptance rows
+  claimed, two guide questions added after implementation 3 left
+  unanswered, and a miscount in the record. All folded in the review
+  commit, separate from the run's commit, so the run's output stays
+  comparable. Two screenshots.
+- **New in the review's method:** the read-through and the
+  independent script were delegated to two clean-context Opus
+  reviewers in parallel, so the session's own context stayed small;
+  the read-through reviewer found what the script-based reviewer did
+  not, and the reverse was not true.
 
 ## Implementation 3 (2026-09-05) — the procedure as written
 
@@ -273,6 +310,15 @@ also opened its own outputs and screenshots.
   cheapest way found so far to surface such sentences.
 - The harness ran the subagent in the background regardless of the
   requested mode; nothing else may touch its files meanwhile.
+- A smaller model's checks can pass while a defect sits in a case no
+  check names (implementation 4's surrogate pair). The independent
+  script from the use cases did not find it either; only reading the
+  source against the spec did. Step 4 of the checklist is not optional
+  for a Sonnet run.
+- A record that lists what changed in the spec invites the run to
+  classify the list; implementation 4 spent an ambiguity on which
+  items were behavior. Say in the record which changes are behavior,
+  or list none and let the use cases speak.
 
 ## Notes for formalizing
 
