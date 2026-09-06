@@ -233,20 +233,23 @@ guides and propose the open decisions in its record first.
   present; Initial UI's whitespace sub-case, now unreachable; plus a
   test-data item with leading whitespace to exercise edge case 3).
 
-Next step: Jonathan's checkpoint on implementation 3 (iPad) and his
-markup on its PR, including the use-case findings; work that markup
-until he says it is done. The procedure worked as written with Opus,
-so the following implementation, when he names it, is run with a
-Sonnet subagent (model "sonnet" in the launch), same procedure, and
-its row is compared with runs 1 and 2. Nothing after that is started until he
-names it. The build order's next use case is Save ideas, which needs the
-persistent-storage guide foreseen in note/decision-guides.md; the
-test-data guide's open questions are to be raised in that round.
+- 2026-09-06: Jonathan's checkpoint markup on PR #20. Applied to the
+  use cases on a stacked branch (claude/use-case-markup-3-checkpoint):
+  ordering compares the entire content (with test data); truncation
+  after a partial first word; long words split with display-only
+  hyphens as typed (no colour requirement); the message list opens
+  empty, list button always present, × only with a message; the Edit
+  ideas walk-through gives examples, never counts tied to the test
+  data. A mistake and its rule: the message-list markup was first
+  applied to implementation 3 itself; Jonathan: a finished
+  implementation is never edited, it is the historical record for
+  building the method, and changes after a delivery PR's first commit
+  are sectioned off. Implementation 3 was restored to its delivery
+  commit; the rule is ai/lessons/finished-implementations-are-never-
+  edited.md and a bullet in note/implementation-standards.md. The
+  ordering and long-word rules are for the next implementation.
 
-The larger arc continues per ai/PLAN.md's high-level sequence: grow
-outward from the vision one artifact at a time (use cases in their
-build order, then component definitions and language-neutral typed
-interfaces; notes for anything that fits no type), implementing and
-checkpointing along the way; and once real instances of each artifact
-type exist, write the agent-facing type descriptions in method/,
-derived from what was actually made.
+Next step: Jonathan's remaining markup on PR #20 (implementation 3,
+frozen) and on the stacked use-case PR; work it until he says both are
+done. Then, on his word, the next implementation: record 4's owner
+decisions first, then the procedure with a Sonnet subagent.
