@@ -39,9 +39,11 @@ or ai/lessons/ entries, per its kind).
 - Commit and push at the end of every turn; chat is never the only
   home of anything. If Jonathan says something that sounds like
   intent, capture it in an artifact or note and show him.
-- A delivered implementation, its record, and its per-area notes are
-  never edited afterwards: they are the historical record. Markup
-  after delivery goes to the use cases, in its own PR, for the next
+- Once the run that builds an implementation has finished, the
+  implementation, its record, and its per-area notes are never edited:
+  they are the historical record. The run's output is the measurement;
+  the review records what it finds and changes nothing in those files.
+  Markup goes to the use cases, in its own PR, for the next
   implementation. Changes after a delivery PR's first commit are
   sectioned off into their own PR.
 - Use cases never depend on the specific test-data set: examples, not

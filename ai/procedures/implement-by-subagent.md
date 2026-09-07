@@ -171,6 +171,11 @@ the decision guides, and the guides:
 
 ### Review checklist (the reviewer, in this order)
 
+The run's output is the measurement. The review records what it finds
+and changes nothing in the implementation, its record, or its notes; a
+fix, however small, turns a comparison between models into a comparison
+between models plus the reviewer.
+
 1. Read the report. 2. `git status` and `git diff`: existing artifacts
 changed only by reciprocal links. 3. Rerun the delivered check script;
 PASS must reproduce. 4. Read the record, every per-area note, and the
@@ -178,12 +183,14 @@ implementation source. 5. Run the link validator (third version). 6.
 Write and run an independent Playwright script from the use case text,
 not from the checks note (`ui-checks-playwright.md`); look at one
 screenshot per orientation. 7. Extract the run's metrics (below). 8.
-Fold findings back: questions into guides, decisions the review exposed
-into the implementation's notes, procedure revisions; list proposed
-markups to ratified use cases for the owner, never apply them. Once
-the PR is delivered, the implementation, its record, and its notes are
-frozen: markup from the owner's checkpoint changes the use cases, in a
-separate PR, for the next implementation to pick up (see
+Fold findings back: questions into guides, procedure revisions, and
+every other finding into this procedure's section for the
+implementation; nothing into the implementation's files. List
+proposed markups to ratified use cases for the owner, never apply
+them. From the moment the run finishes, the implementation, its
+record, and its notes are frozen: markup from the owner's checkpoint
+changes the use cases, in a separate PR, for the next implementation
+to pick up (see
 `ai/lessons/finished-implementations-are-never-edited.md`). 9.
 Deliver: PR, file attached and hosted copy (`deliver-to-ipad.md`),
 handoff.

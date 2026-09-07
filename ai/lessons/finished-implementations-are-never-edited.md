@@ -1,6 +1,6 @@
 # A finished implementation is never edited
 
-Once an implementation has been delivered, its artifacts —
+Once the run that builds an implementation has finished, its artifacts —
 `workbench/implementations/<N>/` and the implementation's record and
 per-area notes — are the historical record from which the method is
 derived. They are never edited afterwards, not even to apply markup.
