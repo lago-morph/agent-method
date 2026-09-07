@@ -335,15 +335,9 @@ also opened its own outputs and screenshots.
   cheapest way found so far to surface such sentences.
 - The harness ran the subagent in the background regardless of the
   requested mode; nothing else may touch its files meanwhile.
-- A reviewer's finding is a defect only if the use cases say so. A
-  read-through reviewer reads the source against its own sense of
-  correctness and will report cases the spec excludes (implementation
-  4: an emoji inside a wide word). Check every finding against the
-  use-case sentence before calling it a defect; a finding with no
-  sentence behind it is a possible use-case markup for the owner, not
-  a fix. And never apply a fix to the implementation under review:
-  step 8 folds findings into guides and procedures, and lists the rest
-  for the owner (`ai/lessons/review-findings-are-bounded-by-the-spec.md`).
+- A review finding is recorded, never fixed, whether or not a use-case
+  sentence stands behind it. Fixing anything without asking is a defect
+  of intent (`ai/lessons/review-findings-are-bounded-by-the-spec.md`).
 - A record that lists what changed in the spec invites the run to
   classify the list; implementation 4 spent an ambiguity on which
   items were behavior. Say in the record which changes are behavior,

@@ -1,17 +1,20 @@
-# A review finding is a defect only if the spec says so
+# Fixing anything without asking is a defect
 
-A reviewer's finding counts as a defect only when a use-case sentence
-is violated. A finding with no sentence behind it is not fixed in the
-implementation; it is reported to Jonathan as a possible use-case
-markup, and the implementation stays as the run produced it. Fixing
-behavior the spec does not specify is itself a defect, and is logged
-as one.
+A review finding is recorded, never fixed. This holds whether or not a
+use-case sentence stands behind the finding: the implementation under
+review is experimental data, and the objective of every run is to
+develop the method, not to ship the application. Optimize for gathering
+the data that shows where the method must be changed or extended, never
+for the software.
 
-Grounding (2026-09-07): implementation 4's review reported that a wide
-word containing an emoji was split between the emoji's two code units,
-and the AI partner "fixed" it by splitting on grapheme clusters.
-Jonathan: "Emojis are out of scope for idea text. We can limit to
-utf-8. Take out logic about grapheme clusters - the spec explicitly
-says not to do that, and making that fix should be logged as a
-defect... I explicitly said there should only be rules on length for
-splitting." The fix was reverted and logged in the procedure.
+Grounding (2026-09-07): reviewing implementation 4, the AI partner
+"fixed" a wide word being split inside an emoji. Jonathan: "Fixing
+anything without asking is a defect. Please remember that the objective
+of this exercise is to develop the method. The actual application could
+probably be one-shotted with my hand written notes. Do not optimize
+implementing the software. Instead optimize gathering experimental data
+that allows us to find areas where the method must be changed or
+extended." A first version of this lesson implied that a finding backed
+by a use-case sentence could be fixed; he rejected that: "That is
+absolutely not the case." The filename is that first version's; it
+stays until documents may be moved.

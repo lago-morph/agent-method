@@ -169,6 +169,12 @@ chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
   splitting a wide word has rules on length only. The Initial UI use
   case's idea-text section is where it would go; the session drafts
   it only on his word.
+- Jonathan's review of PR #25 (19 threads: the notes restate other
+  documents, implementation-specific artifacts belong with the
+  implementations, procedures and the handoff are transcripts and too
+  long, the long-word rules leave the use case, the run read
+  implementation 3) is captured verbatim in ai/feedback-pr-25.md for
+  future PRs.
 - A spec version is identified only by date and PR number.
 - Delivery to the device has no durable route yet; the persistent-
   storage guide is needed by the Save use case; the test data needs a
@@ -205,3 +211,5 @@ also produce direction on an implementation-structure guide — a new
 guide is proposed, not created, until he approves it. Implementation 5
 starts only on his word, with the model he names (a second Sonnet run
 would measure variance; Haiku would extend the context test).
+Before any of that, on his word: process ai/feedback-pr-25.md, one
+theme per PR.
