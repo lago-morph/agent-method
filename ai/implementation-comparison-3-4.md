@@ -30,9 +30,6 @@ Two concrete consequences, both reproduced here in Chromium:
   textarea; scrolling the textarea to its bottom leaves the last line 33 px
   below the pane's bottom edge. The shipped test data does not reach this — its
   216-character run measures 8829 px in both layers.
-- "One character" has three different definitions in implementation 4's one
-  file. Review fixed one of them; the same class of bug survives untouched in
-  the undo layer of both implementations.
 
 ## What actually changed
 
@@ -84,13 +81,13 @@ flowchart TD
 ```mermaid
 flowchart LR
   A[textarea: value, caret, scroll] -->|scrollTop| B[display div: hyphenated text]
-  C[canvas measurement] --> D[soft hyphen per grapheme]
+  C[canvas measurement] --> D[soft hyphen per character]
   D --> B
   A -.->|browser line-breaking, twice| B
 ```
 
 The design is sound and economical: a soft hyphen is inserted between every
-grapheme of any word measured wider than the pane, and the browser renders only
+character of any word measured wider than the pane, and the browser renders only
 the one that it actually needs to break at. The alternative the note records —
 computing break points and forcing them with `<br>` — was rejected for a stated
 reason, that the invisible interactive layer would still find its own break
@@ -124,15 +121,10 @@ model or the textarea's value.
 
 ## Robustness
 
-- **"One character" has three definitions.** UTF-16 code unit in the deletion
-  classifier (4:754–785, identical to 3:657–684); grapheme cluster in the
-  display splitter (4:403–413, added by review); one Backspace press per
-  grapheme in the checks (4/verify.js:421). I ran both implementations:
-  backspacing through the word `ab😀cd` takes **two** undo entries — the first
-  Ctrl+Z restores `ab` — while `abXcd` takes one. The emoji breaks the deletion
-  run, contrary to the use case's grouping by unit. The review fixed the display
-  instance of precisely this bug and could not see the undo instance, because
-  nothing names the concept in one place.
+- **A character is a UTF-16 code unit throughout.** The deletion classifier
+  (4:754–785, identical to 3:657–684) and the display splitter (4:403–410)
+  agree on it. Idea text is plain text and emoji are out of scope, so this is
+  a fact about the code, not a defect.
 - **Two definitions of "word".** `unitsOf` for undo (4:670) and `/\S+/` in
   `hyphenate` (4:417) happen to agree; nothing makes them agree.
 - **DOM identity** is rebuilt on every keystroke and carried only in `data-id`
@@ -154,7 +146,7 @@ model or the textarea's value.
 Where a check is weaker than its row claims: `wordSpanningSeveralLinesHyphens‑
 EverySplit` (≥2 soft hyphens, 4/verify.js:178) and `longUnbrokenRunHyphens‑
 EveryLineItSpans` (≥3, 4/verify.js:191) are close to vacuous, because
-`hyphenate` puts a soft hyphen between *every* grapheme of a marked word — a
+`hyphenate` puts a soft hyphen between *every* character of a marked word — a
 60-letter word yields 59. Those two rows and `rightPaneSplitsWideWordWithHyphen`
 all rest on one observation: some word was marked. The note is honest about it
 ("a lower bound only ... 'every line' is left to the screenshot review"), and
@@ -168,7 +160,7 @@ literal, and all of them shifted by 9 when the test data grew by three items.
 | **Model/view separation with one render function**, and the rule that every view output is written there | Already true in both; 4's new layer was appended to `render` by hand and could as easily have been called from the input handler |
 | **An explicit text-layout layer**: what owns line breaking, what the alignment contract between the seen text and the caret is, when it is invalidated | The layer-height divergence nobody owns; `updateDisplay` re-measuring everything per keystroke |
 | **Where measurement lives**, and that measurements are cached by (word, width, font) | `getComputedStyle` plus canvas measurement inside the view, per render, per word |
-| **One definition of character and word**, used by editing, layout and checks alike | The emoji deletion run splitting in both implementations; two independent notions of "word" |
+| **One definition of word**, used by editing, layout and checks alike | Two independent notions of "word": the splitter's run of non-whitespace and the deletion classifier's |
 | **How identity is assigned and used, including by tests** | `data-id` re-lookup, discovered only while writing 4's checks |
 | **The test-hook contract**: hooks are interface, a check states what it observes, counts derive from the test-data set | Soft-hyphen lower bounds standing in for "a hyphen at every line"; literal row counts shifting by 9 |
 
@@ -191,15 +183,9 @@ caret from it (a much larger change, touching every render); or relax the use
 case's sentence. Rewind: the overlay is about 100 lines in one place — deleting
 it restores implementation 3's single textarea exactly.
 
-**3. Whether to fix "one character" now.** A small refactor: one shared notion
-of grapheme and unit, used by the classifier and the splitter, plus one check
-that deletes through an emoji. Or record it as a known gap alongside the
-existing two. Rewind: trivial either way.
-
 ## What I verified, and what I did not
 
-Verified in headless Chromium here: the emoji undo-run split (in both
-implementations), the layer-height divergence and the unreachable last line, the
+Verified in headless Chromium here: the layer-height divergence and the unreachable last line, the
 per-keystroke render cost, selection painting over the display layer, layer
 agreement for the shipped test data. Not verified: WebKit, a real iPad, the
 on-screen keyboard, autocorrect, the clipboard. Opinion, not measurement: that

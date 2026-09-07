@@ -19,9 +19,8 @@ reason to differ is recorded. None of the three behavior changes the
 2026-09-06 revision made — the message list opening empty, ordering
 comparing entire content, and hyphen-splitting a wide word in the right
 pane — is a UI-standards question: each is behavior the use cases now
-specify, not an appearance or interaction convention this guide covers
-(the guide's question 14 does name the revision's dismiss-× wording,
-answered below). They are recorded in
+specify, not an appearance or interaction convention this guide covers.
+They are recorded in
 [note/implementation-structure-4.md](implementation-structure-4.md)
 instead, per [note/decision-guides.md](decision-guides.md)'s rule that
 behavior belongs to the use case and its implementation, not to a
@@ -29,7 +28,7 @@ guide answer.
 
 ## The guide's questions, answered
 
-Questions 1–12 are repeated unchanged from implementation 3
+All twelve questions are repeated unchanged from implementation 3
 ([note/ui-decisions-3.md](ui-decisions-3.md)), which itself repeated
 implementations 1 and 2 for all but the message area's own values
 (question 7) and the additions "beyond the guide's questions" below.
@@ -76,25 +75,6 @@ convention:
     unchanged.
 12. Does invoking a command move the insertion point into the edit
     area? — unchanged.
-13. When a use case's size wording and a standard contradict — the
-    standard: the message area is one line of text in a 44 px strip,
-    as implementation 3 resolved it and this implementation's code
-    keeps. *Repeated unchanged* (the question was added to the guide
-    after implementation 3, so this is its first written answer).
-14. Is a control present only while there is something for it to act
-    on? — the dismiss × is present only while a message is displayed;
-    the list button, which acts on the session's list, is always
-    present; Undo and Redo are always present and inert when there is
-    nothing to undo or redo. *Repeated unchanged* from implementation
-    3's behavior, first written here.
-15. Which layer do the answers apply to when the visible text is drawn
-    by a layer distinct from the control — the interactive textarea
-    owns touch, caret, and selection (questions 1, 8, 12); the display
-    layer owns appearance (questions 2–4) and scrolls and wraps with
-    the textarea (question 9). Added to the guide after this
-    implementation's review; the answer is what
-    [note/implementation-structure-4.md](implementation-structure-4.md)
-    already describes.
 
 ## Decided beyond the guide's questions
 
@@ -119,6 +99,4 @@ Unchanged from implementation 3's proposal
 10–12 have now been answered identically in four implementations, all
 touch web apps. The proposal stands; this implementation adds no new
 candidate values, because none of the 2026-09-06 revision's changes are
-UI-standards decisions. Questions 13 and 14 have one written answer
-each (this note's) and question 15 has its first; none is proposed for
-promotion yet.
+UI-standards decisions.

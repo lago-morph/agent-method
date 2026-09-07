@@ -116,16 +116,19 @@ and the ones no guide had a question for flagged in the notes, per
   items; the clipboard is not driven; message truncation and message-
   list scrolling are checked against computed style, not observed; no
   dark mode; no layout change for narrow widths; platform autocorrect
-  and the platform's own undo gesture are untested), plus two this
-  implementation adds: the two right-pane layers can choose slightly
-  different break points inside a word already split across several
-  lines, so the caret can sit slightly off its apparent neighbour; and
-  a word the canvas measurement under-measures would be clipped by the
-  display layer rather than wrapped. Neither is observed in Chromium;
-  both are checkpoint items —
-  [note/implementation-structure-4.md](implementation-structure-4.md),
+  and the platform's own undo gesture are untested), plus one this
+  implementation adds: the two right-pane layers can choose a slightly
+  different break point inside a single word that is already being
+  split across several lines, because the display layer's line-breaking
+  must leave room for the hyphen glyph it draws and the invisible
+  interactive layer's plainer wrapping does not — so the caret can sit
+  very slightly off from the character it visually appears to be next
+  to while typing deep inside a long unbroken run. The use case does not
+  say how a display-only split should relate to caret placement inside
+  the split word, so this is recorded as a gap rather than resolved by
+  invention — [note/implementation-structure-4.md](implementation-structure-4.md),
   "Decisions forced by the use case being silent or in tension".
-- **Flagged for the owner:** two of the six changes the 2026-09-06
+- **Flagged for the owner:** three of the six changes the 2026-09-06
   revision made to the use cases' wording — the list button always
   present with the dismiss × only alongside a message, and the title
   truncating after a partial word — describe behavior this
@@ -133,8 +136,6 @@ and the ones no guide had a question for flagged in the notes, per
   even without the wording change; they are recorded as new acceptance-
   criteria rows anyway, because the sentences are new in the ratified
   text, per [note/acceptance-criteria-4.md](acceptance-criteria-4.md).
-  A third, the walk-through giving examples rather than counts, changes
-  no behavior at all.
   The genuine behavior changes — the message list's empty state,
   whole-content ordering, and display-only hyphen splitting — are the
   ones this run actually had to build.

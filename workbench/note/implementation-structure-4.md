@@ -185,22 +185,6 @@ still disagree in is recorded below.
   text layout are not guaranteed to agree to the sub-pixel; the margin
   only affects the borderline case of a word exactly at the pane's
   width, never an ordinary one.
-- **Where inside a word a split may fall** — the use case says a word
-  is split "across lines" and says nothing about characters. As built
-  by the run, the word was split between UTF-16 code units, which put a
-  soft hyphen inside an emoji's surrogate pair and rendered it as two
-  broken glyphs (found in review, in Chromium). Decided in review: a
-  split falls only between user-perceived characters — grapheme
-  clusters from `Intl.Segmenter` where the engine has it (Safari has
-  since 14.1), code points otherwise — so an emoji or a decomposed
-  accent is never divided. Checked by the row added in review to
-  [note/automated-checks-4.md](automated-checks-4.md).
-- **A word the canvas under-measures** — the display layer wraps only
-  at the soft hyphens the measurement inserted, and clips horizontally
-  otherwise; if the canvas measured a word narrower than the engine
-  renders it, the word would be cut off at the right edge while the
-  interactive layer beneath still wraps it. Not observed in Chromium;
-  a checkpoint item in [note/test-method-4.md](test-method-4.md).
 
 ## Open
 

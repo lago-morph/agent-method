@@ -400,23 +400,11 @@
       parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
   }
 
-  // A word is split between user-perceived characters (grapheme clusters),
-  // never inside a surrogate pair or between a base character and its
-  // combining marks; otherwise an emoji or a decomposed accent in a long word
-  // renders as broken glyphs in the display layer.
-  function graphemes(word) {
-    if (typeof Intl !== 'undefined' && Intl.Segmenter) {
-      var segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-      return Array.from(segmenter.segment(word), function (s) { return s.segment; });
-    }
-    return Array.from(word);
-  }
-
   function hyphenate(text, maxWidth, font) {
     measureCtx.font = font;
     return text.replace(/\S+/g, function (word) {
       return measureCtx.measureText(word).width > maxWidth
-        ? graphemes(word).join('\u00AD')
+        ? word.split('').join('\u00AD')
         : word;
     });
   }

@@ -119,8 +119,9 @@ Workbench (workbench/):
   4: the 2026-09-06 revision (ordering over the entire content,
   partial-word truncation, display-only hyphen splitting by a two-layer
   right pane, empty message list), built by the procedure with Sonnet
-  (PR #25); its review fixed one defect (a split inside an emoji) in a
-  separate commit; delivered for the checkpoint, frozen once merged.
+  (PR #25), delivered exactly as the run produced it; the review's
+  findings are recorded in the procedure's implementation 4 section,
+  not applied (the session applied one and Jonathan had it reverted).
   ai/implementation-comparison-3-4.md compares 3 and 4 for Jonathan
   (sophistication; where an architecture guide would help).
 
@@ -154,13 +155,18 @@ chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
   inspection; two of the six 2026-09-06 wording changes were already
   implementation 3's behavior; a record that lists the spec's changes
   invites the run to classify them; the test data still has no item
-  with leading whitespace and visible content. The 3-vs-4 comparison
-  found two more, left as they are because implementation 4 is
-  delivered: the two right-pane layers can differ in height when one
-  word runs to thousands of characters, leaving the last line
-  unreachable; and undo counts an emoji as two characters in both
-  implementations, because the use cases do not say what "one
-  character" is (use-case markup, for the owner).
+  with leading whitespace and visible content. The review's findings
+  on the run's notes and checks (a miscount in the record, three
+  guide questions unanswered, two checks observing less than their
+  rows claim) are listed in the procedure's implementation 4 section
+  for the next implementation. The 3-vs-4 comparison found that the
+  two right-pane layers can differ in height when one word runs to
+  thousands of characters, leaving the last line unreachable.
+- Proposed use-case markup, from Jonathan on 2026-09-07, not applied:
+  "Emojis are out of scope for idea text. We can limit to utf-8", and
+  splitting a wide word has rules on length only. The Initial UI use
+  case's idea-text section is where it would go; the session drafts
+  it only on his word.
 - A spec version is identified only by date and PR number.
 - Delivery to the device has no durable route yet; the persistent-
   storage guide is needed by the Save use case; the test data needs a

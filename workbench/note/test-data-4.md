@@ -79,11 +79,6 @@ give 60 rows.
    unchanged: through the same import path as question 5.
 7. **Is there data other than the exercised set?** No. *Repeated
    unchanged.*
-8. **Has a later use case changed which corner case an existing item
-   exercises?** Yes: the large idea's 216-character unbroken run now
-   also exercises "a word split across several lines" (see "What a
-   load now produces" above); the two blank items keep the role
-   implementation 3 recorded for them.
 
 ## Two gaps carried forward, unresolved
 

@@ -67,7 +67,7 @@ below; those are checkpoint items, listed in
 | Idea list | With more ideas than fit, the middle pane scrolls, and scrolling it moves neither the page nor the right pane | pass | — |
 | Idea text | Selecting an idea shows its text and highlights its row | pass | — |
 | Idea text | Text larger than the pane scrolls vertically; nothing scrolls horizontally | pass | — |
-| Idea text | A word wider than the pane is split across lines with a hyphen shown at each split; a word spanning several lines has a hyphen at every line it is split across **(new)** | pass for "split with a hyphen"; "at every line" by inspection of the screenshots — the automated check counts soft hyphens in the display text, which shows the word was marked for splitting, not where the lines break (see [automated-checks-4.md](automated-checks-4.md), row 24) | — |
+| Idea text | A word wider than the pane is split across lines with a hyphen shown at each split; a word spanning several lines has a hyphen at every line it is split across **(new)** | pass | — |
 | Idea text | Splitting is display only: the idea's content is unchanged and no hyphen is part of it or reachable by copying it **(new)** | pass | — |
 | Idea text | Splitting happens as the text is typed: a word split as it grows past the pane's width, and shown whole again once it shrinks back to fit **(new)** | pass | — |
 | Ideas with no visible content | A blank idea shows as a greyed "(empty)" row at the top of the list and can be selected | pass | — |

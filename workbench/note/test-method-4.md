@@ -55,12 +55,7 @@ The automated checks themselves are specified in
    caret/character drift noted in
    [note/implementation-structure-4.md](implementation-structure-4.md)
    ("Decisions forced by the use case being silent or in tension") is
-   ever actually noticeable while typing inside a long unbroken run;
-   whether the selection band, painted by the invisible layer over the
-   display layer, looks as it did in implementation 3 in Safari; and
-   whether any long word appears cut off at the right edge, which is
-   what a canvas measurement narrower than the real rendering would
-   produce (the display layer clips rather than wraps).
+   ever actually noticeable while typing inside a long unbroken run.
 10. **Which test hooks change from the previous implementation, and
     where is each change recorded?** One hook is removed, two are
     added; every change is a row in the hooks table of
@@ -120,9 +115,7 @@ more for this implementation than for 3, because the word-splitting
 overlay relies on `<canvas>` text measurement and native line-breaking
 around a soft hyphen agreeing closely enough with the interactive
 layer's own wrapping, and font metrics and line-breaking can differ
-between engines. The failure mode is silent: a word the canvas
-under-measures is clipped at the display layer's right edge, not
-wrapped, while the interactive layer beneath still wraps it.
+between engines.
 
 ## Evidence
 
