@@ -11,6 +11,8 @@ links:
     - note/ui-decisions-2.md
     - note/implementation-record-3.md
     - note/ui-decisions-3.md
+    - note/implementation-record-4.md
+    - note/ui-decisions-4.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
@@ -87,6 +89,13 @@ With the default in brackets — the answer to assume when Jonathan says
     inert (Undo with nothing to undo)? [present only with its object
     when the use case attaches it to that object; added after
     implementation 3]
+15. When what the user sees is drawn by a layer distinct from the
+    control they touch (a display layer over an invisible text area),
+    which layer do the touch-target, selection, placeholder, and
+    scrolling answers apply to? [the interactive control owns touch,
+    caret, and selection; the display layer owns appearance and must
+    scroll and wrap with the control; added after implementation 4,
+    the first to need such a layer]
 
 ## Guidance for the walkthrough
 

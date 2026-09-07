@@ -3,8 +3,11 @@
 **Status:** working document, non-normative. Written retrospectively
 from implementation 2 (2026-09-05); made the explicit implementation
 procedure at Jonathan's direction the same day. Implementation 3
-(Opus) followed it as written and worked, so the next implementation
-tries a Sonnet subagent. Implementations are referred to by their
+(Opus) followed it as written and worked; implementation 4 (Sonnet)
+followed it as written and worked, with no behavior defect found in
+review — the review itself made one change outside the spec, since
+reverted (see its section).
+Implementations are referred to by their
 implementation record (implementation 2, implementation 3, …), never
 by a run number.
 
@@ -168,6 +171,11 @@ the decision guides, and the guides:
 
 ### Review checklist (the reviewer, in this order)
 
+The run's output is the measurement. The review records what it finds
+and changes nothing in the implementation, its record, or its notes; a
+fix, however small, turns a comparison between models into a comparison
+between models plus the reviewer.
+
 1. Read the report. 2. `git status` and `git diff`: existing artifacts
 changed only by reciprocal links. 3. Rerun the delivered check script;
 PASS must reproduce. 4. Read the record, every per-area note, and the
@@ -175,12 +183,14 @@ implementation source. 5. Run the link validator (third version). 6.
 Write and run an independent Playwright script from the use case text,
 not from the checks note (`ui-checks-playwright.md`); look at one
 screenshot per orientation. 7. Extract the run's metrics (below). 8.
-Fold findings back: questions into guides, decisions the review exposed
-into the implementation's notes, procedure revisions; list proposed
-markups to ratified use cases for the owner, never apply them. Once
-the PR is delivered, the implementation, its record, and its notes are
-frozen: markup from the owner's checkpoint changes the use cases, in a
-separate PR, for the next implementation to pick up (see
+Fold findings back: questions into guides, procedure revisions, and
+every other finding into this procedure's section for the
+implementation; nothing into the implementation's files. List
+proposed markups to ratified use cases for the owner, never apply
+them. From the moment the run finishes, the implementation, its
+record, and its notes are frozen: markup from the owner's checkpoint
+changes the use cases, in a separate PR, for the next implementation
+to pick up (see
 `ai/lessons/finished-implementations-are-never-edited.md`). 9.
 Deliver: PR, file attached and hosted copy (`deliver-to-ipad.md`),
 handoff.
@@ -207,8 +217,60 @@ agent did: 4 Reads, 31 Bash calls), so union both lists; the report's own
 | 2 | Opus | ~203 k | 67 (26 Read, 30 Bash, 10 Write, 1 Edit) | 19 | 25 (order: conventions, the two use cases, decision guides, record definition, standards, record 1, then each guide with its `-1` note as that area came up, the two check procedures, implementation 1's files, the vision last; never `input/`, `method/types/`, or the other procedures) | 46 | PASS | 15 (3 use-case, 10 guides/procedures, 2 environment) | 0 (one reviewer assertion was wrong) |
 | 3 | Opus | ~227 k | 49 (4 Read, 31 Bash, 9 Write, 5 Edit) | 22 | 33, in the prompt's tier order (record 3 first; ADRs, conventions, README, standards, record definition, decision guides; the two use cases and the vision; the five guides; record 2 and its six notes plus `test-data-1` for the item list; implementation 2's two files; the two check procedures); never the other `-1` notes, `input/`, `method/types/`, or the other procedures | 67 + 3 inspection | PASS (mutation-tested: 3 faults, 26 checks fail) | 20 (6 use-case wording or algorithm, 9 guides, 5 environment or checkability) | 0 |
 
+| 4 | Sonnet | ~328 k | 127 (20 Read, 68 Bash, 12 Write, 26 Edit) | 29 | 33, in the prompt's tier order (record 4; conventions, the seven ADRs, README, standards, record definition, decision guides; the two use cases and the vision; the five guides; record 3 and its six notes plus `test-data-1`; implementation 3's two files; the two check procedures); never the `-2` notes, `input/`, `method/types/`, or the other procedures | 79 (76 + 3 inspection) | PASS (mutation-tested: 3 faults, 16 checks fail) | 6 (1 use-case, 2 design, 1 checkability, 1 test data, 1 carried forward) | 0 in behavior; in the notes and checks: 2 checks observing less than their acceptance rows claim, 3 guide questions unanswered, 1 miscount in the record — recorded, not applied. 1 defect by the review itself: a fix outside the spec, reverted |
 "Repo docs opened" counts distinct repository documents; the subagent
 also opened its own outputs and screenshots.
+
+## Implementation 4 (2026-09-06) — the first Sonnet run
+
+- **Input was record 4 only**, drafted as the first commit of the
+  delivery PR (#25); the prompt was the template above with N=4 and
+  the report path filled.
+- **Progressive disclosure held again:** the same 33 documents as
+  implementation 3, in tier order; never the `-2` notes, `input/`, or
+  `method/types/`. Tokens were ~45% above implementation 3's and tool
+  uses 2.6× (26 Edits against 5): the agent worked in smaller steps,
+  and the display-only hyphen split — the one change with no
+  precedent in implementation 3 — took most of the run (its report's
+  "Time sinks").
+- **Result:** implementation, 79 checks, record sections, six notes,
+  clean links at 40 artifacts; 6 ambiguities, fewer than Opus reported
+  (20 and 15) — the guides had absorbed implementation 3's, and the
+  report reads as a narrower search: it classified the record's list
+  of changes and designed the split, and did not question the guides.
+- **Review** (checklist above, in order): report; diff limited to
+  reciprocal links and the record's sections; PASS reproduced;
+  validator clean; an independent script from the use cases (78
+  checks per orientation, Opus, mutation-tested) passed with no defect
+  found; a read-through of the record, notes, and source (Opus)
+  found no behavior defect within the use cases. Its findings on the
+  run's output, recorded here and left in place: the record's "Flagged
+  for the owner" says three wording changes and names two; the
+  `wordSpanningSeveralLinesHyphensEverySplit` and
+  `longUnbrokenRunHyphensEveryLineItSpans` checks count soft hyphens
+  in the display text, which shows a word was marked for splitting,
+  not that a hyphen appears at every line, so their acceptance row
+  claims more than they observe; `listButtonAlwaysPresentDismissOnly-
+  WithMessage` looks only at the no-message state; `ui-decisions-4`
+  says "all twelve questions" where the guide had fourteen (13 and
+  14, added after implementation 3, unanswered), and `test-data-4`
+  leaves the guide's question 8 unanswered. Two screenshots.
+- **The review's own defect.** The read-through also reported that a
+  wide word containing an emoji is split between the emoji's two
+  UTF-16 code units, and the session "fixed" it in the implementation
+  by splitting on grapheme clusters, with a check, and edited the
+  notes. That was wrong twice over: the use cases put no rule on
+  splitting but length, and idea text is plain text with emoji out of
+  scope (Jonathan, 2026-09-07: "I explicitly said there should only be
+  rules on length for splitting"; "making that fix should be logged as
+  a defect"); and a delivered implementation, its record, and its
+  notes are never edited. Implementation 4 was restored to the run's
+  own commit, byte for byte; the findings above stay findings.
+- **New in the review's method:** the read-through and the
+  independent script were delegated to two clean-context Opus
+  reviewers in parallel, so the session's own context stayed small;
+  the read-through reviewer found what the script-based reviewer did
+  not, and the reverse was not true.
 
 ## Implementation 3 (2026-09-05) — the procedure as written
 
@@ -273,6 +335,13 @@ also opened its own outputs and screenshots.
   cheapest way found so far to surface such sentences.
 - The harness ran the subagent in the background regardless of the
   requested mode; nothing else may touch its files meanwhile.
+- A review finding is recorded, never fixed, whether or not a use-case
+  sentence stands behind it. Fixing anything without asking is a defect
+  of intent (`ai/lessons/review-findings-are-bounded-by-the-spec.md`).
+- A record that lists what changed in the spec invites the run to
+  classify the list; implementation 4 spent an ambiguity on which
+  items were behavior. Say in the record which changes are behavior,
+  or list none and let the use cases speak.
 
 ## Notes for formalizing
 

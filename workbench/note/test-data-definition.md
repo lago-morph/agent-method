@@ -12,6 +12,8 @@ links:
     - note/test-data-2.md
     - note/implementation-record-3.md
     - note/test-data-3.md
+    - note/implementation-record-4.md
+    - note/test-data-4.md
 ---
 
 A guide in the sense of [note/decision-guides.md](decision-guides.md):
@@ -77,6 +79,11 @@ the rest open.
    the item if it still covers a rule; implementation 3's blank items
    moved from "placeholder display" to "deletion of blank loaded
    content" — added after implementation 3]
+9. Can an item still be found by its title once it has been edited,
+   when ordering depends on more than the title and unedited copies
+   of it exist? [no — a check that edits an item and must find that
+   same item again locates it by its stable identity, not its title;
+   added after implementation 4's checks hit it]
 
 ## Guidance for the walkthrough
 

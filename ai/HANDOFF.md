@@ -39,9 +39,11 @@ or ai/lessons/ entries, per its kind).
 - Commit and push at the end of every turn; chat is never the only
   home of anything. If Jonathan says something that sounds like
   intent, capture it in an artifact or note and show him.
-- A delivered implementation, its record, and its per-area notes are
-  never edited afterwards: they are the historical record. Markup
-  after delivery goes to the use cases, in its own PR, for the next
+- Once the run that builds an implementation has finished, the
+  implementation, its record, and its per-area notes are never edited:
+  they are the historical record. The run's output is the measurement;
+  the review records what it finds and changes nothing in those files.
+  Markup goes to the use cases, in its own PR, for the next
   implementation. Changes after a delivery PR's first commit are
   sectioned off into their own PR.
 - Use cases never depend on the specific test-data set: examples, not
@@ -56,8 +58,9 @@ or ai/lessons/ entries, per its kind).
 - Proposing a new artifact type is welcome; creating one without his
   approval is not.
 
-## Current state (everything on main is ratified; Jonathan stated it
-## explicitly on 2026-09-06, recorded in PR #22)
+## Current state (everything on main through PR #24 is ratified;
+## Jonathan stated it explicitly on 2026-09-06, recorded in PR #22.
+## PR #25, implementation 4, awaits his checkpoint)
 
 Method (method/):
 - CONVENTIONS.md — one folder per artifact type under workbench/
@@ -103,8 +106,11 @@ Workbench (workbench/):
   note/ui-standards-definition.md, test-method-definition.md,
   acceptance-criteria-definition.md, test-data-definition.md,
   quality-standards-definition.md (what, not how; execution methods
-  belong to the method proper later). note/v1-scope-and-prototyping-
-  intent.md holds Jonathan's scope discipline.
+  belong to the method proper later). The UI guide has 15 questions
+  and the test-data guide 9 after implementation 4's review; the
+  decision guides foresee an implementation-structure guide.
+  note/v1-scope-and-prototyping-intent.md holds Jonathan's scope
+  discipline.
 - Implementations 1, 2, 3 — each a single HTML file plus verify.js
   under implementations/<N>/, with note/implementation-record-<N>.md
   and per-area notes (ui-decisions, implementation-structure,
@@ -112,16 +118,22 @@ Workbench (workbench/):
   1: Initial UI only. 2: Initial UI plus Edit ideas as first ratified.
   3: the 2026-09-05 revision (whitespace, blank ideas, undo by units,
   message area), built by the subagent procedure with Opus; frozen.
-  The use-case rules added at Jonathan's implementation 3 checkpoint
-  (ordering over the entire content, partial-word truncation, hyphen
-  splitting, empty message list) are implemented by no one yet.
+  4: the 2026-09-06 revision (ordering over the entire content,
+  partial-word truncation, display-only hyphen splitting by a two-layer
+  right pane, empty message list), built by the procedure with Sonnet
+  (PR #25), delivered exactly as the run produced it; the review's
+  findings are recorded in the procedure's implementation 4 section,
+  not applied (the session applied one and Jonathan had it reverted).
+  ai/implementation-comparison-3-4.md compares 3 and 4 for Jonathan
+  (sophistication; where an architecture guide would help).
 
 Procedures (ai/procedures/, non-normative working documents, revised
 whenever the same work recurs): implement-by-subagent.md (the
 implementation procedure: record N first, then a clean-context
-subagent with tiered document access; prompt template, review
-checklist, per-implementation metrics for 2 and 3; Opus worked as
-written, so the next implementation tries Sonnet), ui-checks-
+subagent with tiered document access; prompt template, review checklist, per-implementation metrics for 2,
+3, and 4; Opus and Sonnet both worked as written; the review's
+read-through and independent script are delegated to clean-context
+reviewers), ui-checks-
 playwright.md, artifact-link-check.md (third-version validator),
 use-case-neutrality-check.md, deliver-to-ipad.md (attach the file in
 chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
@@ -138,6 +150,31 @@ chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
   with visible content. The next implementation follows implementation
   3's decisions (in its notes) unless the use cases change, and reports
   them again.
+- Implementation 4 reported six ambiguities and the review added two
+  gaps: the caret can drift from its apparent neighbour inside a word
+  split over several lines; a word the canvas under-measures would be
+  clipped, not wrapped; "a hyphen at every line" is verified only by
+  inspection; two of the six 2026-09-06 wording changes were already
+  implementation 3's behavior; a record that lists the spec's changes
+  invites the run to classify them; the test data still has no item
+  with leading whitespace and visible content. The review's findings
+  on the run's notes and checks (a miscount in the record, three
+  guide questions unanswered, two checks observing less than their
+  rows claim) are listed in the procedure's implementation 4 section
+  for the next implementation. The 3-vs-4 comparison found that the
+  two right-pane layers can differ in height when one word runs to
+  thousands of characters, leaving the last line unreachable.
+- Proposed use-case markup, from Jonathan on 2026-09-07, not applied:
+  "Emojis are out of scope for idea text. We can limit to utf-8", and
+  splitting a wide word has rules on length only. The Initial UI use
+  case's idea-text section is where it would go; the session drafts
+  it only on his word.
+- Jonathan's review of PR #25 (19 threads: the notes restate other
+  documents, implementation-specific artifacts belong with the
+  implementations, procedures and the handoff are transcripts and too
+  long, the long-word rules leave the use case, the run read
+  implementation 3) is captured verbatim in ai/feedback-pr-25.md for
+  future PRs.
 - A spec version is identified only by date and PR number.
 - Delivery to the device has no durable route yet; the persistent-
   storage guide is needed by the Save use case; the test data needs a
@@ -158,12 +195,21 @@ chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
   decisions drafted first for his markup, then the run, then the
   review checklist, then delivery as a PR with the file attached and a
   hosted copy.
+- Preserve the session's context: delegate bounded work (the run, the
+  review's read-through and independent script, comparisons) to
+  clean-context subagents and keep only their conclusions.
+- Subscribe to a PR for one hour at most, then unsubscribe and stop
+  checking (ai/lessons/pr-watching-is-capped-at-one-hour.md).
 
 ## Next step
 
-On Jonathan's word: implementation 4 — draft record 4's owner
-decisions (the use cases as on main; the environment unchanged unless
-he says otherwise) as a PR for his markup; when he says go, run
-ai/procedures/implement-by-subagent.md with a Sonnet subagent; review
-per its checklist; add the metrics row and compare with implementations
-2 and 3; deliver. Nothing starts before he says so.
+Jonathan's iPad checkpoint on implementation 4 (PR #25; the file was
+attached in the session and a hosted copy published). His findings
+arrive as use-case markup in their own PR; implementation 4 itself is
+not edited. His reading of ai/implementation-comparison-3-4.md may
+also produce direction on an implementation-structure guide — a new
+guide is proposed, not created, until he approves it. Implementation 5
+starts only on his word, with the model he names (a second Sonnet run
+would measure variance; Haiku would extend the context test).
+Before any of that, on his word: process ai/feedback-pr-25.md, one
+theme per PR.

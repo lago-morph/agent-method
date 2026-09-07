@@ -10,6 +10,7 @@ links:
   depended-on-by:
     - note/implementation-record-2.md
     - note/implementation-record-3.md
+    - note/implementation-record-4.md
 ---
 
 Derived from [input/02-edit-ideas.md](../input/02-edit-ideas.md) ("Edit
