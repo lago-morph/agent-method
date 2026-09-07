@@ -34,6 +34,26 @@ against them. The archive convention before anything is removed. Types
 in the order a run consumes them. Reviews after everything is
 rewritten. The measurement last.
 
+**Gates.** Four review gates, lettered A to D, sit between clusters of
+steps and appear in the status table in execution order. A gate is a step in every way except that its decisions are
+findings. The session dispatches one clean-context subagent per role,
+each with a brief under 200 words naming the document set and the
+question; each returns findings only (location, problem, severity, the
+step that owns the fix) and edits nothing. The session collates them
+into one table in the gate's PR body. Severity is one of: blocks
+implementation 5, fix in gate, note. Small fixes land in the gate's PR;
+large ones reopen the owning step or join the follow-up list. Jonathan
+reviews the collated table, not the raw reviews. The six roles:
+
+| Role | Question |
+| --- | --- |
+| Consistency | Where do documents in this set contradict or duplicate each other? |
+| Gap and overlap | Does every piece of content have exactly one type home, and every type an instance? |
+| Schema | Do front matter, folders, link types, and names agree with the conventions and each other? |
+| Procedure match | Does every procedure step name artifacts that exist, in the shape the types define? |
+| Fresh reader | Restate this document in your own words, or dry-run this task without producing anything; where were you unsure? |
+| Disclosure audit | Which documents exceed budget, link to forbidden paths, or carry history? |
+
 ## Status
 
 | # | Step | Status | PR |
@@ -42,6 +62,7 @@ rewritten. The measurement last.
 | 2 | Progressive-disclosure standard | | |
 | 3 | Writing-style standard | | |
 | 4 | Mutability standard | | |
+| A | Gate: standards | | |
 | 5 | Archive convention | | |
 | 6 | Restructure the workbench | | |
 | 7 | Type: implementation record | | |
@@ -51,14 +72,17 @@ rewritten. The measurement last.
 | 11 | Type: test method | | |
 | 12 | Type: acceptance criteria | | |
 | 13 | Type: automated checks | | |
+| B | Gate: artifact types | | |
 | 14 | Procedure rewrite | | |
 | 15 | History extraction | | |
 | 16 | Retrospective triage | | |
 | 17 | Rewrite the ADRs | | |
 | 18 | Rewrite the lessons | | |
+| C | Gate: procedures and rules | | |
 | 19 | Critical review: workbench-work context | | |
 | 20 | Critical review: method-work context | | |
 | 21 | Rewrite the entry documents | | |
+| D | Gate: regeneration readiness | | |
 | 22 | Implementation 5 | | |
 
 **Base context**, loaded for every step: CLAUDE.md, `ai/lessons/`,
@@ -220,6 +244,30 @@ in step 18; the prompt template cites the table in step 14; step 6 has
 its permission or its prohibition.
 
 **Output.** `method/standards/mutability.md`.
+
+---
+
+## Gate A — Standards
+
+**Summary.** Check the three standards against each other and against
+what already binds, before anything is written under them.
+
+**Context.** `method/standards/*.md`; `ai/lessons/`; `method/adr/`;
+three documents to apply the standards to: `method/CONVENTIONS.md`,
+`workbench/note/decision-guides.md`, `ai/procedures/implement-by-subagent.md`.
+
+**Roles.**
+
+- Consistency, over the standards, lessons, and ADRs: contradictions
+  and duplicates.
+- Fresh reader, twice: restate each standard; then apply each rule to
+  the three documents and report every rule that could not be applied
+  as written.
+
+**Findings feed.** Contradictions reopen the standard's step.
+Unapplicable rules are rewritten in the gate's PR.
+
+**Output.** The findings table; the rewrites.
 
 ---
 
@@ -528,6 +576,38 @@ stay as data.
 
 ---
 
+## Gate B — Artifact types
+
+**Summary.** Check that the seven type descriptions cover everything an
+implementation produces, once each, and agree with each other and the
+conventions.
+
+**Context.** `method/types/*.md`; `method/CONVENTIONS.md`;
+`workbench/implementations/4/` (every file, as the content inventory);
+the use cases; the guides, standards, test data, and criteria written
+in steps 8 to 13; the step 2 budget script.
+
+**Roles.**
+
+- Gap and overlap: list every kind of content in implementation 4's
+  files and name its type home; report content with none or two, and
+  types with no instance.
+- Schema: front matter keys, folder names, link types, and id rules
+  across the type descriptions and the conventions.
+- Fresh reader: given the types, the spec, and the standards only, say
+  what implementation 5 would produce and where; report every point of
+  doubt.
+- Disclosure audit: budgets over the same set.
+
+**Findings feed.** A missing home reopens the nearest type's step; a
+schema disagreement is fixed in the gate; doubt from the fresh reader
+is a finding for step 14's tiers.
+
+**Output.** The findings table; the fixes; a draft of the review
+procedure's role briefs, since they have now been used twice.
+
+---
+
 ## Step 14 — Procedure rewrite
 
 **Summary.** The implementation procedure becomes a procedure: steps,
@@ -685,6 +765,34 @@ grounding; CLAUDE.md's pointer is updated in step 21.
 
 ---
 
+## Gate C — Procedures and rules
+
+**Summary.** Check that the rewritten procedures match the artifacts
+they name, that every rule-bearing document says the same thing, and
+that nothing removed was lost.
+
+**Context.** `method/procedures/*.md`; `method/types/*.md`;
+`method/standards/*.md`; `method/adr/`; `ai/lessons/`;
+`ai/archive/INDEX.md`; the git log of steps 14 to 18 for the removals.
+
+**Roles.**
+
+- Procedure match: every step, tier, and output of every procedure
+  against the types and the repository as it stands.
+- Consistency, over ADRs, lessons, standards, and the mutability
+  table.
+- Disclosure audit: every removed fragment has an index line; no
+  document in a reading path links into the archive; budgets.
+
+**Findings feed.** A procedure naming a missing artifact is fixed in
+the gate; a rule contradiction reopens step 17 or 18; a missing index
+line is added in the gate.
+
+**Output.** The findings table; the fixes; the review procedure
+promoted to `method/procedures/review-gates.md`.
+
+---
+
 ## Step 19 — Critical review: workbench-work context
 
 **Summary.** Measure everything a session or a run reads to work on
@@ -761,6 +869,32 @@ with index lines; `ai/feedback-pr-25.md`, fully consumed by then, is
 archived too.
 
 **Output.** The five documents; the archive entries.
+
+---
+
+## Gate D — Regeneration readiness
+
+**Summary.** The last check before spending a run: an agent given only
+what implementation 5 will be given reports what it cannot resolve.
+
+**Context.** The rewritten implementation procedure and the exact tier
+set it names; nothing else.
+
+**Roles.**
+
+- Fresh reader, in dry-run mode: read the tiers as the run would,
+  produce nothing, and report every place the artifacts are silent,
+  ambiguous, or contradictory.
+- Consistency, adversarial: name three places where two models given
+  these artifacts would diverge, and what sentence would prevent each.
+
+**Findings feed.** A finding that blocks implementation 5 is fixed
+before step 22 in the owning artifact, by the owner's word; the rest
+are recorded as expected ambiguities so the run's report can be scored
+against them.
+
+**Output.** The findings table; the expected-ambiguities list under
+`ai/experiments/`.
 
 ---
 
