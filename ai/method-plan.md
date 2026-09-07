@@ -29,21 +29,31 @@ Prerequisite, done before step 1: the use-case markup from PR #25
 default is insufficient"; emoji out of scope; idea text is UTF-8) is
 on main.
 
+**Two phases and a checkpoint.** Phase 1 is the shortest path to a run
+under the new method: standards, the archive convention, the
+restructure, the types a run consumes, the procedure, the entry
+documents, and implementation 5. Phase 2 is cleanup the run does not
+depend on: the remaining types, history extraction, the retrospectives,
+the ADR and lesson rewrites, and the audit. Step 14, implementation 5,
+is the checkpoint: its metrics decide whether phase 2 runs as written,
+is reordered, or is cut. The halt rule of step 1 applies to every step
+in both phases.
+
 Why this order: standards first, because everything after is written
 against them. The archive convention before anything is removed. Types
-in the order a run consumes them. Reviews after everything is
-rewritten. The measurement last.
+in the order a run consumes them. The measurement before the cleanup.
 
-**Gates.** Four review gates, lettered A to D, sit between clusters of
-steps and appear in the status table in execution order. A gate is a step in every way except that its decisions are
-findings. The session dispatches one clean-context subagent per role,
-each with a brief under 200 words naming the document set and the
-question; each returns findings only (location, problem, severity, the
-step that owns the fix) and edits nothing. The session collates them
-into one table in the gate's PR body. Severity is one of: blocks
-implementation 5, fix in gate, note. Small fixes land in the gate's PR;
-large ones reopen the owning step or join the follow-up list. Jonathan
-reviews the collated table, not the raw reviews. The six roles:
+**Gates.** Two review gates, A and B, sit after the clusters that need
+them and appear in the status table in execution order. A gate is a step
+in every way except that its decisions are findings. The session
+dispatches one clean-context subagent per role, each with a brief under
+200 words naming the document set and the question; each returns
+findings only (location, problem, severity, the step that owns the fix)
+and edits nothing. The session collates them into one table in the
+gate's PR body. Severity is one of: blocks implementation 5, fix in
+gate, note. Small fixes land in the gate's PR; large ones reopen the
+owning step or join the follow-up list. Jonathan reviews the collated
+table, not the raw reviews. The six roles:
 
 | Role | Question |
 | --- | --- |
@@ -58,32 +68,31 @@ reviews the collated table, not the raw reviews. The six roles:
 
 | # | Step | Status | PR |
 | --- | --- | --- | --- |
+| **Phase 1** | | | |
 | 1 | Working rules for the method phase | next | |
 | 2 | Progressive-disclosure standard | | |
 | 3 | Writing-style standard | | |
 | 4 | Mutability standard | | |
-| A | Gate: standards | | |
 | 5 | Archive convention | | |
 | 6 | Restructure the workbench | | |
 | 7 | Type: implementation record | | |
 | 8 | Type: decision guide and standard | | |
 | 9 | Which decision areas are per-implementation | | |
 | 10 | Type: test data | | |
-| 11 | Type: test method | | |
-| 12 | Type: acceptance criteria | | |
-| 13 | Type: automated checks | | |
-| B | Gate: artifact types | | |
-| 14 | Procedure rewrite | | |
-| 15 | History extraction | | |
-| 16 | Retrospective triage | | |
-| 17 | Rewrite the ADRs | | |
-| 18 | Rewrite the lessons | | |
-| C | Gate: procedures and rules | | |
-| 19 | Critical review: workbench-work context | | |
-| 20 | Critical review: method-work context | | |
-| 21 | Rewrite the entry documents | | |
-| D | Gate: regeneration readiness | | |
-| 22 | Implementation 5 | | |
+| 11 | Type: acceptance criteria | | |
+| 12 | Procedure rewrite | | |
+| A | Gate: artifact types | | |
+| 13 | Rewrite the entry documents | | |
+| 14 | Checkpoint: implementation 5 | | |
+| **Phase 2** | | | |
+| 15 | Test-method standard | | |
+| 16 | Type: automated checks | | |
+| 17 | History extraction | | |
+| 18 | Retrospective triage | | |
+| 19 | Rewrite the ADRs | | |
+| 20 | Rewrite the lessons | | |
+| B | Gate: procedures and rules | | |
+| 21 | Reading-set audit | | |
 
 **Base context**, loaded for every step: CLAUDE.md, `ai/lessons/`,
 this preamble, the status table, the step's section. From step 3 on,
@@ -92,11 +101,15 @@ lists only what it needs beyond that.
 
 ---
 
+---
+
+# Phase 1 — to the checkpoint
+
 ## Step 1 — Working rules for the method phase
 
-**Summary.** State the three rules that govern every later step, so
+**Summary.** State the four rules that govern every later step, so
 each clean context starts from the same stance: derive from instances,
-treat the implementations as data, measure by regeneration.
+treat the implementations as data, measure by regeneration, cut what cannot be measured.
 
 **Context.** `ai/PLAN.md` (objective and sequence only);
 `method/adr/0007-artifacts-must-suffice-for-regeneration.md`;
@@ -115,11 +128,14 @@ treat the implementations as data, measure by regeneration.
   can measure about its change (documents opened, tokens, ambiguities
   reported, similarity to the previous implementation). Recommend yes.
   A change nobody can measure is a change we cannot defend.
+- Halt rule: a step that cannot say what implementation 5 will measure
+  about it is cut, not done. Recommend yes; it is the test that would
+  have stopped the first two attempts early.
 - Where the rules live: a method ADR, since they bind the method, not a
   session. Recommend ADR 0008, under 150 words.
 
 **Consequences.** One new ADR. `ai/PLAN.md` gains one line pointing at
-this plan; its status section is left for step 15. Every later PR body
+this plan; its status section is left for step 17. Every later PR body
 carries a "measured by" line.
 
 **Output.** `method/adr/0008-*.md`; the pointer line in `ai/PLAN.md`.
@@ -153,8 +169,7 @@ that motivate the budgets, taken 2026-09-07 on main:
 - Budgets, in words, to be marked up: entry document 300; task
   procedure 600; any document an agent must read in full 1,500, use
   cases excepted; total mandatory reading for an implementation run
-  8,000. Recommend these as starting numbers, revised by step 19's
-  measurement.
+  8,000. Recommend these as starting numbers, revised by step 13's measurement.
 - Forbidding by omission: a document never links to what its reader
   must not read. The one closed list of forbidden paths lives in the
   entry document. Recommend yes.
@@ -167,8 +182,7 @@ that motivate the budgets, taken 2026-09-07 on main:
 - Location of the standards: `method/standards/`, one file each.
   Recommend yes; this decision covers steps 3 and 4.
 
-**Consequences.** The budgets become the acceptance test for steps 14
-to 21. Nothing is rewritten in this step; the documents that are over
+**Consequences.** The budgets become the acceptance test for steps 12 to 21. Nothing is rewritten in this step; the documents that are over
 budget today are listed in the PR body and assigned to their steps.
 
 **Output.** `method/standards/progressive-disclosure.md`;
@@ -201,8 +215,7 @@ example of history in a body.
   Recommend yes.
 
 **Consequences.** Every later step's output is written under this
-standard. Existing documents are not rewritten here; steps 14 to 21
-do that.
+standard. Existing documents are not rewritten here; later steps do that.
 
 **Output.** `method/standards/writing-style.md`.
 
@@ -240,34 +253,10 @@ taking Jonathan through the decisions" in
   standards. Recommend yes, as the table's legend.
 
 **Consequences.** The three lessons collapse to a pointer at the table
-in step 18; the prompt template cites the table in step 14; step 6 has
+in step 20; the prompt template cites the table in step 12; step 6 has
 its permission or its prohibition.
 
 **Output.** `method/standards/mutability.md`.
-
----
-
-## Gate A — Standards
-
-**Summary.** Check the three standards against each other and against
-what already binds, before anything is written under them.
-
-**Context.** `method/standards/*.md`; `ai/lessons/`; `method/adr/`;
-three documents to apply the standards to: `method/CONVENTIONS.md`,
-`workbench/note/decision-guides.md`, `ai/procedures/implement-by-subagent.md`.
-
-**Roles.**
-
-- Consistency, over the standards, lessons, and ADRs: contradictions
-  and duplicates.
-- Fresh reader, twice: restate each standard; then apply each rule to
-  the three documents and report every rule that could not be applied
-  as written.
-
-**Findings feed.** Contradictions reopen the standard's step.
-Unapplicable rules are rewritten in the gate's PR.
-
-**Output.** The findings table; the rewrites.
 
 ---
 
@@ -297,7 +286,7 @@ quarantine rule on it, before any later step removes anything.
 - Never archived: implementation-specific artifacts, use cases, the
   vision, anything ratified and current.
 
-**Consequences.** Steps 14 to 18 have a destination. CLAUDE.md gains
+**Consequences.** Steps 12 and 17 to 20 have a destination. CLAUDE.md gains
 one line. Whoever archives maintains the index in the same commit.
 
 **Output.** `ai/archive/INDEX.md` (empty table with its columns); the
@@ -329,8 +318,7 @@ thread 10.
 - Link paths: every front-matter and body link to or from a moved file
   changes. Permitted only as step 4 decided. Recommend a scripted move
   with a diff showing path strings only, and the link check clean.
-- Pointers elsewhere (the handoff, the procedure) go stale until steps
-  14 and 21. Recommend listing them in the PR body, not fixing them
+- Pointers elsewhere (the handoff, the procedure) go stale until steps 12 and 13. Recommend listing them in the PR body, not fixing them
   here.
 
 **Consequences.** `workbench/note/` shrinks to the guides and
@@ -441,12 +429,12 @@ per-implementation. Recommendations:
 | Storage, delivery, code conventions, logging, data model | Deferred until an implementation needs them | The decision-guides note's own rule |
 
 **Consequences.** A short method ADR records the classification.
-Steps 10 to 13 each act on their area. The UI guide's questions move to
+Steps 10, 11, 15, and 16 each act on their area. The UI guide's questions move to
 the Initial UI use case or a UI standard; the per-implementation UI
 note retires.
 
 **Output.** `method/adr/0009-*.md`; the UI standard if the owner wants
-it in this step, otherwise listed for step 19.
+it in this step, otherwise listed for step 13.
 
 ---
 
@@ -485,37 +473,7 @@ instance. The four `test-data-N` notes stay as data.
 
 ---
 
-## Step 11 — Type: test method
-
-**Summary.** The test method becomes a standard with per-implementation
-deviations in the build notes, and the "what versus how" split between
-standards and procedures is settled.
-
-**Context.** `workbench/note/test-method-definition.md`;
-`implementations/4/test-method-4.md`;
-`workbench/note/quality-standards-definition.md`;
-`ai/procedures/ui-checks-playwright.md`.
-
-**Decisions.**
-
-- Content of the standard: Playwright in Chromium, both orientations,
-  mutation testing of the suite, an independent script from the use
-  cases at review. Recommend these four statements.
-- What versus how: the standard says what; the procedure says how; the
-  quality-standards note's questions fold into the guide table.
-  Recommend yes, and the quality-standards note is archived.
-- Safari: no implementation has been verified in WebKit. Recommend the
-  standard states it as an open question, not a claim.
-
-**Consequences.** `workbench/standard/test-method.md`;
-`method/types/standard.md` gains its second instance; the guide as a
-table; the quality-standards note archived with an index line.
-
-**Output.** The standard; the guide; the archive entry.
-
----
-
-## Step 12 — Type: acceptance criteria
+## Step 11 — Type: acceptance criteria
 
 **Summary.** Acceptance criteria become a per-spec-version artifact
 derived sentence by sentence from the use cases, written before the
@@ -540,13 +498,190 @@ use cases; `method/adr/0005-specify-corner-cases-in-use-cases.md`.
 
 **Consequences.** `method/types/acceptance-criteria.md`; the guide as a
 table; two instances; the four `acceptance-criteria-N` notes stay as
-data. Step 13's mapping has something to map to.
+data. Step 16's mapping has something to map to.
 
 **Output.** The type description; the guide; the two instances.
 
 ---
 
-## Step 13 — Type: automated checks
+## Step 12 — Procedure rewrite
+
+**Summary.** The implementation procedure becomes a procedure: steps,
+tiers, prompt, checklist, within budget, with the predecessor withheld.
+The other procedures take the same shape.
+
+**Context.** `method/standards/mutability.md`; the type descriptions
+from steps 7 to 11; `ai/procedures/README.md`;
+`ai/procedures/implement-by-subagent.md` in full (the sections after
+"Metrics per run" are the history this step extracts); the other four
+procedures;
+`ai/retrospective/2026-09-07-25/ADR-fd79af8bcb-a-regeneration-run-is-withheld-the-previous-implementation.md`;
+`ai/retrospective/2026-09-07-25/ADR-2f4599fd03-the-run-s-output-is-the-measurement-a-review-records-and-never-edits.md`.
+
+**Decisions.**
+
+- Withhold the predecessor: a run gets the spec, standards, guides,
+  test data, and criteria, and nothing from `implementations/`.
+  Recommend yes; every run so far measured modification, not
+  regeneration. Any hook contract the checks need moves into a standard.
+- Where procedures live: they now bind, so `method/procedures/`;
+  `ai/procedures/` retires. Recommend yes.
+- Run outputs: the run's report and metrics are data, stored under
+  `implementations/N/`. The cross-implementation metrics table becomes
+  `ai/experiments/implementation-metrics.md`. Recommend yes.
+- Test method: its standard is step 15, in phase 2. Until then the
+  procedure states the four test statements itself (Chromium, both
+  orientations, mutation testing, an independent script at review).
+  Recommend yes.
+- Tiers redefined against the new types, with the total under the
+  step 2 budget. Recommend yes.
+
+**Consequences.** Five procedures rewritten and moved; the
+implementation sections and metrics extracted to the archive and the
+data file, each with an index line; the prompt template cites the
+mutability table.
+
+**Output.** `method/procedures/*.md`; the archive entries; the metrics
+file.
+
+---
+
+## Gate A — Artifact types
+
+**Summary.** Check that the five type descriptions cover everything an
+implementation produces, once each, and agree with each other and the
+conventions.
+
+**Context.** `method/types/*.md`; `method/CONVENTIONS.md`;
+`workbench/implementations/4/` (every file, as the content inventory);
+the use cases; the guides, standards, test data, and criteria written
+in steps 8 to 11; the step 2 budget script.
+
+**Roles.**
+
+- Gap and overlap: list every kind of content in implementation 4's
+  files and name its type home; report content with none or two, and
+  types with no instance.
+- Schema: front matter keys, folder names, link types, and id rules
+  across the type descriptions and the conventions.
+- Fresh reader: given the types, the spec, and the standards only, say
+  what implementation 5 would produce and where; report every point of
+  doubt.
+- Disclosure audit: budgets over the same set.
+
+**Findings feed.** A missing home reopens the nearest type's step; a
+schema disagreement is fixed in the gate; doubt from the fresh reader
+is a finding for step 12's tiers.
+
+**Output.** The findings table; the fixes; the role briefs as used, kept
+in the PR body for gate B.
+
+---
+
+## Step 13 — Rewrite the entry documents
+
+**Summary.** CLAUDE.md, the handoff, and the concern READMEs become
+maps within the disclosure budget.
+
+**Context.** The step 2 budget script; the step 12 tiers as the
+run's reading set; the workbench-authoring session's reading set
+(CLAUDE.md, the handoff, CONVENTIONS.md, lessons, types, vision, use
+cases, guides, standards, test data, criteria); CLAUDE.md;
+`ai/HANDOFF.md`; `ai/README.md`, `method/README.md`,
+`workbench/README.md`, `ai/procedures/README.md` or its successor;
+`ai/PLAN.md`.
+
+**Decisions.**
+
+- Measure first: the budget script over both reading sets, one verdict
+  per document (fits, over, restates, carries history). Fix anything
+  under a paragraph here; list the rest for phase 2. Recommend yes.
+- CLAUDE.md: what the repository is, the three concerns, the one
+  forbidden list, "start at the handoff"; 200 words. Recommend yes.
+- The handoff: state in five lines, the next step, and two reading
+  lists, one for workbench work and one for method work; 300 words.
+  Rewritten at every session end; history in git only. Recommend yes.
+- Where the handoff's open points go: spec points to the use cases'
+  open-issues sections, method points to this plan's status table.
+  Recommend yes; this is the decision that lets the handoff shrink.
+- READMEs: what is here and what is not; 100 words each. Recommend yes.
+
+**Consequences.** The old handoff and PLAN status go to the archive
+with index lines.
+
+**Output.** The five documents; the archive entries.
+
+---
+
+## Step 14 — Checkpoint: implementation 5
+
+**Summary.** The checkpoint between the phases, and the measurement: a
+clean run under the rewritten method, with the predecessor withheld,
+compared against implementations 3 and 4.
+
+**Context.** The rewritten implementation procedure only. The session
+running it reads the base context and that procedure; the run reads
+what the procedure's tiers say.
+
+**Decisions.**
+
+- Model: the owner's call. Recommend Sonnet, to measure variance
+  against implementation 4 on the same model, then Haiku if the budget
+  allows, for the context test.
+- Spec version: main at the run's start, by date and PR.
+- Comparison: documents opened, tokens, tool uses, ambiguities, checks,
+  and a similarity measure against implementation 4's source, to show
+  the run was a regeneration and not an inheritance. Recommend all six.
+- The checkpoint decision, after the run and its review: continue
+  phase 2 as written, reorder it, or cut it. Recommend deciding on the
+  metrics and the run's ambiguity list, nothing else.
+- Success for phase 1: total mandatory reading within budget; the run
+  completes and passes; the ambiguities it reports are about the spec,
+  not about the guides.
+
+**Consequences.** Record 5 in the new shape; build notes; the review per
+the rewritten checklist; a metrics row; every finding goes into a
+follow-up list appended to this plan's status, not into the
+implementation.
+
+**Output.** `implementations/5/`; the metrics row; the follow-up list.
+
+---
+
+# Phase 2 — after the checkpoint
+
+## Step 15 — Test-method standard
+
+**Summary.** The test method becomes a standard with per-implementation
+deviations in the build notes, and the "what versus how" split between
+standards and procedures is settled.
+
+**Context.** The four test statements the step 12 procedure carries
+meanwhile; `workbench/note/test-method-definition.md`;
+`implementations/4/test-method-4.md`;
+`workbench/note/quality-standards-definition.md`;
+`ai/procedures/ui-checks-playwright.md`.
+
+**Decisions.**
+
+- Content of the standard: Playwright in Chromium, both orientations,
+  mutation testing of the suite, an independent script from the use
+  cases at review. Recommend these four statements.
+- What versus how: the standard says what; the procedure says how; the
+  quality-standards note's questions fold into the guide table.
+  Recommend yes, and the quality-standards note is archived.
+- Safari: no implementation has been verified in WebKit. Recommend the
+  standard states it as an open question, not a claim.
+
+**Consequences.** `workbench/standard/test-method.md`;
+`method/types/standard.md` gains its second instance; the guide as a
+table; the quality-standards note archived with an index line.
+
+**Output.** The standard; the guide; the archive entry.
+
+---
+
+## Step 16 — Type: automated checks
 
 **Summary.** The checks script is the artifact; the prose note about
 it retires in favor of a one-line-per-check mapping to criteria.
@@ -554,7 +689,7 @@ it retires in favor of a one-line-per-check mapping to criteria.
 **Context.** `implementations/1/automated-checks-1.md` and
 `implementations/4/automated-checks-4.md` (headings and one section
 each); the header of `implementations/4/verify.js`;
-`workbench/acceptance-criteria/` from step 12;
+`workbench/acceptance-criteria/` from step 11;
 `ai/procedures/ui-checks-playwright.md`.
 
 **Decisions.**
@@ -576,77 +711,7 @@ stay as data.
 
 ---
 
-## Gate B — Artifact types
-
-**Summary.** Check that the seven type descriptions cover everything an
-implementation produces, once each, and agree with each other and the
-conventions.
-
-**Context.** `method/types/*.md`; `method/CONVENTIONS.md`;
-`workbench/implementations/4/` (every file, as the content inventory);
-the use cases; the guides, standards, test data, and criteria written
-in steps 8 to 13; the step 2 budget script.
-
-**Roles.**
-
-- Gap and overlap: list every kind of content in implementation 4's
-  files and name its type home; report content with none or two, and
-  types with no instance.
-- Schema: front matter keys, folder names, link types, and id rules
-  across the type descriptions and the conventions.
-- Fresh reader: given the types, the spec, and the standards only, say
-  what implementation 5 would produce and where; report every point of
-  doubt.
-- Disclosure audit: budgets over the same set.
-
-**Findings feed.** A missing home reopens the nearest type's step; a
-schema disagreement is fixed in the gate; doubt from the fresh reader
-is a finding for step 14's tiers.
-
-**Output.** The findings table; the fixes; a draft of the review
-procedure's role briefs, since they have now been used twice.
-
----
-
-## Step 14 — Procedure rewrite
-
-**Summary.** The implementation procedure becomes a procedure: steps,
-tiers, prompt, checklist, within budget, with the predecessor withheld.
-The other procedures take the same shape.
-
-**Context.** `method/standards/mutability.md`; the type descriptions
-from steps 7 to 13; `ai/procedures/README.md`;
-`ai/procedures/implement-by-subagent.md` in full (the sections after
-"Metrics per run" are the history this step extracts); the other four
-procedures;
-`ai/retrospective/2026-09-07-25/ADR-fd79af8bcb-a-regeneration-run-is-withheld-the-previous-implementation.md`;
-`ai/retrospective/2026-09-07-25/ADR-2f4599fd03-the-run-s-output-is-the-measurement-a-review-records-and-never-edits.md`.
-
-**Decisions.**
-
-- Withhold the predecessor: a run gets the spec, standards, guides,
-  test data, and criteria, and nothing from `implementations/`.
-  Recommend yes; every run so far measured modification, not
-  regeneration. Any hook contract the checks need moves into a standard.
-- Where procedures live: they now bind, so `method/procedures/`;
-  `ai/procedures/` retires. Recommend yes.
-- Run outputs: the run's report and metrics are data, stored under
-  `implementations/N/`. The cross-implementation metrics table becomes
-  `ai/experiments/implementation-metrics.md`. Recommend yes.
-- Tiers redefined against the new types, with the total under the
-  step 2 budget. Recommend yes.
-
-**Consequences.** Five procedures rewritten and moved; the
-implementation sections and metrics extracted to the archive and the
-data file, each with an index line; the prompt template cites the
-mutability table.
-
-**Output.** `method/procedures/*.md`; the archive entries; the metrics
-file.
-
----
-
-## Step 15 — History extraction
+## Step 17 — History extraction
 
 **Summary.** Every other document in a reading path loses its
 transcript and history, fragment by fragment, into the indexed archive.
@@ -659,14 +724,15 @@ for dates, PR numbers, "ratified", "captured", "revised", "clarified":
 status); `ai/README.md`; `workbench/note/v1-scope-and-prototyping-intent.md`;
 `ai/2026-08-30-conventions-proposal.md` (whole file);
 `ai/implementation-comparison-3-4.md` (whole file). ADRs and lessons
-are steps 17 and 18; the handoff is step 21.
+are steps 19 and 20; the handoff was step 13. `ai/feedback-pr-25.md`
+is archived here if every thread has been consumed.
 
 **Decisions.**
 
 - The candidate list: confirm and extend from the grep. Recommend the
   list above as the floor.
 - `ai/PLAN.md`: reduce to objective, sequence, and a pointer to this
-  plan; status moves to the handoff in step 21. Recommend yes.
+  plan; status moved to the handoff in step 13. Recommend yes.
 - Meaning never changes in this step: the diff shows deletions and
   pointer lines only. Recommend that as the review rule.
 
@@ -677,7 +743,7 @@ line per fragment; no document in a reading path links to the archive.
 
 ---
 
-## Step 16 — Retrospective triage
+## Step 18 — Retrospective triage
 
 **Summary.** Decide what the four retrospectives contribute: which ADR
 drafts are adopted, which rules become lessons, which skill specs are
@@ -695,7 +761,7 @@ parked, and archive the rest.
   (step 8), use cases independent of test data (step 10), delivered
   implementations immutable and the run's output is the measurement
   (step 4), the clean-context run and the withheld predecessor
-  (step 14). Recommend confirming that mapping and deciding the
+  (step 12). Recommend confirming that mapping and deciding the
   remainder: the note catch-all with promotion, and specifications as
   a typed graph.
 - The thirty-one rules: already a lesson, becomes a lesson, harness or
@@ -706,19 +772,19 @@ parked, and archive the rest.
   phase. Recommend yes.
 - The retrospectives themselves: archived after triage. Recommend yes.
 
-**Consequences.** Steps 17 and 18 receive their input lists in the PR
+**Consequences.** Steps 19 and 20 receive their input lists in the PR
 body. `ai/retrospective/` moves under the archive with index lines.
 
 **Output.** The triage table in the PR body; the archive moves.
 
 ---
 
-## Step 17 — Rewrite the ADRs
+## Step 19 — Rewrite the ADRs
 
 **Summary.** Every ADR becomes its statement plus minimal context, and
-the drafts adopted in step 16 join them.
+the drafts adopted in step 18 join them.
 
-**Context.** The step 16 triage list; `method/adr/*.md`;
+**Context.** The step 18 triage list; `method/adr/*.md`;
 `workbench/adr/README.md`; the adopted draft files.
 
 **Decisions.**
@@ -738,13 +804,13 @@ originals; new ADRs numbered from 0010.
 
 ---
 
-## Step 18 — Rewrite the lessons
+## Step 20 — Rewrite the lessons
 
 **Summary.** Lessons become one line of rule and one of context each;
 their grounding stories go to the archive; the rules adopted in step
-16 join them.
+18 join them.
 
-**Context.** The step 16 list; `ai/lessons/*.md`;
+**Context.** The step 18 list; `ai/lessons/*.md`;
 `method/standards/mutability.md` (which lessons it absorbs).
 
 **Decisions.**
@@ -759,13 +825,13 @@ their grounding stories go to the archive; the rules adopted in step
   second layer; nothing is stated in both. Recommend yes.
 
 **Consequences.** `ai/lessons/` is one document; the archive holds the
-grounding; CLAUDE.md's pointer is updated in step 21.
+grounding; CLAUDE.md's pointer is updated here.
 
 **Output.** The list; the archive entries.
 
 ---
 
-## Gate C — Procedures and rules
+## Gate B — Procedures and rules
 
 **Summary.** Check that the rewritten procedures match the artifacts
 they name, that every rule-bearing document says the same thing, and
@@ -773,7 +839,7 @@ that nothing removed was lost.
 
 **Context.** `method/procedures/*.md`; `method/types/*.md`;
 `method/standards/*.md`; `method/adr/`; `ai/lessons/`;
-`ai/archive/INDEX.md`; the git log of steps 14 to 18 for the removals.
+`ai/archive/INDEX.md`; the git log of steps 12 and 17 to 20 for the removals.
 
 **Roles.**
 
@@ -785,145 +851,33 @@ that nothing removed was lost.
   document in a reading path links into the archive; budgets.
 
 **Findings feed.** A procedure naming a missing artifact is fixed in
-the gate; a rule contradiction reopens step 17 or 18; a missing index
+the gate; a rule contradiction reopens step 19 or 20; a missing index
 line is added in the gate.
 
-**Output.** The findings table; the fixes; the review procedure
+**Output.** The findings table; the fixes; the role briefs, now used twice,
 promoted to `method/procedures/review-gates.md`.
 
 ---
 
-## Step 19 — Critical review: workbench-work context
+## Step 21 — Reading-set audit
 
-**Summary.** Measure everything a session or a run reads to work on
-the workbench against the standards, fix the small, list the large.
+**Summary.** After the cleanup, measure both reading sets again, the
+workbench-work set and the method-work set, and fix what the cleanup
+missed.
 
-**Context.** The reading set itself: the rewritten procedure's tiers,
-and what a workbench-authoring session loads (CLAUDE.md, the handoff,
-CONVENTIONS.md, lessons, the type descriptions, the vision, the use
-cases, guides, standards, test data, criteria); the budget script from
-step 2.
-
-**Decisions.**
-
-- Method: a word-count table of the set against the budgets, one verdict
-  per document (fits, over, restates, carries history). Recommend fixing
-  anything under a paragraph here and listing the rest for its owning
-  step or step 21.
-- A dry run: a clean-context agent given the implementation 5 tiers and
-  told to report what is missing or contradictory without building.
-  Recommend yes; it is cheap and it measures.
-
-**Consequences.** A fixes PR; a list carried into step 21.
-
-**Output.** The table in the PR body; the fixes; the carried list.
-
----
-
-## Step 20 — Critical review: method-work context
-
-**Summary.** The same measurement for everything a session reads to
-work on the method.
-
-**Context.** CLAUDE.md, the handoff, `ai/PLAN.md`, this plan, the
-standards, the type descriptions, the ADRs, the lessons; the budget
-script.
+**Context.** The step 2 budget script; the step 12 tiers; the
+method-work set (CLAUDE.md, the handoff, `ai/PLAN.md`, this plan, the
+standards, types, ADRs, lessons).
 
 **Decisions.**
 
-- Same method as step 19. Recommend the same fix-small, list-large rule.
-- Check that nothing in the set links into the archive, and that the
-  forbidden list in the entry document is the only place the archive is
-  named. Recommend yes.
+- Same method as step 13: one verdict per document; fix small, list
+  large. Recommend yes.
+- Nothing in either set links into the archive, and the entry
+  document's forbidden list is the only place the archive is named.
+  Recommend yes.
 
-**Consequences.** A fixes PR; a list carried into step 21.
+**Consequences.** A fixes PR; the list of what remains, appended to
+this plan's status.
 
-**Output.** The table in the PR body; the fixes; the carried list.
-
----
-
-## Step 21 — Rewrite the entry documents
-
-**Summary.** CLAUDE.md, the handoff, and the concern READMEs become
-maps within the disclosure budget.
-
-**Context.** The carried lists from steps 19 and 20; CLAUDE.md;
-`ai/HANDOFF.md`; `ai/README.md`, `method/README.md`,
-`workbench/README.md`, `ai/procedures/README.md` or its successor;
-`ai/PLAN.md`.
-
-**Decisions.**
-
-- CLAUDE.md: what the repository is, the three concerns, the one
-  forbidden list, "start at the handoff"; 200 words. Recommend yes.
-- The handoff: state in five lines, the next step, and two reading
-  lists, one for workbench work and one for method work; 300 words.
-  Rewritten at every session end; history in git only. Recommend yes.
-- Where the handoff's open points go: spec points to the use cases'
-  open-issues sections, method points to this plan's status table.
-  Recommend yes; this is the decision that lets the handoff shrink.
-- READMEs: what is here and what is not; 100 words each. Recommend yes.
-
-**Consequences.** The old handoff and PLAN status go to the archive
-with index lines; `ai/feedback-pr-25.md`, fully consumed by then, is
-archived too.
-
-**Output.** The five documents; the archive entries.
-
----
-
-## Gate D — Regeneration readiness
-
-**Summary.** The last check before spending a run: an agent given only
-what implementation 5 will be given reports what it cannot resolve.
-
-**Context.** The rewritten implementation procedure and the exact tier
-set it names; nothing else.
-
-**Roles.**
-
-- Fresh reader, in dry-run mode: read the tiers as the run would,
-  produce nothing, and report every place the artifacts are silent,
-  ambiguous, or contradictory.
-- Consistency, adversarial: name three places where two models given
-  these artifacts would diverge, and what sentence would prevent each.
-
-**Findings feed.** A finding that blocks implementation 5 is fixed
-before step 22 in the owning artifact, by the owner's word; the rest
-are recorded as expected ambiguities so the run's report can be scored
-against them.
-
-**Output.** The findings table; the expected-ambiguities list under
-`ai/experiments/`.
-
----
-
-## Step 22 — Implementation 5
-
-**Summary.** The measurement: a clean run under the rewritten method,
-with the predecessor withheld, compared against implementations 3
-and 4.
-
-**Context.** The rewritten implementation procedure only. The session
-running it reads the base context and that procedure; the run reads
-what the procedure's tiers say.
-
-**Decisions.**
-
-- Model: the owner's call. Recommend Sonnet, to measure variance
-  against implementation 4 on the same model, then Haiku if the budget
-  allows, for the context test.
-- Spec version: main at the run's start, by date and PR.
-- Comparison: documents opened, tokens, tool uses, ambiguities, checks,
-  and a similarity measure against implementation 4's source, to show
-  the run was a regeneration and not an inheritance. Recommend all six.
-- Success for this plan: total mandatory reading within budget; the run
-  completes and passes; the ambiguities it reports are about the spec,
-  not about the guides.
-
-**Consequences.** Record 5 in the new shape; build notes; the review per
-the rewritten checklist; a metrics row; every finding goes into a
-follow-up list appended to this plan's status, not into the
-implementation.
-
-**Output.** `implementations/5/`; the metrics row; the follow-up list.
+**Output.** The table in the PR body; the fixes.
