@@ -64,15 +64,13 @@ See my ideas in one place: the three-pane screen that is the workbench.
 - When the text is larger than the display area, the right pane scrolls
   vertically. Lines longer than the pane wrap; there is no horizontal
   scrolling.
-- A word wider than the pane is split across lines at whatever
-  character makes it fit, with a hyphen shown at each split; a word
-  that spans several lines gets a hyphen at every line it is split
-  across. The splits follow no hyphenation rules.
-- Splitting is display only: the idea's content is unchanged, and the
-  hyphens are neither part of the text nor copied with it. Splitting
-  happens as the text is typed: a word that grows past the pane's width
-  is split while it is being written, and a word that shrinks back to
-  fit is shown whole again.
+- A word wider than the pane is still shown in full: no part of the
+  text is ever hidden or skipped because a word is too wide. How such
+  a word is shown is not specified. When the platform's default or
+  easily configured behavior does not meet this requirement, the
+  implementer may innovate.
+- Idea text is UTF-8 text. Emoji are out of scope for idea text: no
+  behavior is specified for them, and the test data contains none.
 
 ### Ideas with no visible content
 
@@ -127,8 +125,9 @@ See my ideas in one place: the three-pane screen that is the workbench.
   - one idea whose first line is a single unbroken word wider than the
     middle pane — sixty letters with no spaces — followed by a short
     second line, exercising "…" after a partial word in the list and
-    hyphen splitting in the right pane; the large idea's unbroken
-    run of characters exercises a word split across several lines;
+    the whole word remaining visible in the right pane; the large
+    idea's unbroken run of characters exercises the same for a word
+    wider than several lines;
   - one idea whose text is much larger than the display area,
     exercising right-pane scrolling and line wrapping;
   - one idea with no content at all, and one containing only
