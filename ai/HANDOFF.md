@@ -203,13 +203,10 @@ chat plus a hosted copy; raw GitHub downloads gain .txt on iPadOS).
 
 ## Next step
 
-Jonathan's iPad checkpoint on implementation 4 (PR #25; the file was
-attached in the session and a hosted copy published). His findings
-arrive as use-case markup in their own PR; implementation 4 itself is
-not edited. His reading of ai/implementation-comparison-3-4.md may
-also produce direction on an implementation-structure guide — a new
-guide is proposed, not created, until he approves it. Implementation 5
-starts only on his word, with the model he names (a second Sonnet run
-would measure variance; Haiku would extend the context test).
-Before any of that, on his word: process ai/feedback-pr-25.md, one
-theme per PR.
+The method phase is underway. Its plan, status table, and the step
+marked **next** are in `ai/method-plan.md`; a session working on it
+reads that plan's preamble and only the step it names. ADR 0008 (a
+trial) holds the implementation lifecycle the plan now follows.
+Implementation 5 is the plan's checkpoint and starts only on
+Jonathan's word. The current-state section above describes main as of
+PR #25 and is rewritten by the plan's entry-documents step.
