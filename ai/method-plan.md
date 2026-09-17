@@ -80,7 +80,7 @@ table, not the raw reviews. The six roles:
 | # | Step | Status | PR |
 | --- | --- | --- | --- |
 | **Phase 1** | | | |
-| 1 | The implementation lifecycle (ADR 0008, trial) | done | |
+| 1 | The implementation lifecycle (ADR 0008, trial) | done | #29 |
 | 2 | Types: implementation record and decision log | next | |
 | 3 | Type: test data, with the current data set | | |
 | 4 | Standards: progressive disclosure and writing style | | |
