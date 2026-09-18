@@ -24,6 +24,28 @@ Experiment without ceremony and see where it takes us. Process, schema,
 and further artifact types get added only when real friction shows they
 are needed - the archived attempts remain available to mine for them.
 
+## The imagined workflow (Jonathan, 2026-09-17)
+
+The direction the method is growing toward. Not yet how we work; the
+trial that tests it is ADR 0008.
+
+A spec starts rough. An implementation run reads the design artifacts
+and, wherever they are silent, decides and logs the decision. The log
+of what the agent decided is the way the spec grows: Jonathan reads
+the decisions as a list, and each one is locked into a design
+artifact, delegated to the agent by a guide entry, reversed, or left
+open. A decision is ratified only by being preserved in a design
+artifact; a decision with no artifact to hold it goes into a note, and
+when enough notes hold the same kind of decision the artifact types
+and their guidance are refactored to give it a proper home. The log
+therefore surfaces both what Jonathan wants locked down and what he
+delegates, and drives the schema from evidence.
+
+The agent drafts the design artifacts. Jonathan interfaces with the
+work through conversation, deciding and marking up, rather than by
+reviewing pull requests full of typed artifacts. The agent's job is to
+make each round a short, decidable list.
+
 ## The high-level sequence (from the ratified kickstart)
 
 1. **Conventions** — the simplest file convention for artifact nodes
@@ -97,6 +119,9 @@ never go in either.
   decided.
 
 ## Status (2026-08-30)
+
+The method phase that followed implementation 4 is planned in
+`ai/method-plan.md`; its status table is current.
 
 The kickstart prompt was crafted, ratified, and executed; its steps are
 complete or absorbed into ai/HANDOFF.md, which now carries the current
