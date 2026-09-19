@@ -20,7 +20,8 @@ type definition; each numbered implementation record (starting with
 an instance that makes these decisions for one implementation. Both are
 preserved separately — "we need to have this type of information" is
 not the same as the first instance of it. Candidate for promotion to a
-real artifact type.
+real artifact type. From build 5 on, the build form type in the method
+(`method/types/build-form.md`) replaces this note.
 
 ## Decisions every implementation record must make
 
